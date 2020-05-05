@@ -1,25 +1,22 @@
-create or replace procedure sp_tbl_OtpMaster()
-    language plpgsql
-as
-$$
-declare
-    currentSchema varchar(255) := '';
+drop procedure if exists sp_tbl_OtpMaster;
+create procedure sp_tbl_OtpMaster()
 begin
-    select current_database() into currentSchema;
+    declare currentSchema varchar(50) default '';
+    select database() into currentSchema;
     if not exists(
             select 1
-            from information_schema.tables
-            where table_schema = currentSchema
-              and table_name = 'tbl_OtpMaster'
+            from information_schema.TABLES
+            where TABLE_SCHEMA = currentSchema
+              and TABLE_NAME = 'tbl_OtpMaster'
         ) then
         begin
-            create table tbl_otpMaster
+            create table tbl_OtpMaster
             (
-                id           serial,
+                id           int primary key auto_increment,
                 phone_number varchar(15) NOT NULL,
                 otp          int         not null,
                 validity     timestamp default NULL,
-                is_active    smallint  default 1,
+                is_active    tinyint   default 1,
                 created_by   int         NOT NULL,
                 created      timestamp default now(),
                 modified_by  int       default null,
@@ -27,8 +24,6 @@ begin
             );
         end;
     end if;
-end ;
-$$;
-alter procedure sp_tbl_OtpMaster() owner to photocast;
+end;
 call sp_tbl_OtpMaster();
-drop procedure if exists sp_tbl_OtpMaster();
+drop procedure if exists sp_tbl_OtpMaster;
