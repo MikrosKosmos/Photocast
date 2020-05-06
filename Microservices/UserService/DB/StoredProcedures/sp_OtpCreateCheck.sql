@@ -3,21 +3,7 @@ create procedure sp_OtpCreateCheck(parMobileNumber varchar(13), parOtp int, parV
 BEGIN
     # isCheck =1 for validating the OTP.
     IF isCheck = 1 then
-        SET @isValid = 0;
-        select id
-        into @isValid
-        from tbl_OtpMaster
-        where phone_number = parMobileNumber
-          and OTP = parOtp
-          and validity > now()
-          and is_active = 1;
-        #select @isValid;
-        if @isValid > 0 THEN
-            delete from tbl_OtpMaster WHERE phone_number = parMobileNumber and OTP = parOtp;
-            select 1 as id;
-        else
-            select -1 as id;
-        end if;
+        select fn_ValidateOTP(parMobileNumber, parOtp) as id;
     else
         SET @isExists = 0;
         select id into @isExists from tbl_OtpMaster where phone_number = parMobileNumber;
