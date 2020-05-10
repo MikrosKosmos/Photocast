@@ -113,7 +113,6 @@ server.unifiedServer = function (req, res) {
                err[1][constants.API_REQUEST_KEY] = requestKey;
                sendResponse(err[1], err[0]);
             });
-            
          }).catch(err => {
             printer.printError(err);
             const response = responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_4);

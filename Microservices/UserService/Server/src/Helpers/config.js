@@ -1,13 +1,13 @@
 const config = {};
-config.port = 7010;
+config.port = 6001;
 
 /**
  * data base configurations.
  * @type {string}
  */
 config.databasePort = 3306;
-config.databaseUserName = "petcoset_db";
-config.databaseName = "petcoset";
+config.databaseUserName = "photocast";
+config.databaseName = "user";
 
 /**
  * Encryption constants
