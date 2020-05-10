@@ -1,6 +1,7 @@
 const config = {};
+const constants = require('./constants');
 config.port = 6001;
-
+config[constants.REDIS_PORT] = 6100;
 /**
  * data base configurations.
  * @type {string}

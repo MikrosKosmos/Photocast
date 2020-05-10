@@ -126,6 +126,8 @@ constants.CORE_SUCCESS_LEVEL = "successLevel";
 constants.CORE_TYPE = "type";
 constants.CORE_DATA = "data";
 constants.CORE_TOKEN = "jwToken_auth";
+constants.REDIS_HOST = "redis_host";
+constants.REDIS_PORT = "redis_port";
 
 /**
  * General Keys
