@@ -15,4 +15,4 @@ handlerObj.notFound = (dataObject) => {
 /**
  * Exporting the module.
  */
-module.exports = handlerObj;q
+module.exports = handlerObj;

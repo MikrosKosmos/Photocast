@@ -3,6 +3,7 @@ const encrypterDecrypter = require('./encrypterDecrypter');
 const config = require('./config');
 const constants = require('./constants');
 const printer = require('./printer');
+const validator = require('./validators');
 
 class Cache {
    /**
@@ -26,7 +27,6 @@ class Cache {
                printer.printError(err);
                reject(err);
             } else {
-               printer.printHighlightedLog(reply);
                resolve(true);
             }
          });
@@ -40,22 +40,13 @@ class Cache {
     */
    getData(key) {
       return new Promise((resolve, reject) => {
-         this._client = redis.createClient(config[constants.REDIS_PORT],
-            encrypterDecrypter.decrypt(process.env[constants.REDIS_HOST]), {
-               no_ready_check: true
-            });
-         this._client.on('connect', () => {
-            this._client.get(key, (err, data) => {
-               if (err) {
-                  printer.printError(err);
-                  reject(err);
-               } else {
-                  resolve(data);
-               }
-            });
-         });
-         this._client.on('error', (err) => {
-            printer.printError(err);
+         this._client.get(key, (err, data) => {
+            if (err) {
+               printer.printError(err);
+               reject(err);
+            } else {
+               resolve(data);
+            }
          });
       });
    }
