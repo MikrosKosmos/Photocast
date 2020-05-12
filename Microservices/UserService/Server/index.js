@@ -1,9 +1,12 @@
 #!/usr/bin/env node
+require('dotenv').config();
 const server = require('./src/Helpers/server');
 const os = require('os');
 const cluster = require('cluster');
-require('dotenv').config();
 const app = {};
+/**
+ * Method to initialize the server.
+ */
 app.init = () => {
    const cpuLength = os.cpus().length;
    if (cluster.isMaster) {

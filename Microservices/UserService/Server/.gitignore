@@ -4,3 +4,4 @@
 /.env
 src/Loggers/.Logs/
 
+/Microservices/UserService/Server/src/KeyFiles/

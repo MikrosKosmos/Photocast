@@ -3,7 +3,6 @@ const encrypterDecrypter = require('./encrypterDecrypter');
 const config = require('./config');
 const constants = require('./constants');
 const printer = require('./printer');
-const validator = require('./validators');
 
 class Cache {
    /**

@@ -74,16 +74,6 @@ validator.validateBoolean = (data) => {
    return typeof (data) === 'boolean';
 };
 /**
- * Method to check the validity.
- * @param token: The Token to be checked.
- * @returns {Promise<Boolean>}
- */
-validator.validateToken = (token) => {
-   return new Promise((resolve, reject) => {
-      //TODO:
-   });
-};
-/**
  * Method to validate normal string.
  * @param data: the data to be checked.
  * @returns {boolean} true: if valid, else false.

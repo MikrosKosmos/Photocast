@@ -56,17 +56,17 @@ constants.REQUEST_TYPE = "type";
 /**
  * Status Values
  */
-constants.STATUS_PROCESSING = 1;
-constants.STATUS_COMPLETED = 2;
-constants.STATUS_ERROR = 3;
-constants.STATUS_PENDING = 4;
-constants.STATUS_CONFIRM = 6;
-constants.STATUS_REJECTED = 7;
+constants.STATUS_PENDING = 1;
+constants.STATUS_CONFIRM = 2;
+constants.STATUS_CANCEL = 3;
+constants.STATUS_REJECTED = 4;
+constants.STATUS_COMPLETED = 5;
+constants.STATUS_PROCESSING = 6;
+constants.STATUS_ERROR = 7;
 constants.STATUS_AUTHORIZED = 8;
 constants.STATUS_CAPTURED = 9;
 constants.STAUTS_REFUNDED = 10;
-constants.STATUS_CANCEL = 11;
-constants.STATUS_VERIFIED = 12;
+constants.STATUS_VERIFIED = 11;
 
 /**
  * API Methods.
@@ -109,7 +109,7 @@ constants.ERROR_LEVEL_4 = "4";
 /**
  * Messages.
  */
-
+constants.WELCOME_MESSAGE = "Welcome to USER MICROSERVICE.";
 /**
  * Core-Service Keys
  */
@@ -140,6 +140,13 @@ constants.TWO_FACTOR_KEY = "2F";
 constants.S3_BUCKET_KEY = "Bucket";
 constants.S3_KEY_KEY = "Key";
 constants.S3_BODY_KEY = "Body";
+
+/**
+ * SP Names.
+ */
+constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
+constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
+constants.SP_VALIDATE_LOGIN = "sp_ValidateLogin";
 
 /**
  * Column Names
@@ -197,6 +204,8 @@ constants.API_LOGGER_STATUS = "api_status";
 
 constants.AUTH_EMAIL = "email_id";
 constants.AUTH_PASSWORD = "password";
+constants.AUTH_PHONE = "phone_number";
+constants.AUTH_OTP = "otp";
 
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";
