@@ -4,6 +4,8 @@ create procedure sp_UpdateCustomerAddress(par_customerId int,
                                           par_Address2 varchar(100),
                                           par_cityId int,
                                           par_pincode int,
+                                          par_GpsLat decimal(30, 8),
+                                          par_GpsLong decimal(30, 8),
                                           par_isDefault bool)
 begin
     IF EXISTS
@@ -27,6 +29,8 @@ begin
              address2,
              city_id,
              pincode,
+             gps_lat,
+             gps_long,
              is_default,
              created_by,
              created)
@@ -35,7 +39,9 @@ begin
                     par_Address2,
                     par_cityId,
                     par_pincode,
-                    par_isDefault,
+                    par_GpsLat,
+                    par_GpsLong,
+                    1,
                     par_customerId,
                     current_timestamp());
 
@@ -50,6 +56,8 @@ begin
              address2,
              city_id,
              pincode,
+             gps_lat,
+             gps_long,
              is_default,
              created_by,
              created)
@@ -58,6 +66,8 @@ begin
                     par_Address2,
                     par_cityId,
                     par_pincode,
+                    par_GpsLat,
+                    par_GpsLong,
                     par_isDefault,
                     par_customerId,
                     current_timestamp());

@@ -148,6 +148,8 @@ constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
 constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
 constants.SP_VALIDATE_LOGIN = "sp_ValidateLogin";
 constants.SP_CREATE_CUSTOMER = "sp_CreateCustomer";
+constants.SP_GET_CUSTOMER = "sp_GetCustomerDetails";
+constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
 
 /**
  * Column Names
@@ -172,6 +174,9 @@ constants.CUSTOMER_CITY = "city";
 constants.CUSTOMER_STATE = "state";
 constants.CUSTOMER_COUNTRY = "country";
 constants.CUSTOMER_PINCODE = "pincode";
+constants.CUSTOMER_ADDRESS_IS_DEFAULT = "is_default";
+constants.CUSTOMER_GPS_LAT = "gps_lat";
+constants.CUSTOMER_GPS_LONG = "gps_long";
 constants.CUSTOMER_REFERAL_CODE = "referral_code";
 constants.CUSTOMER_USED_REFERAL_CODE = "used_referral_code";
 constants.IS_VALID = "isValid";

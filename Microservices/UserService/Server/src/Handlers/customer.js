@@ -14,7 +14,23 @@ customerHandler.customer = (dataObject) => {
    return new Promise((resolve, reject) => {
       const method = dataObject.method;
       if (method === constants.HTTP_GET) {
-         //TODO:
+         const id = validator.validateNumber(dataObject.queryString[constants.CUSTOMER_ID]) ?
+            dataObject.queryString[constants.CUSTOMER_ID] : false;
+         const email = validator.validateEmail(dataObject.queryString[constants.CUSTOMER_EMAIL]) ?
+            dataObject.queryString[constants.CUSTOMER_EMAIL] : false;
+         const phoneNumber = validator.validatePhone(dataObject.queryString[constants.CUSTOMER_PHONE_NUMBER]) ?
+            dataObject.queryString[constants.CUSTOMER_PHONE_NUMBER] : false;
+         if (id || email || phoneNumber) {
+            const customer = new Customer(id, false, false, false, email, phoneNumber);
+            customer.getCustomer().then(response => {
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else if (method === constants.HTTP_POST) {
          const firstName = validator.validateString(dataObject.postData[constants.CUSTOMER_FIRST_NAME]) ?
             dataObject.postData[constants.CUSTOMER_FIRST_NAME] : false;
@@ -43,6 +59,49 @@ customerHandler.customer = (dataObject) => {
          }
       } else if (method === constants.HTTP_PUT) {
          //TODO:
+      } else {
+         reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
+      }
+   });
+};
+/**
+ * Method to handle the customer address requests.
+ * @param dataObject: The request object.
+ * @returns {Promise<Array>}: The response code and the response.
+ */
+customerHandler.address = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      const method = dataObject.method;
+      if (method === constants.HTTP_GET) {
+         //TODO:
+      } else if (method === constants.HTTP_POST) {
+         const address1 = validator.validateString(dataObject.postData[constants.CUSTOMER_ADDRESS_1]) ?
+            dataObject.postData[constants.CUSTOMER_ADDRESS_1] : false;
+         const address2 = validator.validateString(dataObject.postData[constants.CUSTOMER_ADDRESS_2]) ?
+            dataObject.postData[constants.CUSTOMER_ADDRESS_2] : false;
+         const cityId = validator.validateNumber(dataObject.postData[constants.CUSTOMER_CITY]) ?
+            dataObject.postData[constants.CUSTOMER_CITY] : false;
+         const pincode = validator.validateNumber(dataObject.postData[constants.CUSTOMER_PINCODE]) ?
+            dataObject.postData[constants.CUSTOMER_PINCODE] : false;
+         const isDefault = validator.validateNumber(dataObject.postData[constants.CUSTOMER_ADDRESS_IS_DEFAULT]) ?
+            dataObject.postData[constants.CUSTOMER_ADDRESS_IS_DEFAULT] : 0;
+         const gpsLat = validator.validateNumber(dataObject.postData[constants.CUSTOMER_GPS_LAT]) ?
+            dataObject.postData[constants.CUSTOMER_GPS_LAT] : false;
+         const gpsLong = validator.validateNumber(dataObject.postData[constants.CUSTOMER_GPS_LONG]) ?
+            dataObject.postData[constants.CUSTOMER_GPS_LONG] : false;
+         const id = validator.validateNumber(dataObject.postData[constants.CUSTOMER_ID]) ?
+            dataObject.postData[constants.CUSTOMER_ID] : false;
+         if (id && address1 && cityId && pincode && gpsLat && gpsLong) {
+            const customer = new Customer(id);
+            customer.updateCustomerAddress(address1, address2, cityId, pincode, gpsLat, gpsLong, isDefault).then(response => {
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else {
          reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
       }

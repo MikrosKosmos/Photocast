@@ -58,6 +58,54 @@ class Customer {
          });
       });
    }
+   
+   /**
+    * Method to search for customers.
+    * @returns {Promise<Array>}: The response code and the search result.
+    */
+   getCustomer() {
+      return new Promise((resolve, reject) => {
+         database.runSp(constants.SP_GET_CUSTOMER, [this._id, this._email, this._phone])
+            .then(_resultSet => {
+               const result = _resultSet[0][0];
+               resolve([constants.HTTP_SUCCESS, result]);
+            }).catch(err => {
+            printer.printError(err);
+            reject([constants.INTERNAL_SERVER_ERROR_CODE, constants.ERROR_MESSAGE]);
+         });
+      });
+   }
+   
+   /**
+    * Method to update the address of the customer.
+    * @param address1: The address line 1 of the customer.
+    * @param address2: The address line 2 of the customer.
+    * @param cityId: The city id of the customer.
+    * @param pincode: The pincode of the customer.
+    * @param gpsLat: The latitude of the customer.
+    * @param gpsLong: The longitude of the customer.
+    * @param isDefault: 1 for default, else 0.
+    * @returns {Promise<Array>}: the response code and the response.
+    */
+   updateCustomerAddress(address1, address2, cityId, pincode, gpsLat, gpsLong, isDefault) {
+      return new Promise((resolve, reject) => {
+         database.runSp(constants.SP_UPDATE_CUSTOMER_ADDRESS, [
+            this._id,
+            validators.validateString(address1) ? address1 : false,
+            validators.validateString(address2) ? address2 : false,
+            validators.validateNumber(cityId) ? cityId : false,
+            validators.validateNumber(pincode) ? pincode : false,
+            gpsLat, gpsLong,
+            validators.validateNumber(isDefault) ? isDefault : 0
+         ]).then(_resultSet => {
+            const result = _resultSet[0][0];
+            resolve([constants.HTTP_SUCCESS, result]);
+         }).catch(err => {
+            printer.printError(err);
+            reject([constants.INTERNAL_SERVER_ERROR_CODE, constants.ERROR_MESSAGE]);
+         });
+      });
+   }
 }
 
 /**
