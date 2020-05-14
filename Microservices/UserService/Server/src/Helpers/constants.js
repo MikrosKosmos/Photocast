@@ -147,6 +147,7 @@ constants.S3_BODY_KEY = "Body";
 constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
 constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
 constants.SP_VALIDATE_LOGIN = "sp_ValidateLogin";
+constants.SP_CREATE_CUSTOMER = "sp_CreateCustomer";
 
 /**
  * Column Names

@@ -2,6 +2,7 @@ const constants = require('./../Helpers/constants');
 const responseGenerator = require('./../Services/responseGenerator');
 
 const auth = require('./authentication');
+const customer = require('./customer');
 const handlerObj = {};
 /**
  * Method to handle the Error path requests.
@@ -25,6 +26,28 @@ handlerObj.auth = (dataObject) => {
       switch (dataObject.path) {
          case "auth":
             promise = auth.auth(dataObject);
+            break;
+         default:
+            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
+      }
+      promise.then(data => {
+         resolve(data);
+      }).catch(err => {
+         reject(err);
+      });
+   });
+};
+/**
+ * Method to handle the Customer requests.
+ * @param dataObject: the request object.
+ * @returns {Promise<Array>}
+ */
+handlerObj.customer = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      let promise;
+      switch (dataObject.path) {
+         case "customers":
+            promise = customer.customer(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
