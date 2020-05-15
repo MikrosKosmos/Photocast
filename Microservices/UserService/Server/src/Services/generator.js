@@ -74,7 +74,16 @@ generator.generateCurrentDateOnly = () => {
  */
 generator.generateAheadDate = (aheadDays) => {
    return new moment(generator.generateCurrentTime(), constants.DATE_FORMAT)
-      .add(aheadDays, 'days').tz(constants.DATE_TIME_FORMAT).format(constants.DATE_FORMAT);
+      .add(aheadDays, 'days').tz(constants.TIME_ZONE).format(constants.DATE_FORMAT);
+};
+/**
+ * Method to generate the ahead hours.
+ * @param aheadHours: The Ahead hours needed.
+ * @returns {string}
+ */
+generator.generateAheadTime = (aheadHours) => {
+   return new moment(generator.generateCurrentTime(), constants.DATE_TIME_FORMAT)
+      .add(aheadHours, 'hours').tz(constants.TIME_ZONE).format(constants.DATE_TIME_FORMAT);
 };
 /**
  * Method to get the current month.

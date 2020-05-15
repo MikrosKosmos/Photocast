@@ -30,6 +30,14 @@ authHandler.auth = (dataObject) => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
             });
+         } else if (phoneNumber) {
+            const auth = new Authentication(phoneNumber);
+            auth.request2Factor().then(result => {
+               resolve(responseGenerator.generateResponse(result[1], result[0]));
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
          } else {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
          }
@@ -40,6 +48,5 @@ authHandler.auth = (dataObject) => {
 };
 /**
  * Exporting the authentication.
- * @type {{}}
  */
 module.exports = authHandler;

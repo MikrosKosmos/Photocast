@@ -45,16 +45,20 @@ class Customer {
                const result = _resultSet[0][0];
                this._id = result.id;
                let response = {};
-               response[constants.CUSTOMER_ID] = this._id;
-               response[constants.CUSTOMER_FIRST_NAME] = this._firstName;
-               response[constants.CUSTOMER_LAST_NAME] = this._lastName;
-               response[constants.CUSTOMER_EMAIL] = this._email;
-               response[constants.CUSTOMER_PHONE_NUMBER] = this._phone;
-               response[constants.JW_TOKEN] = getToken(response);
-               resolve([constants.HTTP_SUCCESS, response]);
+               if (this._id > 0) {
+                  response[constants.CUSTOMER_ID] = this._id;
+                  response[constants.CUSTOMER_FIRST_NAME] = this._firstName;
+                  response[constants.CUSTOMER_LAST_NAME] = this._lastName;
+                  response[constants.CUSTOMER_EMAIL] = this._email;
+                  response[constants.CUSTOMER_PHONE_NUMBER] = this._phone;
+                  response[constants.JW_TOKEN] = getToken(response);
+               } else {
+                  response[constants.CUSTOMER_ID] = -1;
+               }
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, response]);
             }).catch(err => {
             printer.printError(err);
-            reject([constants.INTERNAL_SERVER_ERROR_CODE, err]);
+            reject([constants.ERROR_LEVEL_3, err]);
          });
       });
    }
@@ -68,10 +72,10 @@ class Customer {
          database.runSp(constants.SP_GET_CUSTOMER, [this._id, this._email, this._phone])
             .then(_resultSet => {
                const result = _resultSet[0][0];
-               resolve([constants.HTTP_SUCCESS, result]);
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
             }).catch(err => {
             printer.printError(err);
-            reject([constants.INTERNAL_SERVER_ERROR_CODE, constants.ERROR_MESSAGE]);
+            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
          });
       });
    }
@@ -99,10 +103,29 @@ class Customer {
             validators.validateNumber(isDefault) ? isDefault : 0
          ]).then(_resultSet => {
             const result = _resultSet[0][0];
-            resolve([constants.HTTP_SUCCESS, result]);
+            resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
          }).catch(err => {
             printer.printError(err);
-            reject([constants.INTERNAL_SERVER_ERROR_CODE, constants.ERROR_MESSAGE]);
+            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+         });
+      });
+   }
+   
+   /**
+    * Method to update the customer details.
+    * @param password: The password of the user.
+    * @returns {Promise<Array>}
+    */
+   updateCustomerDetails(password) {
+      return new Promise((resolve, reject) => {
+         database.runSp(constants.SP_UPDATE_CUSTOMER_DETAILS, [this._firstName, this._lastName, this._email,
+               this._email, this._phone, password, this._id])
+            .then(_resultSet => {
+               const result = _resultSet[0][0];
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+            }).catch(err => {
+            printer.printError(err);
+            reject([constants.ERROR_LEVEL_3, err]);
          });
       });
    }

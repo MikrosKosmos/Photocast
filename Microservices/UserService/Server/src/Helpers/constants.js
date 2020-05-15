@@ -10,7 +10,7 @@ constants.COLOR_GREEN = "\x1b[32m";
 /**
  * Logging File Details.
  */
-constants.LOG_FILE_NAME = 'pnc-logs.logs';
+constants.LOG_FILE_NAME = 'cirro-logs.logs';
 
 /**
  * Date Format.
@@ -110,24 +110,7 @@ constants.ERROR_LEVEL_4 = "4";
  * Messages.
  */
 constants.WELCOME_MESSAGE = "Welcome to USER MICROSERVICE.";
-/**
- * Core-Service Keys
- */
-constants.CORE_SERVICE_USER_NAME = "user_name";
-constants.CORE_SERVICE_PASSWORD = "password";
-constants.CORE_CUSTOMER_CREATE = "Create";
-constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
-constants.DB_HOST_KEY = "DB_HOST";
-constants.DB_PASSWORD_KEY = "DB_PASSWORD";
-constants.CORE_RESPONSE = "res";
-constants.CORE_ERROR = "error";
-constants.CORE_ERROR_LEVEL = "errorLevel";
-constants.CORE_SUCCESS_LEVEL = "successLevel";
-constants.CORE_TYPE = "type";
-constants.CORE_DATA = "data";
-constants.CORE_TOKEN = "jwToken_auth";
-constants.REDIS_HOST = "redis_host";
-constants.REDIS_PORT = "redis_port";
+constants.OTP_MESSAGE = "Your Photocast OTP is :";
 
 /**
  * General Keys
@@ -140,6 +123,14 @@ constants.TWO_FACTOR_KEY = "2F";
 constants.S3_BUCKET_KEY = "Bucket";
 constants.S3_KEY_KEY = "Key";
 constants.S3_BODY_KEY = "Body";
+constants.ENV_DEVELOPMENT = "DEVELOPMENT";
+constants.ENV_PRODUCTION = "PRODUCTION";
+constants.ENV_KEY = "ENV";
+constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
+constants.DB_HOST_KEY = "DB_HOST";
+constants.DB_PASSWORD_KEY = "DB_PASSWORD";
+constants.REDIS_PORT = "redis_port";
+constants.REDIS_HOST = "redis_host";
 
 /**
  * SP Names.
@@ -150,6 +141,8 @@ constants.SP_VALIDATE_LOGIN = "sp_ValidateLogin";
 constants.SP_CREATE_CUSTOMER = "sp_CreateCustomer";
 constants.SP_GET_CUSTOMER = "sp_GetCustomerDetails";
 constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
+constants.SP_UPDATE_CUSTOMER_DETAILS = "sp_UpdateCustomerDetails";
+constants.SP_OTP_CREATE_CHECK = "sp_OtpCreateCheck";
 
 /**
  * Column Names

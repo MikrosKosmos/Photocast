@@ -46,7 +46,7 @@ response.generateErrorResponse = (responseMessage, errorLevel) => {
  */
 response.generateResponse = (responseMessage, successLevel) => {
    const res = {};
-   if (validators.validateString(successLevel)) {
+   if (validators.validateNumber(successLevel)) {
       let httpCode;
       res[constants.RESPONSE_KEY] = responseMessage;
       switch (successLevel) {

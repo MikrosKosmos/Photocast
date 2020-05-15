@@ -21,14 +21,18 @@ class Cache {
     */
    storeData(key, value) {
       return new Promise((resolve, reject) => {
-         this._client.set(key, value, (err, reply) => {
-            if (err) {
-               printer.printError(err);
-               reject(err);
-            } else {
-               resolve(true);
-            }
-         });
+         if (process.env[constants.ENV_KEY] === constants.ENV_DEVELOPMENT) {
+            resolve(null);
+         } else {
+            this._client.set(key, value, (err, reply) => {
+               if (err) {
+                  printer.printError(err);
+                  reject(err);
+               } else {
+                  resolve(true);
+               }
+            });
+         }
       });
    }
    
@@ -39,14 +43,18 @@ class Cache {
     */
    getData(key) {
       return new Promise((resolve, reject) => {
-         this._client.get(key, (err, data) => {
-            if (err) {
-               printer.printError(err);
-               reject(err);
-            } else {
-               resolve(data);
-            }
-         });
+         if (process.env[constants.ENV_KEY] === constants.ENV_DEVELOPMENT) {
+            resolve(true);
+         } else {
+            this._client.get(key, (err, data) => {
+               if (err) {
+                  printer.printError(err);
+                  reject(err);
+               } else {
+                  resolve(data);
+               }
+            });
+         }
       });
    }
 }

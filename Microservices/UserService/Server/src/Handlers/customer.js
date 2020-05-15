@@ -42,8 +42,6 @@ customerHandler.customer = (dataObject) => {
             dataObject.postData[constants.CUSTOMER_GENDER] : false;
          const email = validator.validateEmail(dataObject.postData[constants.CUSTOMER_EMAIL]) ?
             dataObject.postData[constants.CUSTOMER_EMAIL] : false;
-         const password = validator.validateString(dataObject.postData[constants.CUSTOMER_PASSWORD]) ?
-            dataObject.postData[constants.CUSTOMER_PASSWORD] : false;
          const usedReferralCode = validator.validateString(dataObject.postData[constants.CUSTOMER_USED_REFERAL_CODE]) ?
             dataObject.postData[constants.CUSTOMER_USED_REFERAL_CODE] : false;
          if (firstName && lastName && phone && gender) {
@@ -58,7 +56,29 @@ customerHandler.customer = (dataObject) => {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
          }
       } else if (method === constants.HTTP_PUT) {
-         //TODO:
+         const firstName = validator.validateString(dataObject.postData[constants.CUSTOMER_FIRST_NAME]) ?
+            dataObject.postData[constants.CUSTOMER_FIRST_NAME] : false;
+         const lastName = validator.validateString(dataObject.postData[constants.CUSTOMER_LAST_NAME]) ?
+            dataObject.postData[constants.CUSTOMER_LAST_NAME] : false;
+         const phone = validator.validatePhone(dataObject.postData[constants.CUSTOMER_PHONE_NUMBER]) ?
+            dataObject.postData[constants.CUSTOMER_PHONE_NUMBER] : false;
+         const email = validator.validateEmail(dataObject.postData[constants.CUSTOMER_EMAIL]) ?
+            dataObject.postData[constants.CUSTOMER_EMAIL] : false;
+         const password = validator.validateString(dataObject.postData[constants.CUSTOMER_PASSWORD]) ?
+            dataObject.postData[constants.CUSTOMER_PASSWORD] : false;
+         const customerId = validator.validateNumber(dataObject.postData[constants.CUSTOMER_ID]) ?
+            dataObject.postData[constants.CUSTOMER_ID] : false;
+         if (customerId && (firstName || lastName || phone || email || password)) {
+            const customer = new Customer(customerId, firstName, lastName, false, email, phone);
+            customer.updateCustomerDetails(password).then(response => {
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else {
          reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
       }
