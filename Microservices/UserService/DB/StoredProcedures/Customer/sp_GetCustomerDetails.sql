@@ -9,7 +9,7 @@ begin
         set @whereClaus = concat(@whereClaus, ' phone_number = ''', parPhone, ''' and ');
     end if;
     if parUserId > 0 then
-        set @whereClaus = concat(@whereClaus, ' id = ', parUserId, ' and ');
+        set @whereClaus = concat(@whereClaus, ' c.id = ', parUserId, ' and ');
     end if;
     set @whereClaus = concat(@whereClaus, ' c.is_active = 1');
     select concat('select c.id,
