@@ -68,9 +68,11 @@ customerHandler.customer = (dataObject) => {
             dataObject.postData[constants.CUSTOMER_PASSWORD] : false;
          const customerId = validator.validateNumber(dataObject.postData[constants.CUSTOMER_ID]) ?
             dataObject.postData[constants.CUSTOMER_ID] : false;
-         if (customerId && (firstName || lastName || phone || email || password)) {
+         const jwToken = validator.validateString(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (customerId && (firstName || lastName || phone || email || password) && jwToken) {
             const customer = new Customer(customerId, firstName, lastName, false, email, phone);
-            customer.updateCustomerDetails(password).then(response => {
+            customer.updateCustomerDetails(password, jwToken).then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);

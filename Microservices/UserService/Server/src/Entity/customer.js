@@ -4,7 +4,7 @@ const printer = require('./../Helpers/printer');
 const generator = require('./../Services/generator');
 const validators = require('./../Helpers/validators');
 
-const {getToken} = require('./../Services/jwTokenGenerator');
+const {getToken, validateToken} = require('./../Services/jwTokenGenerator');
 
 class Customer {
    /**
@@ -114,19 +114,25 @@ class Customer {
    /**
     * Method to update the customer details.
     * @param password: The password of the user.
+    * @param jwToken: the user token.
     * @returns {Promise<Array>}
     */
-   updateCustomerDetails(password) {
+   updateCustomerDetails(password, jwToken) {
       return new Promise((resolve, reject) => {
-         database.runSp(constants.SP_UPDATE_CUSTOMER_DETAILS, [this._firstName, this._lastName, this._email,
-               this._email, this._phone, password, this._id])
-            .then(_resultSet => {
-               const result = _resultSet[0][0];
-               resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
-            }).catch(err => {
-            printer.printError(err);
-            reject([constants.ERROR_LEVEL_3, err]);
-         });
+         const tokenData = validateToken(jwToken);
+         if (tokenData[constants.ID] === this._id) {
+            database.runSp(constants.SP_UPDATE_CUSTOMER_DETAILS, [this._firstName, this._lastName, this._email,
+                  this._phone, password, this._id])
+               .then(_resultSet => {
+                  const result = _resultSet[0][0];
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+               }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, err]);
+            });
+         } else {
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
+         }
       });
    }
 }

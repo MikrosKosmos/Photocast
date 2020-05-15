@@ -63,26 +63,6 @@ response.generateResponse = (responseMessage, successLevel) => {
    }
 };
 /**
- * Method to generate the Core Response.
- * @param message: The message to be send.
- * @param successLevel: The success level.
- * @param error: The error message.
- * @param errorLevel: The error level.
- */
-response.generateCoreResponse = (message, successLevel, error, errorLevel) => {
-   let res = {};
-   if (errorLevel) {
-      res[constants.CORE_RESPONSE] = false;
-      res[constants.CORE_ERROR] = error;
-      res[constants.CORE_ERROR_LEVEL] = errorLevel;
-   } else {
-      res[constants.CORE_RESPONSE] = message;
-      res[constants.CORE_SUCCESS_LEVEL] = successLevel;
-      res[constants.CORE_ERROR] = false;
-   }
-   return res;
-};
-/**
  * Exporting the module.
  */
 module.exports = response;
