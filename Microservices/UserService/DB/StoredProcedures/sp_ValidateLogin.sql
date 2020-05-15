@@ -5,7 +5,7 @@ begin
     set @userId = 0;
     if length(parPhone) > 0 and length(parOTP) > 0 then
         select fn_ValidateOTP(parPhone, parOTP) into @isValid;
-        select user_id from tbl_LoginMaster where phone_number = parPhone and is_active = 1 limit 1;
+        select user_id into @userId from tbl_LoginMaster where phone_number = parPhone and is_active = 1 limit 1;
     else
         select user_id
         into @userId
