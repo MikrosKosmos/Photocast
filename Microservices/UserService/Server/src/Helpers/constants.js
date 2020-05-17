@@ -144,6 +144,10 @@ constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
 constants.SP_UPDATE_CUSTOMER_DETAILS = "sp_UpdateCustomerDetails";
 constants.SP_OTP_CREATE_CHECK = "sp_OtpCreateCheck";
 constants.SP_GET_CUSTOMER_ADDRESS = "sp_GetCustomerAddress";
+constants.SP_CREATE_VENDOR = "sp_CreateVendor";
+constants.SP_GET_VENDOR = "sp_GetVendorDetails";
+constants.SP_UPDATE_VENDOR = "sp_UpdateVendorDetails";
+constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
 
 /**
  * Column Names
@@ -180,7 +184,7 @@ constants.OTP = "otp";
 constants.VENDOR_ID = "vendor_id";
 constants.VENDOR_FIRST_NAME = "first_name";
 constants.VENDOR_LAST_NAME = "last_name";
-constants.VENDOR_EMAIL = "email";
+constants.VENDOR_EMAIL = "email_id";
 constants.VENDOR_PASSWORD = "password";
 constants.VENDOR_PHONE_NUMBER = "phone_number";
 constants.VENDOR_GENDER = "gender";
@@ -190,6 +194,10 @@ constants.VENDOR_CITY = "city";
 constants.VENDOR_STATE = "state";
 constants.VENDOR_COUNTRY = "country";
 constants.VENDOR_PINCODE = "pincode";
+constants.VENDOR_GPS_LAT = "gps_lat";
+constants.VENDOR_GPS_LONG = "gps_long";
+constants.VENDOR_TYPE = "vendor_type";
+constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
 
@@ -211,9 +219,6 @@ constants.AUTH_OTP = "otp";
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";
 constants.CITY_STATE_ID = "state_id";
-
-constants.BREED_PET_TYPE = "pet_type";
-
 /**
  * exporting the constants.
  */
