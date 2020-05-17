@@ -40,29 +40,23 @@ begin
         set @setClaus = concat(@setClaus, ' modified_by = ', parVendorId, ' ,modified = now()');
         select concat('update tbl_VendorMaster set ', @setClaus, ' where id = ', parVendorId, ' and is_active = 1')
         into @stmtSQL;
-        if @isAuthChanged = 1 then
-            set @authSet = '';
-            if length(parEmail) > 0 then
-                set @authSet = concat(@authSet, ' email_id =''', parEmail, ''',');
-            end if;
-            if length(parPassword) > 0 then
-                set @authSet = concat(@authSet, ' password = ''', parPassword, ''',');
-            end if;
-            if length(parPhoneNumber) > 0 then
-                set @authSet = concat(@authSet, ' phone_number = ''', parPhoneNumber, ''',');
-            end if;
-            set @authSet=concat(@authSet,' modified_by = ',parVendorId,' and modified = now()');
-            select concat('update tbl_LoginMaster set ', @authSet, ' where user_id = ', parVendorId,' and role = ''tbl_VendorMaster''') into @stmtSQL1;
-            #select @stmtSQL1;
-            prepare stmtExec from @stmtSQL1;
-            execute stmtExec;
-            deallocate prepare stmtExec;
-        end if;
         #select @stmtSQL;
         prepare stmtExec from @stmtSQL;
         execute stmtExec;
         deallocate prepare stmtExec;
-        select 1 as id;
+        if @isAuthChanged = 1 then
+            set @isUpdated = 0;
+            call sp_UpdateLoginDetails(parPhoneNumber, parEmail, parPassword,
+                                       'tbl_VendorMaster', parVendorId,
+                                       @isUpdated);
+            if @isUpdated > 0 then
+                select 1 as id;
+            else
+                select -1 as id;
+            end if;
+        else
+            select 1 as id;
+        end if;
     else
         select -1 as id;
     end if;
