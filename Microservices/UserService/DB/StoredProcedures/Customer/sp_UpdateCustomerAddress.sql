@@ -10,7 +10,7 @@ create procedure sp_UpdateCustomerAddress(par_customerId int,
 begin
     IF EXISTS
         (
-            select 1 from tbl_CustomerAddressDetails where customer_id = par_customerId
+            select 1 from tbl_CustomerMaster where id = par_customerId and is_active = 1
         )
     THEN
         IF par_isDefault = 1
@@ -48,7 +48,15 @@ begin
             select last_insert_id() as id;
 
         ELSE
-
+            set @isDefaultPresent = 0;
+            select is_default
+            into @isDefaultPresent
+            from tbl_CustomerAddressDetails
+            where customer_id = par_customerId
+              and is_active = 1;
+            if @isDefaultPresent = 0 then
+                set par_isDefault = 1;
+            end if;
             #insert the new customer address with default value
             insert into tbl_CustomerAddressDetails
             (customer_id,
