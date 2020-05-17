@@ -19,6 +19,9 @@ begin
              inner join tbl_LoginMaster l
                         on l.phone_number = c.phone_number
     where c.phone_number = parPhone;
+    if length(parEmail) < 1 then
+        set parEmail = null;
+    end if;
     if @isValidPhone = 0 and @isValidEmail = 0 then
         set @userId = 0;
         #Creating the customer details.
