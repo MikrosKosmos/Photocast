@@ -143,6 +143,7 @@ constants.SP_GET_CUSTOMER = "sp_GetCustomerDetails";
 constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
 constants.SP_UPDATE_CUSTOMER_DETAILS = "sp_UpdateCustomerDetails";
 constants.SP_OTP_CREATE_CHECK = "sp_OtpCreateCheck";
+constants.SP_GET_CUSTOMER_ADDRESS = "sp_GetCustomerAddress";
 
 /**
  * Column Names

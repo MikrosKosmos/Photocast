@@ -44,7 +44,7 @@ class Cache {
    getData(key) {
       return new Promise((resolve, reject) => {
          if (process.env[constants.ENV_KEY] === constants.ENV_DEVELOPMENT) {
-            resolve(true);
+            resolve("");
          } else {
             this._client.get(key, (err, data) => {
                if (err) {

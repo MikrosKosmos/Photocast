@@ -32,11 +32,11 @@ class Api {
                      resolve(true);
                      await cache.storeData(constants.API_TOKEN_KEY, this._token);
                   } else {
-                     reject(true);
+                     reject([constants.ERROR_LEVEL_4,constants.FORBIDDEN_MESSAGE]);
                   }
                }).catch(err => {
                   printer.printError(err);
-                  reject(err);
+                  reject([constants.ERROR_LEVEL_4,constants.FORBIDDEN_MESSAGE]);
                });
             }
          } catch (e) {

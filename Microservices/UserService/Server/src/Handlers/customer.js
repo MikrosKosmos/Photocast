@@ -95,7 +95,21 @@ customerHandler.address = (dataObject) => {
    return new Promise((resolve, reject) => {
       const method = dataObject.method;
       if (method === constants.HTTP_GET) {
-         //TODO:
+         const customerId = validator.validateNumber(dataObject.queryString[constants.CUSTOMER_ID]) ?
+            dataObject.queryString[constants.CUSTOMER_ID] : false;
+         const jwToken = validator.validateString(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (customerId && jwToken) {
+            const customer = new Customer(customerId);
+            customer.getCustomerAddress(jwToken).then(response => {
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else if (method === constants.HTTP_POST) {
          const address1 = validator.validateString(dataObject.postData[constants.CUSTOMER_ADDRESS_1]) ?
             dataObject.postData[constants.CUSTOMER_ADDRESS_1] : false;
@@ -113,9 +127,11 @@ customerHandler.address = (dataObject) => {
             dataObject.postData[constants.CUSTOMER_GPS_LONG] : false;
          const id = validator.validateNumber(dataObject.postData[constants.CUSTOMER_ID]) ?
             dataObject.postData[constants.CUSTOMER_ID] : false;
-         if (id && address1 && cityId && pincode && gpsLat && gpsLong) {
+         const jwToken = validator.validateString(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (id && address1 && cityId && pincode && gpsLat && gpsLong && jwToken) {
             const customer = new Customer(id);
-            customer.updateCustomerAddress(address1, address2, cityId, pincode, gpsLat, gpsLong, isDefault).then(response => {
+            customer.updateCustomerAddress(address1, address2, cityId, pincode, gpsLat, gpsLong, isDefault, jwToken).then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
