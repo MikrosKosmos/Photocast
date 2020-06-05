@@ -131,6 +131,10 @@ constants.DB_HOST_KEY = "DB_HOST";
 constants.DB_PASSWORD_KEY = "DB_PASSWORD";
 constants.REDIS_PORT = "redis_port";
 constants.REDIS_HOST = "redis_host";
+constants.AWS_DOCUMENTS_BUCKET = "photocast-documents";
+constants.AWS_IMAGES_BUCKET = "photocast-images";
+constants.IMAGES_BASE_URL = "https://photocast-images.s3.ap-south-1.amazonaws.com/";
+constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazonaws.com/";
 
 /**
  * SP Names.
@@ -148,6 +152,8 @@ constants.SP_CREATE_VENDOR = "sp_CreateVendor";
 constants.SP_GET_VENDOR = "sp_GetVendorDetails";
 constants.SP_UPDATE_VENDOR = "sp_UpdateVendorDetails";
 constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
+constants.SP_VENDOR_UPDATE_IMAGE = "sp_UpdateImages";
+constants.SP_GET_BANK_DETAILS = "sp_GetBankDetails";
 
 /**
  * Column Names
@@ -200,6 +206,17 @@ constants.VENDOR_TYPE = "vendor_type";
 constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
+
+constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
+constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
+constants.VENDOR_IMAGE_DATA = "image_data";
+constants.VENDOR_IMAGES_IMAGE_KEY = "image_key";
+constants.VENDOR_IMAGES_BASE_URL = "base_url";
+constants.VENDOR_IMAGE_POSITION = "position";
+constants.IMAGE_TYPE_DP = "DP";
+constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
+constants.IMAGE_TYPE_PET = "PET";
+constants.FILE_EXTENSION = "file_extension";
 
 constants.DOCUMENT_HOLDER_ID = "document_holder_id";
 constants.DOCUMENT_HOLDER_TYPE = "document_holder_type";

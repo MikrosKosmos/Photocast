@@ -147,6 +147,5 @@ customerHandler.address = (dataObject) => {
 };
 /**
  * Exporting the customer handler.
- * @type {{}}
  */
 module.exports = customerHandler;
