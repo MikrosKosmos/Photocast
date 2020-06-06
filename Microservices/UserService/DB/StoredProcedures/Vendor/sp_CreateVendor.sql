@@ -6,7 +6,7 @@ create procedure sp_CreateVendor(parFirstName varchar(255), parLastName varchar(
                                  parGpsLat decimal(30, 8), parGpsLong decimal(30, 8),
                                  parUsedReferralCode varchar(255), parReferralCode varchar(255),
                                  parDocumentType varchar(255),
-                                 parDocumentID varchar(255))
+                                 parDocumentID varchar(255), parPassword varchar(255))
 begin
     if length(parEmailId) < 1 then
         set parEmailId = null;
@@ -48,7 +48,7 @@ begin
                 VALUE (@userId, 'tbl_VendorMaster', parDocumentType, parDocumentID, @userId);
             #Creating the login details for the vendor.
             insert into tbl_LoginMaster(email_id, password, phone_number, role, user_id, created_by)
-                value (parEmailId, '', parPhoneNumber, 'tbl_VendorMaster', @userId, @userId);
+                value (parEmailId, parPassword, parPhoneNumber, 'tbl_VendorMaster', @userId, @userId);
             select @userId as id;
         end if;
     end if;
