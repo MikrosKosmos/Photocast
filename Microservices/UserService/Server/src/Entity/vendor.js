@@ -43,14 +43,15 @@ class Vendor {
     * @param usedReferralCode: The referral code he used.
     * @param documentType: The type of identification document.
     * @param documentId: The identification document id.
+    * @param password: the vendor password.
     * @returns {Promise<unknown>}
     */
-   createVendor(vendorType, brandName, address1, address2, cityId, pincode, gpsLat, gpsLong, usedReferralCode, documentType, documentId) {
+   createVendor(vendorType, brandName, address1, address2, cityId, pincode, gpsLat, gpsLong, usedReferralCode, documentType, documentId, password) {
       return new Promise((resolve, reject) => {
          const referralCode = generator.generateRandomToken(8);
          database.runSp(constants.SP_CREATE_VENDOR, [this._firstName, this._lastName, this._email, this._phone, this._gender,
             vendorType, brandName, address1, address2, cityId, pincode, gpsLat, gpsLong,
-            usedReferralCode, referralCode, documentType, documentId])
+            usedReferralCode, referralCode, documentType, documentId, password])
             .then(_resultSet => {
                const result = _resultSet[0][0];
                if (validators.validateUndefined(result) && result[constants.ID] > 0) {
@@ -106,18 +107,24 @@ class Vendor {
     * @param city: The city.
     * @param gpsLat: The GPS coordinates.
     * @param gpsLong: The GPS coordinates.
+    * @param jwToken: the JW Token.
     * @returns {Promise<Array>}: The response code and the object.
     */
-   updateVendor(password, brandName, address1, address2, pinCode, city, gpsLat, gpsLong) {
+   updateVendor(password, brandName, address1, address2, pinCode, city, gpsLat, gpsLong, jwToken) {
       return new Promise((resolve, reject) => {
-         database.runSp(constants.SP_UPDATE_VENDOR, [this._id, this._email, password, this._phone,
-            brandName, address1, address2, pinCode, city, gpsLat, gpsLong]).then(_resultSet => {
-            const result = _resultSet[0][0];
-            resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
-         }).catch(err => {
-            printer.printError(err);
-            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
-         });
+         const token = tokenGenerator.validateToken(jwToken);
+         if (token[constants.ID] === this._id) {
+            database.runSp(constants.SP_UPDATE_VENDOR, [this._id, this._email, password, this._phone,
+               brandName, address1, address2, pinCode, city, gpsLat, gpsLong]).then(_resultSet => {
+               const result = _resultSet[0][0];
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+            }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } else {
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
+         }
       });
    }
 
@@ -127,17 +134,23 @@ class Vendor {
     * @param bankName: The bank name.
     * @param ifscCode: The IFSC Code.
     * @param contactNumber: The number of the vendor.
+    * @param jwToken: the Jw token.
     * @returns {Promise<Array>}: The response code and the object.
     */
-   updateBankDetails(accountHolderName, bankName, ifscCode, contactNumber) {
+   updateBankDetails(accountHolderName, bankName, ifscCode, contactNumber, jwToken) {
       return new Promise((resolve, reject) => {
-         database.runSp(constants.SP_BANK_DETAILS, [this._id, "tbl_VendorMaster", accountHolderName,
-            bankName, ifscCode, contactNumber, "", 0, 1]).then(_resultSet => {
-            resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0][0]]);
-         }).catch(err => {
-            printer.printError(err);
-            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
-         });
+         const token = tokenGenerator.validateToken(jwToken);
+         if (token[constants.ID] === this._id) {
+            database.runSp(constants.SP_BANK_DETAILS, [this._id, "tbl_VendorMaster", accountHolderName,
+               bankName, ifscCode, contactNumber, "", 0, 1]).then(_resultSet => {
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0][0]]);
+            }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } else {
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
+         }
       });
    }
 
@@ -145,14 +158,19 @@ class Vendor {
     * Method to get the bank details.
     * @returns {Promise<unknown>}
     */
-   getBankDetails() {
+   getBankDetails(jwToken) {
       return new Promise((resolve, reject) => {
-         database.runSp(constants.SP_GET_BANK_DETAILS, [this._id]).then(_resultSet => {
-            resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0][0]]);
-         }).catch(err => {
-            printer.printError(err);
-            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
-         });
+         const token = tokenGenerator.validateToken(jwToken);
+         if (token[constants.ID] === this._id) {
+            database.runSp(constants.SP_GET_BANK_DETAILS, [this._id]).then(_resultSet => {
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0][0]]);
+            }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } else {
+
+         }
       });
    }
 
