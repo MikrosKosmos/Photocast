@@ -19,6 +19,8 @@ begin
             insert into tbl_VendorImages(vendor_id, image_type, image_key, base_url, created_by)
                 value (parVendorId, parImageType, parImageKey, parBaseUrl, parVendorId);
             select last_insert_id() as id;
+            #setting the status as confirmed after uploading the Documents.
+            update tbl_VendorMaster set status_id=2, modified= now(), modified_by=parVendorId where id = parVendorId;
         end if;
     else
         select -1 as id;

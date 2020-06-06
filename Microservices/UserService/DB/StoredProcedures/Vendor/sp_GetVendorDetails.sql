@@ -24,6 +24,7 @@ begin
                address_1,
                address_2,
                city_id,
+               c.city_name,
                pincode,
                gps_lat,
                gps_long,
@@ -33,7 +34,10 @@ begin
                referral_code
         from tbl_VendorMaster v
                  left join tbl_StatusMaster s
-                           on s.id = v.status_id where ', @whereClaus)
+                           on s.id = v.status_id
+                left join tbl_CityMaster c
+                           on c.id=v.city_id
+                where ', @whereClaus)
         into @stmtSQL;
         #select @stmtSQL;
         prepare stmtExec from @stmtSQL;
