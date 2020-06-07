@@ -156,6 +156,7 @@ class Vendor {
 
    /**
     * Method to get the bank details.
+    * @param jwToken: The token of the user.
     * @returns {Promise<unknown>}
     */
    getBankDetails(jwToken) {
@@ -169,7 +170,7 @@ class Vendor {
                reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
             });
          } else {
-
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
          }
       });
    }
@@ -181,24 +182,58 @@ class Vendor {
     * @param imageData: The image data.
     * @param imageType: The type of the images.
     * @param fileExtension: the extension of the file.
+    * @param jwToken: the token of the user.
     * @returns {Promise<URL>}: The url of the profile picture.
     */
-   uploadPictures(imageData, imageType, fileExtension) {
+   uploadPictures(imageData, imageType, fileExtension, jwToken) {
       return new Promise((resolve, reject) => {
-         const imageKey = generator.generateRandomToken(16) + "." + fileExtension;
-         const isSecure = (imageType === constants.IMAGE_TYPE_DOCUMENT);
-         const baseUrl = (isSecure) ? constants.DOCUMENTS_BASE_URL : constants.IMAGES_BASE_URL;
-         const imageUrl = baseUrl + imageKey;
-         let promises = [];
-         promises.push(s3Helper.uploadFile(imageData, imageKey, isSecure));
-         promises.push(database.runSp(constants.SP_VENDOR_UPDATE_IMAGE,
-            [imageType, imageKey, imageUrl, this._id]));
-         Promise.all(promises).then(results => {
-            resolve([constants.RESPONSE_SUCESS_LEVEL_1, imageUrl]);
-         }).catch(errs => {
-            printer.printError(errs);
-            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
-         });
+         const tokenData = tokenGenerator.validateToken(jwToken);
+         if (tokenData[constants.ID] === this._id) {
+            const imageKey = generator.generateRandomToken(16) + "." + fileExtension;
+            const isSecure = (imageType === constants.IMAGE_TYPE_DOCUMENT);
+            const baseUrl = (isSecure) ? constants.DOCUMENTS_BASE_URL : constants.IMAGES_BASE_URL;
+            const imageUrl = baseUrl + imageKey;
+            let promises = [];
+            promises.push(s3Helper.uploadFile(imageData, imageKey, isSecure));
+            promises.push(database.runSp(constants.SP_VENDOR_UPDATE_IMAGE,
+               [imageType, imageKey, imageUrl, this._id]));
+            Promise.all(promises).then(results => {
+               resolve([constants.RESPONSE_SUCESS_LEVEL_1, imageUrl]);
+            }).catch(errs => {
+               printer.printError(errs);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } else {
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
+         }
+      });
+   }
+
+   /**
+    * Method to get the images of the vendor.
+    * It can be used to search for profile image or other images.
+    * @param imageType: The type of the images.
+    * @param jwToken: The token of the user.
+    * @returns {Promise<Array>}: An array of images.
+    */
+   getImages(imageType, jwToken) {
+      return new Promise((resolve, reject) => {
+         const tokenData = tokenGenerator.validateToken(jwToken);
+         if (tokenData[constants.ID] === this._id) {
+            database.runSp(constants.SP_GET_VENDOR_IMAGES, [this._id, imageType]).then(_resultSet => {
+               const result = _resultSet[0];
+               if (validators.validateUndefined(result)) {
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+               } else {
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, [{"id": -1}]]);
+               }
+            }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } else {
+            reject([constants.ERROR_LEVEL_4, constants.FORBIDDEN_MESSAGE]);
+         }
       });
    }
 }

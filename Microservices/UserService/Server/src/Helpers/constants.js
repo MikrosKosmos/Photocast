@@ -154,6 +154,7 @@ constants.SP_UPDATE_VENDOR = "sp_UpdateVendorDetails";
 constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
 constants.SP_VENDOR_UPDATE_IMAGE = "sp_UpdateImages";
 constants.SP_GET_BANK_DETAILS = "sp_GetBankDetails";
+constants.SP_GET_VENDOR_IMAGES = "sp_GetImages";
 
 /**
  * Column Names

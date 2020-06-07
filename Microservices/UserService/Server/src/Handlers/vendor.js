@@ -178,6 +178,62 @@ vendorHandler.details = (dataObject) => {
    });
 };
 /**
+ * Method to handle all the requests for vendor images.
+ * @param dataObject: The request object.
+ * @returns {Promise<Array>}: the response code and the response.
+ */
+vendorHandler.images = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      const method = dataObject.method;
+      if (method === constants.HTTP_GET) {
+         const vendorId = validator.validateNumber(dataObject.queryString[constants.VENDOR_ID]) ?
+            dataObject.queryString[constants.VENDOR_ID] : false;
+         const imageType = validator.validateString(dataObject.queryString[constants.VENDOR_IMAGES_IMAGE_TYPE]) &&
+         (dataObject.queryString[constants.VENDOR_IMAGES_IMAGE_TYPE] === constants.IMAGE_TYPE_DOCUMENT ||
+            dataObject.queryString[constants.VENDOR_IMAGES_IMAGE_TYPE] === constants.IMAGE_TYPE_DP) ?
+            dataObject.queryString[constants.VENDOR_IMAGES_IMAGE_TYPE] : false;
+         const jwToken = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (vendorId && imageType && jwToken) {
+            const vendor = new Vendor(vendorId);
+            vendor.getImages(imageType, jwToken).then(response => {
+               resolve(response[1], response[0]);
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
+      } else if (method === constants.HTTP_POST) {
+         const vendorId = validator.validateNumber(dataObject.postData[constants.VENDOR_ID]) ?
+            dataObject.postData[constants.VENDOR_ID] : false;
+         const imageData = validator.validateUndefined(dataObject.postData[constants.VENDOR_IMAGE_DATA]) ?
+            dataObject.postData[constants.VENDOR_IMAGE_DATA] : false;
+         const imageType = validator.validateString(dataObject.postData[constants.VENDOR_IMAGES_IMAGE_TYPE]) &&
+         (dataObject.postData[constants.VENDOR_IMAGES_IMAGE_TYPE] === constants.IMAGE_TYPE_DOCUMENT ||
+            dataObject.postData[constants.VENDOR_IMAGES_IMAGE_TYPE] === constants.IMAGE_TYPE_DP) ?
+            dataObject.postData[constants.VENDOR_IMAGES_IMAGE_TYPE] : false;
+         const fileExtension = validator.validateString(dataObject.postData[constants.FILE_EXTENSION]) ?
+            dataObject.postData[constants.FILE_EXTENSION] : false;
+         const jwToken = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ? dataObject[constants.JW_TOKEN] : false;
+         if (vendorId && jwToken && imageData && imageType && fileExtension) {
+            const vendor = new Vendor(vendorId);
+            vendor.uploadPictures(imageData, imageType, fileExtension).then(response => {
+               resolve(response[1], response[0]);
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
+      } else {
+         reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
+      }
+   });
+};
+/**
  * Exporting the vendor handler.
  */
 module.exports = vendorHandler;
