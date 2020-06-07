@@ -4,6 +4,7 @@ const printer = require('./../Helpers/printer');
 const generator = require('./../Services/generator');
 const validators = require('./../Helpers/validators');
 
+const Cache = require('./../Helpers/cacheHelper');
 const {getToken, validateToken} = require('./../Services/jwTokenGenerator');
 
 class Customer {
@@ -29,7 +30,7 @@ class Customer {
       this._email = validators.validateEmail(email) ? email : false;
       this._phone = validators.validatePhone(phone) ? phone : false;
    }
-   
+
    /**
     * Method to create the customer.
     * @param usedReferralCode: The referral code used by the customer to signup.
@@ -39,8 +40,8 @@ class Customer {
       return new Promise((resolve, reject) => {
          const referralCode = generator.generateRandomToken(8);
          database.runSp(constants.SP_CREATE_CUSTOMER, [this._firstName, this._lastName,
-               this._email, false, this._phone, this._gender,
-               validators.validateString(usedReferralCode) ? usedReferralCode : false, referralCode])
+            this._email, false, this._phone, this._gender,
+            validators.validateString(usedReferralCode) ? usedReferralCode : false, referralCode])
             .then(_resultSet => {
                const result = _resultSet[0][0];
                this._id = result.id;
@@ -51,6 +52,7 @@ class Customer {
                   response[constants.CUSTOMER_LAST_NAME] = this._lastName;
                   response[constants.CUSTOMER_EMAIL] = this._email;
                   response[constants.CUSTOMER_PHONE_NUMBER] = this._phone;
+                  response[constants.AUTH_ROLE] = constants.ROLE_CUSTOMER;
                   response[constants.JW_TOKEN] = getToken(response);
                } else {
                   response[constants.CUSTOMER_ID] = -1;
@@ -62,24 +64,36 @@ class Customer {
          });
       });
    }
-   
+
    /**
     * Method to search for customers.
     * @returns {Promise<Array>}: The response code and the search result.
     */
    getCustomer() {
-      return new Promise((resolve, reject) => {
+      return new Promise(async (resolve, reject) => {
+         const cache = new Cache();
+         //Checking the cache.
+         if (this._id) {
+            const data = await cache.getData(constants.CUSTOMER_ID);
+            if (validators.validateUndefined(data)) {
+               return resolve([constants.RESPONSE_SUCESS_LEVEL_1, data]);
+            }
+         }
+         //If cache miss.
          database.runSp(constants.SP_GET_CUSTOMER, [this._id, this._email, this._phone])
             .then(_resultSet => {
                const result = _resultSet[0][0];
                resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+               if (validators.validateUndefined(result) && this._id) {
+                  cache.storeData(constants.CUSTOMER_ID, result);
+               }
             }).catch(err => {
             printer.printError(err);
             reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
          });
       });
    }
-   
+
    /**
     * Method to update the address of the customer.
     * @param address1: The address line 1 of the customer.
@@ -116,7 +130,7 @@ class Customer {
          }
       });
    }
-   
+
    /**
     * Method to update the customer details.
     * @param password: The password of the user.
@@ -128,7 +142,7 @@ class Customer {
          const tokenData = validateToken(jwToken);
          if (tokenData[constants.ID] === this._id) {
             database.runSp(constants.SP_UPDATE_CUSTOMER_DETAILS, [this._firstName, this._lastName, this._email,
-                  this._phone, password, this._id])
+               this._phone, password, this._id])
                .then(_resultSet => {
                   const result = _resultSet[0][0];
                   resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
@@ -141,7 +155,7 @@ class Customer {
          }
       });
    }
-   
+
    /**
     * Method to get the Customer address.
     * @param jwToken: The token of the user.

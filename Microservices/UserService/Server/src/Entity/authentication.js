@@ -6,7 +6,7 @@ const validators = require('./../Helpers/validators');
 
 const notificationManager = require('./../Helpers/notificationManager');
 
-const {getToken} = require('./../Services/jwTokenGenerator');
+const {getToken, validateToken} = require('./../Services/jwTokenGenerator');
 
 class Authentication {
    /**
@@ -25,7 +25,7 @@ class Authentication {
       this._email = validators.validateEmail(email) ? email : false;
       this._password = validators.validateString(password) ? password : false;
    }
-   
+
    /**
     * Method to validate the token.
     * @returns {Promise<Array>}: Response object and the response code.
@@ -47,11 +47,11 @@ class Authentication {
                reject([constants.ERROR_LEVEL_3, err]);
             });
          } else if (this._mobile) {
-         
+
          }
       });
    }
-   
+
    /**
     * Method to request a 2 factor OTP.
     * @returns {Promise<Array>}:
@@ -73,6 +73,30 @@ class Authentication {
          } catch (e) {
             printer.printError(e);
             reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+         }
+      });
+   }
+
+   /**
+    * Method to validate a JW Token.
+    * @param jwToken: The token to be validated.
+    * @returns {Promise<Array>}: The response level and response object.
+    */
+   validateToken(jwToken) {
+      return new Promise((resolve, reject) => {
+         try {
+            const tokenData = validateToken(jwToken);
+            let response = {};
+            if (validators.validateUndefined(tokenData)) {
+               response[constants.IS_VALID] = true;
+               response[constants.USER_DATA] = tokenData;
+               return resolve([constants.RESPONSE_SUCESS_LEVEL_1, response]);
+            }
+            response[constants.IS_VALID] = false;
+            resolve([constants.RESPONSE_SUCESS_LEVEL_1, response]);
+         } catch (e) {
+            printer.printError(e);
+            reject(e);
          }
       });
    }

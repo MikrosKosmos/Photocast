@@ -6,6 +6,8 @@ const validators = require('./../Helpers/validators');
 const tokenGenerator = require('./../Services/jwTokenGenerator');
 const s3Helper = require('./../Helpers/s3Helper');
 
+const CacheHelper = require('./../Helpers/cacheHelper');
+
 class Vendor {
    /**
     * _id
@@ -64,6 +66,7 @@ class Vendor {
                   response[constants.VENDOR_GENDER] = this._gender;
                   response[constants.VENDOR_EMAIL] = this._email;
                   response[constants.VENDOR_TYPE] = vendorType;
+                  response[constants.AUTH_ROLE] = constants.ROLE_VENDOR;
                   response[constants.VENDOR_BRAND_NAME] = brandName;
                   response[constants.JW_TOKEN] = tokenGenerator.getToken(response);
                   resolve([constants.RESPONSE_SUCESS_LEVEL_1, response]);
@@ -82,18 +85,36 @@ class Vendor {
     * @returns {Promise<Array>}: The response code and the response object.
     */
    getVendor() {
-      return new Promise((resolve, reject) => {
-         database.runSp(constants.SP_GET_VENDOR, [this._id, this._email, this._phone]).then(_resultSet => {
-            const result = _resultSet[0][0];
-            if (validators.validateUndefined(result)) {
-               resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
-            } else {
-               resolve([constants.RESPONSE_SUCESS_LEVEL_1, {"id": -1}]);
+      return new Promise(async (resolve, reject) => {
+         try {
+            //Checking the cache.
+            const cache = new CacheHelper();
+            if (this._id) {
+               const data = await cache.getData(constants.VENDOR_ID);
+               if (validators.validateUndefined(data)) {
+                  return resolve([constants.RESPONSE_SUCESS_LEVEL_1, data]);
+               }
             }
-         }).catch(err => {
-            printer.printError(err);
-            reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
-         });
+            //If cache miss.
+            database.runSp(constants.SP_GET_VENDOR, [this._id, this._email, this._phone]).then(_resultSet => {
+               const result = _resultSet[0][0];
+               if (validators.validateUndefined(result)) {
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+               } else {
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, {"id": -1}]);
+               }
+               //storing data in cache.
+               if (this._id) {
+                  cache.storeData(constants.VENDOR_ID, result);
+               }
+            }).catch(err => {
+               printer.printError(err);
+               reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);
+            });
+         } catch (e) {
+            printer.printError(e);
+            reject(e);
+         }
       });
    }
 

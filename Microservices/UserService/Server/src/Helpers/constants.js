@@ -46,6 +46,8 @@ constants.CONTENT_TYPE_JSON = "application/json";
  */
 constants.ROLE_ADMIN = "Admin";
 constants.ROLE_EMPLOYEE = "Employee";
+constants.ROLE_CUSTOMER = "tbl_CustomerMaster";
+constants.ROLE_VENDOR = "tbl_VendorMaster";
 
 /**
  * Request Keys.
@@ -243,6 +245,7 @@ constants.AUTH_EMAIL = "email_id";
 constants.AUTH_PASSWORD = "password";
 constants.AUTH_PHONE = "phone_number";
 constants.AUTH_OTP = "otp";
+constants.AUTH_ROLE = "role";
 
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";

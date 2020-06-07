@@ -16,6 +16,14 @@ generator.generateParsedJSON = (data) => {
    }
 };
 /**
+ * Method to serialize JSON data to string.
+ * @param data: The data to be serialized.
+ * @returns {string}: The string data.
+ */
+generator.generateSerializedJSON = (data) => {
+   return JSON.stringify(data);
+};
+/**
  * Method to get any random number of any length. If the length
  * is not there then it would assume the length as 8.
  * @param len: the length of the random number required.
