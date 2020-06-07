@@ -25,7 +25,7 @@ vendorHandler.vendor = (dataObject) => {
          if (jwToken && (vendorId || email || phone)) {
             const vendor = new Vendor(vendorId, false, false, false, phone, email);
             vendor.getVendor().then(vendorDetails => {
-               resolve(vendorDetails[1], vendorDetails[0]);
+               resolve(responseGenerator.generateResponse(vendorDetails[1], vendorDetails[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -58,20 +58,20 @@ vendorHandler.vendor = (dataObject) => {
             dataObject.postData[constants.VENDOR_CITY] : false;
          const gpsLat = validator.validateNumber(dataObject.postData[constants.VENDOR_GPS_LAT]) ?
             dataObject.postData[constants.VENDOR_GPS_LAT] : false;
-         const gpsLong = validator.validateNumber(dataObject.postData[constants.VENDOR_GPS_LAT]) ?
-            dataObject.postData[constants.VENDOR_GPS_LAT] : false;
+         const gpsLong = validator.validateNumber(dataObject.postData[constants.VENDOR_GPS_LONG]) ?
+            dataObject.postData[constants.VENDOR_GPS_LONG] : false;
          const documentType = validator.validateString(dataObject.postData[constants.DOCUMENT_TYPE]) ?
             dataObject.postData[constants.DOCUMENT_TYPE] : false;
          const documentNumber = validator.validateString(dataObject.postData[constants.DOCUMENT_ID_NUMBER]) ?
             dataObject.postData[constants.DOCUMENT_ID_NUMBER] : false;
          const password = validator.validateString(dataObject.postData[constants.VENDOR_PASSWORD]) ?
             dataObject.postData[constants.VENDOR_PASSWORD] : false;
-         if (firstName && lastName && gender && phone && email && vendorType && brandName && address1 && address2
+         if (firstName && lastName && gender && phone && email && vendorType && address1 && address2
             && cityId && pinCode && gpsLat && gpsLong && documentType && documentNumber) {
             const vendor = new Vendor(false, firstName, lastName, gender, phone, email);
             vendor.createVendor(vendorType, brandName, address1, address2, cityId, pinCode, gpsLat, gpsLong, "",
                documentType, documentNumber, password).then(response => {
-               resolve(response[1], response[0]);
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -109,7 +109,7 @@ vendorHandler.vendor = (dataObject) => {
             const vendor = new Vendor(vendorId, false, false, false, phone, email);
             vendor.updateVendor(password, brandName, address1, address2, pinCode, cityId, gpsLat,
                gpsLong, jwToken).then(response => {
-               resolve(response[1], response[0]);
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -138,7 +138,7 @@ vendorHandler.details = (dataObject) => {
          if (vendorId && jwToken) {
             const vendor = new Vendor(vendorId);
             vendor.getBankDetails(jwToken).then(response => {
-               resolve(response[1], response[0]);
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -163,8 +163,8 @@ vendorHandler.details = (dataObject) => {
             dataObject[constants.JW_TOKEN] : false;
          if (accountHolderName && accountNumber && bankName && ifscCode && jwToken) {
             const vendor = new Vendor(vendorId);
-            vendor.updateBankDetails(accountHolderName, bankName, ifscCode, contactNumber, jwToken).then(response => {
-               resolve(response[1], response[0]);
+            vendor.updateBankDetails(accountHolderName, accountNumber, bankName, ifscCode, contactNumber, jwToken).then(response => {
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -197,7 +197,7 @@ vendorHandler.images = (dataObject) => {
          if (vendorId && imageType && jwToken) {
             const vendor = new Vendor(vendorId);
             vendor.getImages(imageType, jwToken).then(response => {
-               resolve(response[1], response[0]);
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
@@ -220,7 +220,7 @@ vendorHandler.images = (dataObject) => {
          if (vendorId && jwToken && imageData && imageType && fileExtension) {
             const vendor = new Vendor(vendorId);
             vendor.uploadPictures(imageData, imageType, fileExtension).then(response => {
-               resolve(response[1], response[0]);
+               resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));

@@ -131,18 +131,19 @@ class Vendor {
    /**
     * Method to create or update the bank details of the vendor.
     * @param accountHolderName: The account holder name.
+    * @param accountNumber: the account number of the user.
     * @param bankName: The bank name.
     * @param ifscCode: The IFSC Code.
     * @param contactNumber: The number of the vendor.
     * @param jwToken: the Jw token.
     * @returns {Promise<Array>}: The response code and the object.
     */
-   updateBankDetails(accountHolderName, bankName, ifscCode, contactNumber, jwToken) {
+   updateBankDetails(accountHolderName, accountNumber, bankName, ifscCode, contactNumber, jwToken) {
       return new Promise((resolve, reject) => {
          const token = tokenGenerator.validateToken(jwToken);
          if (token[constants.ID] === this._id) {
             database.runSp(constants.SP_BANK_DETAILS, [this._id, "tbl_VendorMaster", accountHolderName,
-               bankName, ifscCode, contactNumber, "", 0, 1]).then(_resultSet => {
+               accountNumber, bankName, ifscCode, contactNumber, "", 0, 1]).then(_resultSet => {
                resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0][0]]);
             }).catch(err => {
                printer.printError(err);
