@@ -131,6 +131,10 @@ constants.DB_HOST_KEY = "DB_HOST";
 constants.DB_PASSWORD_KEY = "DB_PASSWORD";
 constants.REDIS_PORT = "redis_port";
 constants.REDIS_HOST = "redis_host";
+constants.AWS_DOCUMENTS_BUCKET = "photocast-documents";
+constants.AWS_IMAGES_BUCKET = "photocast-images";
+constants.IMAGES_BASE_URL = "https://photocast-images.s3.ap-south-1.amazonaws.com/";
+constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazonaws.com/";
 
 /**
  * SP Names.
@@ -144,6 +148,13 @@ constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
 constants.SP_UPDATE_CUSTOMER_DETAILS = "sp_UpdateCustomerDetails";
 constants.SP_OTP_CREATE_CHECK = "sp_OtpCreateCheck";
 constants.SP_GET_CUSTOMER_ADDRESS = "sp_GetCustomerAddress";
+constants.SP_CREATE_VENDOR = "sp_CreateVendor";
+constants.SP_GET_VENDOR = "sp_GetVendorDetails";
+constants.SP_UPDATE_VENDOR = "sp_UpdateVendorDetails";
+constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
+constants.SP_VENDOR_UPDATE_IMAGE = "sp_UpdateImages";
+constants.SP_GET_BANK_DETAILS = "sp_GetBankDetails";
+constants.SP_GET_VENDOR_IMAGES = "sp_GetImages";
 
 /**
  * Column Names
@@ -180,7 +191,7 @@ constants.OTP = "otp";
 constants.VENDOR_ID = "vendor_id";
 constants.VENDOR_FIRST_NAME = "first_name";
 constants.VENDOR_LAST_NAME = "last_name";
-constants.VENDOR_EMAIL = "email";
+constants.VENDOR_EMAIL = "email_id";
 constants.VENDOR_PASSWORD = "password";
 constants.VENDOR_PHONE_NUMBER = "phone_number";
 constants.VENDOR_GENDER = "gender";
@@ -190,8 +201,33 @@ constants.VENDOR_CITY = "city";
 constants.VENDOR_STATE = "state";
 constants.VENDOR_COUNTRY = "country";
 constants.VENDOR_PINCODE = "pincode";
+constants.VENDOR_GPS_LAT = "gps_lat";
+constants.VENDOR_GPS_LONG = "gps_long";
+constants.VENDOR_TYPE = "vendor_type";
+constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
+
+constants.BANK_ACCOUNT_HOLDER_ID = "holder_id";
+constants.BANK_ACCOUNT_HOLDER_TYPE = "holder_type";
+constants.BANK_ACCOUNT_HOLDER_NAME = "holder_name";
+constants.BANK_ACCOUNT_ACCOUNT_NUMBER = "account_number";
+constants.BANK_ACCOUNT_BANK_NAME = "bank_name";
+constants.BANK_ACCOUNT_IFSC_CODE = "ifsc_code";
+constants.BANK_ACCOUNT_CONTACT_NUMBER = "contact_number";
+constants.BANK_ACCOUNT_PAYMENT_GATEWAY_ID = "payment_gateway_account_id";
+constants.BANK_ACCOUNT_IS_UPDATE = "is_update";
+
+constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
+constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
+constants.VENDOR_IMAGE_DATA = "image_data";
+constants.VENDOR_IMAGES_IMAGE_KEY = "image_key";
+constants.VENDOR_IMAGES_BASE_URL = "base_url";
+constants.VENDOR_IMAGE_POSITION = "position";
+constants.IMAGE_TYPE_DP = "DP";
+constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
+constants.IMAGE_TYPE_PET = "PET";
+constants.FILE_EXTENSION = "file_extension";
 
 constants.DOCUMENT_HOLDER_ID = "document_holder_id";
 constants.DOCUMENT_HOLDER_TYPE = "document_holder_type";
@@ -211,9 +247,6 @@ constants.AUTH_OTP = "otp";
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";
 constants.CITY_STATE_ID = "state_id";
-
-constants.BREED_PET_TYPE = "pet_type";
-
 /**
  * exporting the constants.
  */

@@ -37,6 +37,18 @@ begin
             );
         end;
     end if;
+    if not exists(
+            select 1
+            from information_schema.COLUMNS
+            where TABLE_SCHEMA = currentSchema
+              and TABLE_NAME = 'tbl_VendorMaster'
+              and COLUMN_NAME = 'profile_image'
+        ) then
+        begin
+            alter table tbl_VendorMaster
+                add column profile_image varchar(255) default null after gps_long;
+        end;
+    end if;
 end;
 call sp_tbl_VendorMaster();
 drop procedure if exists sp_tbl_VendorMaster;

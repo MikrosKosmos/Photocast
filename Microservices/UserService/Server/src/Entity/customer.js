@@ -46,7 +46,7 @@ class Customer {
                this._id = result.id;
                let response = {};
                if (this._id > 0) {
-                  response[constants.CUSTOMER_ID] = this._id;
+                  response[constants.ID] = this._id;
                   response[constants.CUSTOMER_FIRST_NAME] = this._firstName;
                   response[constants.CUSTOMER_LAST_NAME] = this._lastName;
                   response[constants.CUSTOMER_EMAIL] = this._email;
