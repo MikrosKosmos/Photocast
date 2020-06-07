@@ -207,6 +207,16 @@ constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
 
+constants.BANK_ACCOUNT_HOLDER_ID = "holder_id";
+constants.BANK_ACCOUNT_HOLDER_TYPE = "holder_type";
+constants.BANK_ACCOUNT_HOLDER_NAME = "holder_name";
+constants.BANK_ACCOUNT_ACCOUNT_NUMBER = "account_number";
+constants.BANK_ACCOUNT_BANK_NAME = "bank_name";
+constants.BANK_ACCOUNT_IFSC_CODE = "ifsc_code";
+constants.BANK_ACCOUNT_CONTACT_NUMBER = "contact_number";
+constants.BANK_ACCOUNT_PAYMENT_GATEWAY_ID = "payment_gateway_account_id";
+constants.BANK_ACCOUNT_IS_UPDATE = "is_update";
+
 constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
 constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
 constants.VENDOR_IMAGE_DATA = "image_data";

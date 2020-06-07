@@ -131,9 +131,47 @@ vendorHandler.details = (dataObject) => {
    return new Promise((resolve, reject) => {
       const method = dataObject.method;
       if (method === constants.HTTP_GET) {
-         //TODO:Get the bank details.
+         const vendorId = validator.validateNumber(dataObject.queryString[constants.VENDOR_ID]) ?
+            dataObject.queryString[constants.VENDOR_ID] : false;
+         const jwToken = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (vendorId && jwToken) {
+            const vendor = new Vendor(vendorId);
+            vendor.getBankDetails(jwToken).then(response => {
+               resolve(response[1], response[0]);
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else if (method === constants.HTTP_PUT) {
-
+         const accountHolderName = validator.validateString(dataObject.postData[constants.BANK_ACCOUNT_HOLDER_NAME]) ?
+            dataObject.postData[constants.BANK_ACCOUNT_HOLDER_NAME] : false;
+         const accountNumber = validator.validateUndefined(dataObject.postData[constants.BANK_ACCOUNT_ACCOUNT_NUMBER]) ?
+            dataObject.postData[constants.BANK_ACCOUNT_ACCOUNT_NUMBER] : false;
+         const bankName = validator.validateString(dataObject.postData[constants.BANK_ACCOUNT_BANK_NAME]) ?
+            dataObject.postData[constants.BANK_ACCOUNT_BANK_NAME] : false;
+         const ifscCode = validator.validateString(dataObject.postData[constants.BANK_ACCOUNT_IFSC_CODE]) ?
+            dataObject.postData[constants.BANK_ACCOUNT_IFSC_CODE] : false;
+         const contactNumber = validator.validatePhone(dataObject.postData[constants.BANK_ACCOUNT_CONTACT_NUMBER]) ?
+            dataObject.postData[constants.BANK_ACCOUNT_CONTACT_NUMBER] : false;
+         const vendorId = validator.validateNumber(dataObject.postData[constants.VENDOR_ID]) ?
+            dataObject.postData[constants.VENDOR_ID] : false;
+         const jwToken = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
+            dataObject[constants.JW_TOKEN] : false;
+         if (accountHolderName && accountNumber && bankName && ifscCode && jwToken) {
+            const vendor = new Vendor(vendorId);
+            vendor.updateBankDetails(accountHolderName, bankName, ifscCode, contactNumber, jwToken).then(response => {
+               resolve(response[1], response[0]);
+            }).catch(err => {
+               printer.printError(err);
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
       } else {
          reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
       }
