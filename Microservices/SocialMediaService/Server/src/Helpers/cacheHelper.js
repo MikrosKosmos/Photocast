@@ -63,6 +63,5 @@ class Cache {
 
 /**
  * Exporting the Cache
- * @type {Cache}
  */
 module.exports = Cache;

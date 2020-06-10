@@ -141,7 +141,8 @@ constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazon
 /**
  * SP Names.
  */
-
+constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
+constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
 
 /**
  * Column Names
