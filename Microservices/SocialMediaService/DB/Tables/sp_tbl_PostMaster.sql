@@ -14,6 +14,8 @@ begin
             (
                 id               int auto_increment primary key         not null,
                 vendor_id        int                                    not null,
+                first_name       varchar(255)                           not null,
+                last_name        varchar(255)                           not null,
                 post_description varchar(255) default null,
                 image_url        varchar(255)                           not null,
                 like_count       int          default 0,

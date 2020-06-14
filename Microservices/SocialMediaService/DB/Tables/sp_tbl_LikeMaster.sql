@@ -15,6 +15,8 @@ begin
                 id          int primary key auto_increment      not null,
                 post_id     int                                 not null,
                 user_id     int                                 not null,
+                first_name  varchar(255)                        not null,
+                last_name   varchar(255)                        not null,
                 role        varchar(100)                        not null,
                 is_active   tinyint   default 1                 not null,
                 created_by  int                                 not null,

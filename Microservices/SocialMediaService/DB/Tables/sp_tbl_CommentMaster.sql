@@ -14,6 +14,8 @@ begin
             (
                 id          int primary key auto_increment      not null,
                 post_id     int                                 not null,
+                first_name  varchar(255)                        not null,
+                last_name   varchar(255)                        not null,
                 user_id     int                                 not null,
                 role        varchar(100)                        not null,
                 comment     text      default null,

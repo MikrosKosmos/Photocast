@@ -11,6 +11,7 @@ begin
       and user_id = parUserId
       and role = parRole;
     if @isExists > 0 then
+        #If it exists, liking or unliking the post.
         update tbl_LikeMaster
         set modified=now(),
             modified_by=parUserId,
@@ -25,6 +26,7 @@ begin
           and role = parRole;
         select @isExists as id;
     else
+        #Creating new like data.
         insert into tbl_LikeMaster(post_id, user_id, role, is_active, created_by)
             value (parPostId, parUserId, parRole, 1, parUserId);
         select last_insert_id() as id;
