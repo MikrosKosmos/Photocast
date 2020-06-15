@@ -1,5 +1,6 @@
 drop procedure if exists sp_LikeUnlikePost;
-create procedure sp_LikeUnlikePost(parPostId int, parUserId int, parRole varchar(100))
+create procedure sp_LikeUnlikePost(parPostId int, parUserId int, parFirstName varchar(255), parLastName varchar(255),
+                                   parRole varchar(100))
 begin
     set @isExists = 0;
     set @activeValue = 0;
@@ -27,8 +28,8 @@ begin
         select @isExists as id;
     else
         #Creating new like data.
-        insert into tbl_LikeMaster(post_id, user_id, role, is_active, created_by)
-            value (parPostId, parUserId, parRole, 1, parUserId);
+        insert into tbl_LikeMaster(post_id, user_id, first_name, last_name, role, is_active, created_by)
+            value (parPostId, parUserId, parFirstName, parLastName, parRole, 1, parUserId);
         select last_insert_id() as id;
     end if;
 end;
