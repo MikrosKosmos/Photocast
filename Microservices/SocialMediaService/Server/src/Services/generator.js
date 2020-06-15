@@ -1,5 +1,6 @@
 const validator = require('./../Helpers/validators');
 const constants = require('./../Helpers/constants');
+const printer = require('./../Helpers/printer');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const generator = {};
@@ -163,6 +164,34 @@ generator.generateNumberParams = (params) => {
       return "";
    } catch (e) {
       return "";
+   }
+};
+/**
+ * Method to generate the query string params for a URL.
+ * @param url: The base url.
+ * @param params: The array containing the parameters to be added as key and value.
+ * @returns {null|string}: Returns the string URL with the params appended, else null.
+ */
+generator.generateQueryURL = (url, params) => {
+   try {
+      url = url.replace("?", "");
+      if (params.length > 0) {
+         const queryParams = new URLSearchParams();
+         params.forEach(oneParam => {
+            const key = Object.keys(oneParam)[0];
+            const value = oneParam[key];
+            queryParams.append(key, value);
+         });
+         printer.printLog(queryParams.toString());
+         let stringUrl = url.endsWith("/") ? url : url + "/";
+         stringUrl = stringUrl.concat("?");
+         let urlParams = queryParams.toString();
+         return stringUrl + urlParams;
+      } else
+         return url;
+   } catch (e) {
+      printer.printError(e);
+      return null;
    }
 };
 /**

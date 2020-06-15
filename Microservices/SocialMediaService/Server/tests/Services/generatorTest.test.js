@@ -11,3 +11,11 @@ test("should Generate Ahead time correctly", () => {
 test("Should generate current time", () => {
    expect(generator.generateCurrentTime()).toBe("");
 });
+test("should generate Query String", () => {
+   expect(generator.generateQueryURL("http://localhost:7000", [{
+      vendor_id: 1
+   },
+      {
+         otp: 1234
+      }])).toBe("http://localhost:7000/?vendor_id=1&otp=1234");
+});

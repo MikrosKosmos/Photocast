@@ -143,7 +143,12 @@ constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazon
  */
 constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
 constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
-
+constants.SP_CREATE_POST = "sp_CreatePost";
+constants.SP_GET_POST = "sp_GetPosts";
+constants.SP_CREATE_COMMENT = "sp_CreateComment";
+constants.SP_GET_COMMENT = "sp_GetComments";
+constants.SP_GET_LIKES = "sp_GetLikes";
+constants.SP_LIKE_UNLIKE = "sp_LikeUnlikePost";
 /**
  * Column Names
  */
@@ -196,15 +201,6 @@ constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
 
-constants.BANK_ACCOUNT_HOLDER_ID = "holder_id";
-constants.BANK_ACCOUNT_HOLDER_TYPE = "holder_type";
-constants.BANK_ACCOUNT_HOLDER_NAME = "holder_name";
-constants.BANK_ACCOUNT_ACCOUNT_NUMBER = "account_number";
-constants.BANK_ACCOUNT_BANK_NAME = "bank_name";
-constants.BANK_ACCOUNT_IFSC_CODE = "ifsc_code";
-constants.BANK_ACCOUNT_CONTACT_NUMBER = "contact_number";
-constants.BANK_ACCOUNT_PAYMENT_GATEWAY_ID = "payment_gateway_account_id";
-constants.BANK_ACCOUNT_IS_UPDATE = "is_update";
 
 constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
 constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
@@ -214,13 +210,7 @@ constants.VENDOR_IMAGES_BASE_URL = "base_url";
 constants.VENDOR_IMAGE_POSITION = "position";
 constants.IMAGE_TYPE_DP = "DP";
 constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
-constants.IMAGE_TYPE_PET = "PET";
 constants.FILE_EXTENSION = "file_extension";
-
-constants.DOCUMENT_HOLDER_ID = "document_holder_id";
-constants.DOCUMENT_HOLDER_TYPE = "document_holder_type";
-constants.DOCUMENT_TYPE = "document_type";
-constants.DOCUMENT_ID_NUMBER = "document_id_number";
 
 constants.API_PATH = "path";
 constants.API_LOGGER_TOKEN = "api_token";
@@ -236,6 +226,27 @@ constants.AUTH_ROLE = "role";
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";
 constants.CITY_STATE_ID = "state_id";
+
+constants.POST_VENDOR_ID = "vendor_id";
+constants.POST_FIRST_NAME = "first_name";
+constants.POST_LAST_NAME = "last_name";
+constants.POST_POST_DESCRIPTION = "post_description";
+constants.POST_IMAGE_URL = "image_url";
+constants.POST_LIKE_COUNT = "like_count";
+constants.POST_COMMENMT_COUNT = "comment_count";
+
+constants.COMMENT_POST_ID = "post_id";
+constants.COMMENT_FIRST_NAME = "first_name";
+constants.COMMENT_LAST_NAME = "last_name";
+constants.COMMENT_USER_ID = "user_id";
+constants.COMMENT_ROLE = "role";
+constants.COMMENT_COMMENT = "comment";
+
+constants.LIKE_POST_ID = "post_id";
+constants.LIKE_USER_ID = "user_id";
+constants.LIKE_FIRST_NAME = "first_name";
+constants.LIKE_LAST_NAME = "last_name";
+constants.LIKE_ROLE = "role";
 /**
  * exporting the constants.
  */

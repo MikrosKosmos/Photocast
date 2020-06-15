@@ -11,3 +11,9 @@ test("Should validate Null in undefined check", () => {
 test("Should validate decimal numbers", () => {
    expect(validators.validateNumber(100.23)).toBe(true);
 });
+test("should validate a correct url", () => {
+   expect(validators.validateURL("http://google.com")).toBe(true);
+});
+test("should validate an incorrect url", () => {
+   expect(validators.validateURL("http//google.com")).toBe(false);
+});

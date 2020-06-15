@@ -102,6 +102,20 @@ validator.validateJSON = (data) => {
    }
 };
 /**
+ * Method to validate a url.
+ * @param url: The URL to be validated.
+ * @returns {boolean}: true, if valid, else false.
+ */
+validator.validateURL = (url) => {
+   try {
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname;
+      return validator.validateString(domain);
+   } catch (e) {
+      return false;
+   }
+};
+/**
  * exporting validator.
  */
 module.exports = validator;
