@@ -1,6 +1,5 @@
 const validator = require('./../Helpers/validators');
 const constants = require('./../Helpers/constants');
-const printer = require('./../Helpers/printer');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const generator = {};
@@ -182,16 +181,14 @@ generator.generateQueryURL = (url, params) => {
             const value = oneParam[key];
             queryParams.append(key, value);
          });
-         printer.printLog(queryParams.toString());
-         let stringUrl = url.endsWith("/") ? url : url + "/";
+         let stringUrl = url;
          stringUrl = stringUrl.concat("?");
          let urlParams = queryParams.toString();
          return stringUrl + urlParams;
       } else
          return url;
    } catch (e) {
-      printer.printError(e);
-      return null;
+      return url;
    }
 };
 /**
