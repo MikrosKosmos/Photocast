@@ -10,8 +10,8 @@ class Cache {
     * _client
     */
    constructor() {
-      this._client = redis.createClient(config[constants.REDIS_PORT],
-         encrypterDecrypter.decrypt(process.env[constants.REDIS_HOST]));
+      /* this._client = redis.createClient(config[constants.REDIS_PORT],
+          encrypterDecrypter.decrypt(process.env[constants.REDIS_HOST]));*/
    }
 
    /**

@@ -2,6 +2,7 @@ const constants = require('./constants');
 const config = require("./config");
 const crypto = require("crypto");
 const encryptDecrypt = {};
+require('dotenv').config();
 /**
  * Method to encrypt the data.
  * @param dataToBeEncrypted: The Data to be encrypted.

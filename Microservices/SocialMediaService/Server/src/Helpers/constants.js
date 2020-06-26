@@ -139,6 +139,15 @@ constants.IMAGES_BASE_URL = "https://photocast-images.s3.ap-south-1.amazonaws.co
 constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazonaws.com/";
 
 /**
+ * Microservice URLs.
+ */
+constants.API_AUTH_KEY = "key";
+constants.MICROSERVICE_AUTH_KEY_VALUE = "api_auth";
+constants.USER_SERVICE_HOST = "192.168.0.103";
+constants.USER_SERVICE_PORT = 6001;
+constants.USER_SERVICE_VALIDATE_TOKEN_PATH = "/auth/token";
+
+/**
  * SP Names.
  */
 constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
@@ -202,12 +211,12 @@ constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
 
 
-constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
-constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
-constants.VENDOR_IMAGE_DATA = "image_data";
-constants.VENDOR_IMAGES_IMAGE_KEY = "image_key";
-constants.VENDOR_IMAGES_BASE_URL = "base_url";
-constants.VENDOR_IMAGE_POSITION = "position";
+constants.POST_IMAGES_VENDOR_ID = "vendor_id";
+constants.POST_IMAGES_IMAGE_TYPE = "image_type";
+constants.POST_IMAGE_DATA = "image_data";
+constants.POST_IMAGES_IMAGE_KEY = "image_key";
+constants.POST_IMAGES_BASE_URL = "base_url";
+constants.POST_IMAGE_POSITION = "position";
 constants.IMAGE_TYPE_DP = "DP";
 constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
 constants.FILE_EXTENSION = "file_extension";

@@ -1,0 +1,10 @@
+const Post = require('./../../src/Entity/post');
+test("should validate a user", () => {
+
+   const post = new Post(false, false, false, false, "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IktvdXN0YXYiLCJsYXN0X25hbWUiOiJCYW5lcmplZSIsInJvbGUiOiJ0YmxfVmVuZG9yTWFzdGVyIiwiZW1haWxfaWQiOiJwcm9ub3lAZmx5Y2FzdC5pbyIsInBob25lX251bWJlciI6Iis5MTk4NzQwNDU4MTUiLCJnZW5kZXIiOiJGIiwidmVuZG9yX3R5cGUiOiJQRVJTT05BTCIsImNvbXBhbnlfYnJhbmRfbmFtZSI6IiIsImFkZHJlc3NfMSI6IlAgMjQgbmV3IFRQIFJvYWQiLCJhZGRyZXNzXzIiOiJTYXJzdW5hIiwiY2l0eV9pZCI6ODkzLCJwaW5jb2RlIjo3MDAwNjEsImdwc19sYXQiOjIwMywiZ3BzX2xvbmciOjgwLjQ1LCJzdGF0dXNfaWQiOjEsInN0YXR1c19uYW1lIjoiUGVuZGluZyIsInVzZWRfcmVmZXJyYWxfY29kZSI6IiIsInJlZmVycmFsX2NvZGUiOiJpQTBKZTV3UVFxUjEzdlJBIiwiaWF0IjoxNTkzMTc4OTM3LCJleHAiOjE1OTM1MjQ1Mzd9.bTjuZDc1zTdFcMoRnNLR2V-W8SCEfqUqIKxI57cCakRGzJlsBYNvOX7v8d4GQCk9-GGskwp2MMrOhqXunlP9c1S7lolDXtTOl9KawecBp2eKyQHoT2seLfShQyZMzNWRPuqx1xTwaFVGe5jxJx1hGhXu7v3YoTO3P8Zcnn3DA3NDLvkd0krhZzsoKe3LP4vfnv40onny1el4EHUBb3UErFxn9AiQxIT2z6OCG9Ryso3BILH4pP043EQNVGNmFVd7iKq2Qa1QmX9kTwKILNKZYDW3mS92AOcDxNNCSWmvjUgWPYmt_dn6dt7Y6fLKKkLRIYyrRLNlqIfZS17CjGqlXw");
+   post.validateUserToken().then(response => {
+      console.log(response);
+   }).catch(err => {
+      console.error(err);
+   });
+});

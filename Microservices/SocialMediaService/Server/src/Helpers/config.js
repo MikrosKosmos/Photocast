@@ -8,7 +8,7 @@ config[constants.REDIS_PORT] = 6100;
  */
 config.databasePort = 3306;
 config.databaseUserName = "photocast";
-config.databaseName = "user";
+config.databaseName = "social_media";
 
 /**
  * Encryption constants

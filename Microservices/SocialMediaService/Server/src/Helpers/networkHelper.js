@@ -13,20 +13,23 @@ class NetworkHelper {
     * _queryParams
     * _body
     * _headers
+    * _port
     * @param hostName
     * @param path
     * @param method
     * @param queryParams
     * @param body
     * @param headers
+    * @param port
     */
-   constructor(hostName, path, method, queryParams, body, headers) {
+   constructor(hostName, path, method, queryParams, body, headers, port) {
       this._hostName = validators.validateString(hostName) ? hostName : false;
       this._path = validators.validateString(path) ? path : false;
       this._method = validators.validateString(method) ? method : false;
       this._queryParams = validators.validateArray(queryParams) ? queryParams : false;
-      this._body = validators.validateJSON(body) ? body : false;
+      this._body = validators.validateUndefined(body) ? body : false;
       this._headers = validators.validateUndefined(headers) ? headers : false;
+      this._port = validators.validateNumber(port) ? port : 80;
    }
 
    /**
@@ -42,6 +45,7 @@ class NetworkHelper {
             hostname: this._hostName,
             method: this._method,
             path: this._path,
+            port: this._port,
             headers: this._headers
          };
          let responseBody = "";
