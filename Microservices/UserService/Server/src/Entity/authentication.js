@@ -104,6 +104,5 @@ class Authentication {
 
 /**
  * Exporting the authentication module.
- * @type {Authentication}
  */
 module.exports = Authentication;

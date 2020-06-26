@@ -180,6 +180,5 @@ class Customer {
 
 /**
  * Exporting the customer.
- * @type {Customer}
  */
 module.exports = Customer;

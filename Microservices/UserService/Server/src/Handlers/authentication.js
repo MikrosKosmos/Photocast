@@ -59,7 +59,7 @@ authHandler.token = (dataObject) => {
             dataObject.postData[constants.JW_TOKEN] : false;
          if (token) {
             const auth = new Authentication();
-            auth.validateToken(token).then(response => {
+            auth.validateToken(token).then(result => {
                resolve(responseGenerator.generateResponse(result[1], result[0]));
             }).catch(() => {
                reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
