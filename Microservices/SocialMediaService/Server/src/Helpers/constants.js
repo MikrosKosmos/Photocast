@@ -131,11 +131,12 @@ constants.ENV_KEY = "ENV";
 constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
 constants.DB_HOST_KEY = "DB_HOST";
 constants.DB_PASSWORD_KEY = "DB_PASSWORD";
+constants.POST_KEY = "posts";
 constants.REDIS_PORT = "redis_port";
 constants.REDIS_HOST = "redis_host";
 constants.AWS_DOCUMENTS_BUCKET = "photocast-documents";
 constants.AWS_IMAGES_BUCKET = "photocast-images";
-constants.IMAGES_BASE_URL = "https://photocast-images.s3.ap-south-1.amazonaws.com/";
+constants.IMAGES_BASE_URL = "http://d2ny24002bjs2x.cloudfront.net/";
 constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazonaws.com/";
 
 /**
@@ -220,6 +221,9 @@ constants.POST_IMAGE_POSITION = "position";
 constants.IMAGE_TYPE_DP = "DP";
 constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
 constants.FILE_EXTENSION = "file_extension";
+constants.POST_INITIAL_VALUE = "initial_value";
+constants.POST_LIMIT = "post_limit";
+constants.POST_IS_SELF = "isSelf";
 
 constants.API_PATH = "path";
 constants.API_LOGGER_TOKEN = "api_token";

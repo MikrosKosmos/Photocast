@@ -89,7 +89,29 @@ class Post {
                resolve([constants.RESPONSE_SUCESS_LEVEL_1, {id: -1}]);
             }
          }).catch(err => {
-            reject([constants.ERROR_LEVEL_3, err]);
+            reject([constants.ERROR_LEVEL_4, err]);
+         });
+      });
+   }
+
+   /**
+    * Method to get the posts
+    * @param initialValue
+    * @param limit
+    * @param isSelf
+    * @returns {Promise<unknown>}
+    */
+   getPosts(initialValue, limit, isSelf) {
+      return new Promise(async (resolve, reject) => {
+         this._validateUserToken().then(() => {
+            database.runSp(constants.SP_GET_POST, [initialValue, limit, isSelf, this._vendorId])
+               .then(_resultSet => {
+                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, _resultSet[0]]);
+               }).catch(err => {
+               printer.printError([constants.ERROR_LEVEL_3, err]);
+            });
+         }).catch(err => {
+            reject([constants.ERROR_LEVEL_4, err]);
          });
       });
    }

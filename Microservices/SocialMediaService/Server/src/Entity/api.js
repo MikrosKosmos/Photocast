@@ -24,7 +24,7 @@ class Api {
             const cache = new Cache();
             const token = await cache.getData(constants.API_TOKEN_KEY);
             if (token === this._token) {
-               resolve(true);
+               return resolve(true);
             } else {
                database.runSp(constants.SP_CHECK_API_TOKEN, [this._token]).then(async _resultSet => {
                   const result = _resultSet[0][0];

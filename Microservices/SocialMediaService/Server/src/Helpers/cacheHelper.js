@@ -10,8 +10,8 @@ class Cache {
     * _client
     */
    constructor() {
-      /* this._client = redis.createClient(config[constants.REDIS_PORT],
-          encrypterDecrypter.decrypt(process.env[constants.REDIS_HOST]));*/
+      this._client = redis.createClient(config[constants.REDIS_PORT],
+         encrypterDecrypter.decrypt(process.env[constants.REDIS_HOST]));
    }
 
    /**
@@ -27,6 +27,30 @@ class Cache {
          } else {
             value = generator.generateSerializedJSON(value);
             this._client.set(key, value, (err, reply) => {
+               if (err) {
+                  printer.printError(err);
+                  reject(err);
+               } else {
+                  resolve(true);
+               }
+            });
+         }
+      });
+   }
+
+   /**
+    *
+    * @param key
+    * @param value
+    * @param expireAfterHours
+    */
+   storeDataWithExpire(key, value, expireAfterHours) {
+      return new Promise((resolve, reject) => {
+         if (process.env[constants.ENV_KEY] === constants.ENV_DEVELOPMENT) {
+            resolve(true);
+         } else {
+            value = generator.generateSerializedJSON(value);
+            this._client.set(key, value, 'EX', expireAfterHours * 60 * 60, (err, reply) => {
                if (err) {
                   printer.printError(err);
                   reject(err);
