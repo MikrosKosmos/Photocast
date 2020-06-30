@@ -5,8 +5,7 @@ const generator = require('./../Services/generator');
 const validators = require('./../Helpers/validators');
 const encrypterDecrypter = require('./../Helpers/encrypterDecrypter');
 const s3Helper = require('./../Helpers/s3Helper');
-
-const NetworkHelper = require('./../Helpers/networkHelper');
+const tokenValidator = require('./../Helpers/tokenValidation');
 
 class Post {
    /**
@@ -36,21 +35,9 @@ class Post {
     */
    _validateUserToken() {
       return new Promise((resolve, reject) => {
-         const headers = {}, body = {};
-         headers[constants.API_AUTH_KEY] = encrypterDecrypter.decrypt(process.env[constants.MICROSERVICE_AUTH_KEY_VALUE]);
-         body[constants.JW_TOKEN] = this._token;
-         const networkHelper = new NetworkHelper(constants.USER_SERVICE_HOST, constants.USER_SERVICE_VALIDATE_TOKEN_PATH,
-            constants.HTTP_POST, null, body, headers, constants.USER_SERVICE_PORT);
-         networkHelper.request().then(response => {
-            const isValid = response[constants.RESPONSE_KEY][constants.IS_VALID];
-            if (isValid) {
-               this._vendorId = response[constants.RESPONSE_KEY][constants.USER_DATA][constants.ID];
-               resolve(response[constants.RESPONSE_KEY][constants.USER_DATA]);
-            } else {
-               reject(false);
-            }
+         tokenValidator.validateToken(this._token).then(userData => {
+            resolve(userData);
          }).catch(err => {
-            printer.printError(err);
             reject(err);
          });
       });
