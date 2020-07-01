@@ -14,18 +14,21 @@ class Post {
     * _firstName
     * _lastName
     * _token
+    * _userId
     * @param id
     * @param vendorId
     * @param firstName
     * @param lastName
     * @param token
+    * @param userId
     */
-   constructor(id, vendorId, firstName, lastName, token) {
+   constructor(id, vendorId, firstName, lastName, token, userId) {
       this._id = validators.validateNumber(id) ? id : false;
       this._vendorId = validators.validateNumber(vendorId) ? vendorId : false;
       this._firstName = validators.validateString(firstName) ? firstName : false;
       this._lastName = validators.validateString(lastName) ? lastName : false;
       this._token = validators.validateString(token) ? token : false;
+      this._userId = validators.validateNumber(userId) ? userId : false;
    }
 
    /**
@@ -35,7 +38,7 @@ class Post {
     */
    _validateUserToken() {
       return new Promise((resolve, reject) => {
-         tokenValidator.validateToken(this._token).then(userData => {
+         tokenValidator.validateToken(this._token, this._userId).then(userData => {
             resolve(userData);
          }).catch(err => {
             reject(err);

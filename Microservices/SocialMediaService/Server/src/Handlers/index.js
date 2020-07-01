@@ -2,6 +2,7 @@ const constants = require('./../Helpers/constants');
 const responseGenerator = require('./../Services/responseGenerator');
 
 const post = require('./post');
+const like = require('./like');
 const handlerObj = {};
 /**
  * Method to handle the Error path requests.
@@ -25,6 +26,28 @@ handlerObj.post = (dataObject) => {
       switch (dataObject.path) {
          case "post":
             promise = post.post(dataObject);
+            break;
+         default:
+            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
+      }
+      promise.then(data => {
+         resolve(data);
+      }).catch(err => {
+         reject(err);
+      });
+   });
+};
+/**
+ * Method to handle the requests for Like.
+ * @param dataObject: the request object.
+ * @returns {Promise<Array>}:
+ */
+handlerObj.like = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      let promise;
+      switch (dataObject.path) {
+         case "like":
+            promise = like.like(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));

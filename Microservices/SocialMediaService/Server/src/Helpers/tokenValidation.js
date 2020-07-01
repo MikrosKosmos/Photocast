@@ -3,19 +3,19 @@ const tokenValidator = {};
 /**
  * Method to validate a user token from the user microservice.
  * @param userToken: The token of the user to be validated.
+ * @param userID: The user id.
  * @returns {Promise<Object>}: The user data, if valid, else false.
  */
-tokenValidator.validateToken = (userToken) => {
+tokenValidator.validateToken = (userToken, userID) => {
    return new Promise((resolve, reject) => {
       const headers = {}, body = {};
       headers[constants.API_AUTH_KEY] = encrypterDecrypter.decrypt(process.env[constants.MICROSERVICE_AUTH_KEY_VALUE]);
-      body[constants.JW_TOKEN] = this._token;
+      body[constants.JW_TOKEN] = userToken;
       const networkHelper = new NetworkHelper(constants.USER_SERVICE_HOST, constants.USER_SERVICE_VALIDATE_TOKEN_PATH,
          constants.HTTP_POST, null, body, headers, constants.USER_SERVICE_PORT);
       networkHelper.request().then(response => {
          const isValid = response[constants.RESPONSE_KEY][constants.IS_VALID];
-         if (isValid) {
-            this._vendorId = response[constants.RESPONSE_KEY][constants.USER_DATA][constants.ID];
+         if (isValid && response[constants.RESPONSE_KEY][constants.USER_DATA][constants.ID] === userID) {
             resolve(response[constants.RESPONSE_KEY][constants.USER_DATA]);
          } else {
             reject(false);

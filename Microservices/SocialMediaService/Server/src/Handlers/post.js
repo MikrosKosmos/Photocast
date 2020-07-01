@@ -24,8 +24,10 @@ postHandler.post = (dataObject) => {
             dataObject.queryString[constants.POST_VENDOR_ID] : false;
          const token = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
             dataObject[constants.JW_TOKEN] : false;
-         if (token && ((isSelf && vendorId) || (!isSelf && !vendorId))) {
-            const post = new Post(false, vendorId, false, false, token);
+         const userId = validator.validateNumber(dataObject.queryString[constants.ID]) ?
+            dataObject.queryString[constants.ID] : false;
+         if (userId && token && ((isSelf && vendorId) || (!isSelf && !vendorId))) {
+            const post = new Post(false, vendorId, false, false, token, userId);
             post.getPosts(initialValue, limit, isSelf).then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
@@ -36,6 +38,8 @@ postHandler.post = (dataObject) => {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
          }
       } else if (method === constants.HTTP_POST) {
+         const userId = validator.validateNumber(dataObject.postData[constants.ID]) ?
+            dataObject.postData[constants.ID] : false;
          const token = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
             dataObject[constants.JW_TOKEN] : false;
          const postDesc = validator.validateString(dataObject.postData[constants.POST_POST_DESCRIPTION]) ?
@@ -44,8 +48,8 @@ postHandler.post = (dataObject) => {
             dataObject.postData[constants.POST_IMAGE_DATA] : false;
          const fileExtension = validator.validateString(dataObject.postData[constants.FILE_EXTENSION]) ?
             dataObject.postData[constants.FILE_EXTENSION] : false;
-         if (token && postDesc && imageData && fileExtension) {
-            const post = new Post(false, false, false, false, token);
+         if (userId && token && postDesc && imageData && fileExtension) {
+            const post = new Post(false, false, false, false, token, userId);
             post.createPost(postDesc, imageData, fileExtension).then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
