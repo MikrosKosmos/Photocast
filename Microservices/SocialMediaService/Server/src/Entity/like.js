@@ -50,6 +50,7 @@ class Like {
             const userData = await this._validateUserToken();
             const firstName = userData[constants.VENDOR_FIRST_NAME];
             const lastName = userData[constants.VENDOR_LAST_NAME];
+            this._role = userData[constants.AUTH_ROLE];
             database.runSp(constants.SP_LIKE_UNLIKE, [this._postId, this._userId, firstName, lastName, this._role])
                .then(_resultSet => {
                   const result = _resultSet[0][0];

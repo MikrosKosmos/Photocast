@@ -2,7 +2,8 @@ const handlers = require('./../Handlers');
 const validator = require('./validators');
 const routes = {
    "posts": handlers.post,
-   "likes": handlers.like
+   "likes": handlers.like,
+   "comments": handlers.comment
 };
 
 const path = {};

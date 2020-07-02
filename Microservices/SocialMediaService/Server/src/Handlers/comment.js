@@ -3,26 +3,26 @@ const validator = require('./../Helpers/validators');
 const printer = require('./../Helpers/printer');
 const responseGenerator = require('./../Services/responseGenerator');
 
-const Like = require('./../Entity/like');
-const likeHandler = {};
+const Comment = require('./../Entity/comment');
+const commentHandler = {};
 /**
- * Method to handle the requests for like.
+ * Method to handle the comments.
  * @param dataObject: The request object.
- * @returns {Promise<unknown>}
+ * @returns {Promise<Array>}:
  */
-likeHandler.like = (dataObject) => {
+commentHandler.comment = (dataObject) => {
    return new Promise((resolve, reject) => {
       const method = dataObject.method;
       if (method === constants.HTTP_GET) {
          const userId = validator.validateNumber(dataObject.queryString[constants.ID]) ?
             dataObject.queryString[constants.ID] : false;
-         const postId = validator.validateNumber(dataObject.queryString[constants.LIKE_POST_ID]) ?
-            dataObject.queryString[constants.LIKE_POST_ID] : false;
+         const postId = validator.validateNumber(dataObject.queryString[constants.COMMENT_POST_ID]) ?
+            dataObject.queryString[constants.COMMENT_POST_ID] : false;
          const token = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
             dataObject[constants.JW_TOKEN] : false;
-         if (userId && postId && token) {
-            const like = new Like(false, postId, userId, false, token);
-            like.getLikes().then(response => {
+         if (userId && token && postId) {
+            const comment = new Comment(false, postId, userId, token);
+            comment.getComments().then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
@@ -31,16 +31,18 @@ likeHandler.like = (dataObject) => {
          } else {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
          }
-      } else if (method === constants.HTTP_PUT) {
+      } else if (method === constants.HTTP_POST) {
          const userId = validator.validateNumber(dataObject.postData[constants.ID]) ?
             dataObject.postData[constants.ID] : false;
-         const postId = validator.validateNumber(dataObject.postData[constants.LIKE_POST_ID]) ?
-            dataObject.postData[constants.LIKE_POST_ID] : false;
+         const postId = validator.validateNumber(dataObject.postData[constants.COMMENT_POST_ID]) ?
+            dataObject.postData[constants.COMMENT_POST_ID] : false;
          const token = validator.validateUndefined(dataObject[constants.JW_TOKEN]) ?
             dataObject[constants.JW_TOKEN] : false;
-         if (userId && postId && token) {
-            const like = new Like(false, postId, userId, false, token);
-            like.toggleLike().then(response => {
+         const commentValue = validator.validateString(dataObject.postData[constants.COMMENT_COMMENT]) ?
+            dataObject.postData[constants.COMMENT_COMMENT] : false;
+         if (userId && postId && token && commentValue) {
+            const comment = new Comment(false, postId, userId, token);
+            comment.createComment(commentValue).then(response => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
@@ -54,7 +56,8 @@ likeHandler.like = (dataObject) => {
       }
    });
 };
+
 /**
- * Exporting the like handler.
+ * Exporting the comment handler.
  */
-module.exports = likeHandler;
+module.exports = commentHandler;

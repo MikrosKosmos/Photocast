@@ -50,17 +50,49 @@ class Comment {
             const firstName = userData[constants.VENDOR_FIRST_NAME];
             const lastName = userData[constants.VENDOR_LAST_NAME];
             const role = userData[constants.AUTH_ROLE];
-            database.runSp(constants.SP_CREATE_COMMENT, [this._postId, role, this._userId, firstName, lastName, comment])
-               .then(_resultSet => {
-                  const result = _resultSet[0][0];
+            if (firstName && lastName && role) {
+               database.runSp(constants.SP_CREATE_COMMENT, [this._postId, role, this._userId, firstName, lastName, comment])
+                  .then(_resultSet => {
+                     const result = _resultSet[0][0];
+                     if (validators.validateUndefined(result)) {
+                        resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
+                     } else {
+                        resolve([constants.RESPONSE_SUCESS_LEVEL_1, {id: -1}]);
+                     }
+                  }).catch(err => {
+                  reject([constants.ERROR_LEVEL_3, err]);
+               });
+            } else {
+               reject([constants.ERROR_LEVEL_4, {id: -1}]);
+            }
+         } catch (e) {
+            reject([constants.ERROR_LEVEL_4, e]);
+         }
+      });
+   }
+
+   /**
+    * Method to get the comments for a post.
+    * @returns {Promise<Array>}
+    */
+   getComments() {
+      return new Promise(async (resolve, reject) => {
+         try {
+            const userData = await this._validateUserToken();
+            if (validators.validateUndefined(userData)) {
+               database.runSp(constants.SP_GET_COMMENT, [this._postId]).then(_resultSet => {
+                  const result = _resultSet[0];
                   if (validators.validateUndefined(result)) {
                      resolve([constants.RESPONSE_SUCESS_LEVEL_1, result]);
                   } else {
-                     resolve([constants.RESPONSE_SUCESS_LEVEL_1, {id: -1}]);
+                     resolve([constants.RESPONSE_SUCESS_LEVEL_1, []]);
                   }
                }).catch(err => {
-               reject([constants.ERROR_LEVEL_3, err]);
-            });
+                  reject([constants.ERROR_LEVEL_3, err]);
+               });
+            } else {
+               reject([constants.ERROR_LEVEL_4, {id: -1}]);
+            }
          } catch (e) {
             reject([constants.ERROR_LEVEL_4, e]);
          }
@@ -70,6 +102,5 @@ class Comment {
 
 /**
  * Exporting the comment class.
- * @type {Comment}
  */
 module.exports = Comment;

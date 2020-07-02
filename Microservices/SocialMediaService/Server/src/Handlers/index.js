@@ -3,6 +3,7 @@ const responseGenerator = require('./../Services/responseGenerator');
 
 const post = require('./post');
 const like = require('./like');
+const comment = require('./comment');
 const handlerObj = {};
 /**
  * Method to handle the Error path requests.
@@ -24,7 +25,7 @@ handlerObj.post = (dataObject) => {
    return new Promise((resolve, reject) => {
       let promise;
       switch (dataObject.path) {
-         case "post":
+         case "posts":
             promise = post.post(dataObject);
             break;
          default:
@@ -46,8 +47,30 @@ handlerObj.like = (dataObject) => {
    return new Promise((resolve, reject) => {
       let promise;
       switch (dataObject.path) {
-         case "like":
+         case "likes":
             promise = like.like(dataObject);
+            break;
+         default:
+            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
+      }
+      promise.then(data => {
+         resolve(data);
+      }).catch(err => {
+         reject(err);
+      });
+   });
+};
+/**
+ * Method to handle the requests for the comments.
+ * @param dataObject: The request object.
+ * @returns {Promise<Array>}:The response code and the response object.
+ */
+handlerObj.comment = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      let promise;
+      switch (dataObject.path) {
+         case "comments":
+            promise = comment.comment(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));

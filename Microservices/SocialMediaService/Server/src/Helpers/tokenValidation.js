@@ -1,4 +1,7 @@
+const constants = require('./constants');
+const encrypterDecrypter = require('./encrypterDecrypter');
 const NetworkHelper = require('./../Helpers/networkHelper');
+const printer = require('./printer');
 const tokenValidator = {};
 /**
  * Method to validate a user token from the user microservice.
@@ -15,7 +18,8 @@ tokenValidator.validateToken = (userToken, userID) => {
          constants.HTTP_POST, null, body, headers, constants.USER_SERVICE_PORT);
       networkHelper.request().then(response => {
          const isValid = response[constants.RESPONSE_KEY][constants.IS_VALID];
-         if (isValid && response[constants.RESPONSE_KEY][constants.USER_DATA][constants.ID] === userID) {
+         // noinspection EqualityComparisonWithCoercionJS
+         if (isValid && userID == response[constants.RESPONSE_KEY][constants.USER_DATA][constants.ID]) {
             resolve(response[constants.RESPONSE_KEY][constants.USER_DATA]);
          } else {
             reject(false);

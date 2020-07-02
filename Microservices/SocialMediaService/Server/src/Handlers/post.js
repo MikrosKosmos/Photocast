@@ -32,7 +32,7 @@ postHandler.post = (dataObject) => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
-               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, err[0]));
             });
          } else {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
@@ -54,7 +54,7 @@ postHandler.post = (dataObject) => {
                resolve(responseGenerator.generateResponse(response[1], response[0]));
             }).catch(err => {
                printer.printError(err);
-               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, err[0]));
             });
          } else {
             reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
