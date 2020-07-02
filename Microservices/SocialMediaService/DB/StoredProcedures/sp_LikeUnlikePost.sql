@@ -34,5 +34,10 @@ begin
     end if;
     set @likeCount = 0;
     select count(id) into @likeCount from tbl_LikeMaster where post_id = parPostId and is_active = 1;
-    update tbl_PostMaster set like_count=@likeCount where id = parPostId and is_active = 1;
+    update tbl_PostMaster
+    set like_count=@likeCount,
+        modified_by=parUserId,
+        modified=now()
+    where id = parPostId
+      and is_active = 1;
 end;
