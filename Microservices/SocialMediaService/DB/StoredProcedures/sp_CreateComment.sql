@@ -8,6 +8,7 @@ begin
         insert into tbl_CommentMaster (post_id, first_name, last_name, user_id, role, comment, created_by)
             value (parPostId, parFirstName, parLastName, parUserId, parRole, parComment, parUserId);
         select last_insert_id() as id;
+        update tbl_PostMaster set comment_count=(comment_count + 1) where id = parPostId and is_active = 1;
     else
         select -1 as id;
     end if;

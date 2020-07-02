@@ -12,7 +12,7 @@ begin
       and user_id = parUserId
       and role = parRole;
     if @isExists > 0 then
-        #If it exists, liking or unliking the post.
+        #If it exists, liking or un liking the post.
         update tbl_LikeMaster
         set modified=now(),
             modified_by=parUserId,
@@ -32,4 +32,7 @@ begin
             value (parPostId, parUserId, parFirstName, parLastName, parRole, 1, parUserId);
         select last_insert_id() as id;
     end if;
+    set @likeCount = 0;
+    select count(id) into @likeCount from tbl_LikeMaster where post_id = parPostId and is_active = 1;
+    update tbl_PostMaster set like_count=@likeCount where id = parPostId and is_active = 1;
 end;
