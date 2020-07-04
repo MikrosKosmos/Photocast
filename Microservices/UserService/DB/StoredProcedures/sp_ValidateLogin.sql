@@ -3,12 +3,18 @@ create procedure sp_ValidateLogin(parPhone varchar(15), parOTP int, parEmail var
 begin
     set @isValid = 0;
     set @userId = 0;
+    set @table = '';
     if length(parPhone) > 0 and length(parOTP) > 0 then
         select fn_ValidateOTP(parPhone, parOTP) into @isValid;
-        select user_id into @userId from tbl_LoginMaster where phone_number = parPhone and is_active = 1 limit 1;
+        select user_id, role
+        into @userId,@table
+        from tbl_LoginMaster
+        where phone_number = parPhone
+          and is_active = 1
+        limit 1;
     else
-        select user_id
-        into @userId
+        select user_id, role
+        into @userId,@table
         from tbl_LoginMaster
         where email_id = parEmail
           and password = parPassword
@@ -18,8 +24,7 @@ begin
         end if;
     end if;
     if @isValid > 0 then
-        set @table = '';
-        select role into @table from tbl_LoginMaster where user_id = @userId;
+
         if @table = 'tbl_VendorMaster' then
             select v.id,
                    first_name,
