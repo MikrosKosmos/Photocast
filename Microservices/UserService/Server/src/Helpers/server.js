@@ -70,7 +70,7 @@ server.unifiedServer = function (req, res) {
          execHandlers(handlerData);
       });
    }
-   
+
    /**
     * Method to send the response back to the client.
     * @param responseData: The response data to be send.
@@ -89,7 +89,7 @@ server.unifiedServer = function (req, res) {
          printer.printError(e);
       }
    }
-   
+
    /**
     * Method to execute the Handlers.
     * @param handlerData: The request object after parsing it.
@@ -97,6 +97,7 @@ server.unifiedServer = function (req, res) {
    function execHandlers(handlerData) {
       const apiKey = handlerData[constants.API_TOKEN_KEY];
       const api = new Api(apiKey);
+      printer.printHighlightedLog(handlerData);
       delete handlerData[constants.API_TOKEN_KEY];
       if (handlerData.method === constants.HTTP_OPTIONS) {
          sendResponse({}, constants.HTTP_SUCCESS);
