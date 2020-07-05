@@ -166,6 +166,32 @@ generator.generateNumberParams = (params) => {
    }
 };
 /**
+ * Method to generate the query string params for a URL.
+ * @param url: The base url.
+ * @param params: The array containing the parameters to be added as key and value.
+ * @returns {null|string}: Returns the string URL with the params appended, else null.
+ */
+generator.generateQueryURL = (url, params) => {
+   try {
+      url = url.replace("?", "");
+      if (params.length > 0) {
+         const queryParams = new URLSearchParams();
+         params.forEach(oneParam => {
+            const key = Object.keys(oneParam)[0];
+            const value = oneParam[key];
+            queryParams.append(key, value);
+         });
+         let stringUrl = url;
+         stringUrl = stringUrl.concat("?");
+         let urlParams = queryParams.toString();
+         return stringUrl + urlParams;
+      } else
+         return url;
+   } catch (e) {
+      return url;
+   }
+};
+/**
  * Exporting modules.
  */
 module.exports = generator;

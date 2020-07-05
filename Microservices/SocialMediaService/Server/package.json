@@ -1,0 +1,30 @@
+{
+  "name": "social_media_service",
+  "version": "0.0.1",
+  "description": "Microservice for cirro's social media",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikrosKosmos/Photocast.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "run": "node index.js"
+  },
+  "author": "Pronoy Mukherjee",
+  "license": "ISC",
+  "dependencies": {
+    "@jest/globals": "^26.0.1",
+    "aws-sdk": "^2.673.0",
+    "dotenv": "8.2.0",
+    "jest": "^25.1.0",
+    "moment": "^2.25.3",
+    "moment-timezone": "^0.5.28",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "redis": "^3.0.2"
+  }
+}

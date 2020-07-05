@@ -111,8 +111,8 @@ constants.ERROR_LEVEL_4 = "4";
 /**
  * Messages.
  */
-constants.WELCOME_MESSAGE = "Welcome to USER MICROSERVICE.";
-constants.OTP_MESSAGE = "Your Photocast OTP is :";
+constants.WELCOME_MESSAGE = "Welcome to Social Media MICROSERVICE.";
+
 
 /**
  * General Keys
@@ -131,33 +131,34 @@ constants.ENV_KEY = "ENV";
 constants.ENCRYPTION_KEY_KEY = "ENCRYPTED_KEY";
 constants.DB_HOST_KEY = "DB_HOST";
 constants.DB_PASSWORD_KEY = "DB_PASSWORD";
+constants.POST_KEY = "posts";
 constants.REDIS_PORT = "redis_port";
 constants.REDIS_HOST = "redis_host";
 constants.AWS_DOCUMENTS_BUCKET = "photocast-documents";
 constants.AWS_IMAGES_BUCKET = "photocast-images";
-constants.IMAGES_BASE_URL = "https://photocast-images.s3.ap-south-1.amazonaws.com/";
+constants.IMAGES_BASE_URL = "http://d2ny24002bjs2x.cloudfront.net/";
 constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazonaws.com/";
+
+/**
+ * Microservice URLs.
+ */
+constants.API_AUTH_KEY = "key";
+constants.MICROSERVICE_AUTH_KEY_VALUE = "api_auth";
+constants.USER_SERVICE_HOST = "192.168.0.103";
+constants.USER_SERVICE_PORT = 6001;
+constants.USER_SERVICE_VALIDATE_TOKEN_PATH = "/auth/token";
 
 /**
  * SP Names.
  */
 constants.SP_CHECK_API_TOKEN = "sp_CheckApiToken";
 constants.SP_LOG_API_STATUS = "sp_LogApiStatus";
-constants.SP_VALIDATE_LOGIN = "sp_ValidateLogin";
-constants.SP_CREATE_CUSTOMER = "sp_CreateCustomer";
-constants.SP_GET_CUSTOMER = "sp_GetCustomerDetails";
-constants.SP_UPDATE_CUSTOMER_ADDRESS = "sp_UpdateCustomerAddress";
-constants.SP_UPDATE_CUSTOMER_DETAILS = "sp_UpdateCustomerDetails";
-constants.SP_OTP_CREATE_CHECK = "sp_OtpCreateCheck";
-constants.SP_GET_CUSTOMER_ADDRESS = "sp_GetCustomerAddress";
-constants.SP_CREATE_VENDOR = "sp_CreateVendor";
-constants.SP_GET_VENDOR = "sp_GetVendorDetails";
-constants.SP_UPDATE_VENDOR = "sp_UpdateVendorDetails";
-constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
-constants.SP_VENDOR_UPDATE_IMAGE = "sp_UpdateImages";
-constants.SP_GET_BANK_DETAILS = "sp_GetBankDetails";
-constants.SP_GET_VENDOR_IMAGES = "sp_GetImages";
-
+constants.SP_CREATE_POST = "sp_CreatePost";
+constants.SP_GET_POST = "sp_GetPosts";
+constants.SP_CREATE_COMMENT = "sp_CreateComment";
+constants.SP_GET_COMMENT = "sp_GetComments";
+constants.SP_GET_LIKES = "sp_GetLikes";
+constants.SP_LIKE_UNLIKE = "sp_LikeUnlikePost";
 /**
  * Column Names
  */
@@ -210,31 +211,19 @@ constants.VENDOR_BRAND_NAME = "company_brand_name";
 constants.VENDOR_PROFILE_IMAGE = "profile_image";
 constants.VENDOR_STATUS = "status_id";
 
-constants.BANK_ACCOUNT_HOLDER_ID = "holder_id";
-constants.BANK_ACCOUNT_HOLDER_TYPE = "holder_type";
-constants.BANK_ACCOUNT_HOLDER_NAME = "holder_name";
-constants.BANK_ACCOUNT_ACCOUNT_NUMBER = "account_number";
-constants.BANK_ACCOUNT_BANK_NAME = "bank_name";
-constants.BANK_ACCOUNT_IFSC_CODE = "ifsc_code";
-constants.BANK_ACCOUNT_CONTACT_NUMBER = "contact_number";
-constants.BANK_ACCOUNT_PAYMENT_GATEWAY_ID = "payment_gateway_account_id";
-constants.BANK_ACCOUNT_IS_UPDATE = "is_update";
 
-constants.VENDOR_IMAGES_VENDOR_ID = "vendor_id";
-constants.VENDOR_IMAGES_IMAGE_TYPE = "image_type";
-constants.VENDOR_IMAGE_DATA = "image_data";
-constants.VENDOR_IMAGES_IMAGE_KEY = "image_key";
-constants.VENDOR_IMAGES_BASE_URL = "base_url";
-constants.VENDOR_IMAGE_POSITION = "position";
+constants.POST_IMAGES_VENDOR_ID = "vendor_id";
+constants.POST_IMAGES_IMAGE_TYPE = "image_type";
+constants.POST_IMAGE_DATA = "image_data";
+constants.POST_IMAGES_IMAGE_KEY = "image_key";
+constants.POST_IMAGES_BASE_URL = "base_url";
+constants.POST_IMAGE_POSITION = "position";
 constants.IMAGE_TYPE_DP = "DP";
 constants.IMAGE_TYPE_DOCUMENT = "DOCUMENT";
-constants.IMAGE_TYPE_PET = "PET";
 constants.FILE_EXTENSION = "file_extension";
-
-constants.DOCUMENT_HOLDER_ID = "document_holder_id";
-constants.DOCUMENT_HOLDER_TYPE = "document_holder_type";
-constants.DOCUMENT_TYPE = "document_type";
-constants.DOCUMENT_ID_NUMBER = "document_id_number";
+constants.POST_INITIAL_VALUE = "initial_value";
+constants.POST_LIMIT = "post_limit";
+constants.POST_IS_SELF = "isSelf";
 
 constants.API_PATH = "path";
 constants.API_LOGGER_TOKEN = "api_token";
@@ -250,6 +239,27 @@ constants.AUTH_ROLE = "role";
 constants.CITY_NAME = "city_name";
 constants.CITY_ID = "city_id";
 constants.CITY_STATE_ID = "state_id";
+
+constants.POST_VENDOR_ID = "vendor_id";
+constants.POST_FIRST_NAME = "first_name";
+constants.POST_LAST_NAME = "last_name";
+constants.POST_POST_DESCRIPTION = "post_description";
+constants.POST_IMAGE_URL = "image_url";
+constants.POST_LIKE_COUNT = "like_count";
+constants.POST_COMMENMT_COUNT = "comment_count";
+
+constants.COMMENT_POST_ID = "post_id";
+constants.COMMENT_FIRST_NAME = "first_name";
+constants.COMMENT_LAST_NAME = "last_name";
+constants.COMMENT_USER_ID = "user_id";
+constants.COMMENT_ROLE = "role";
+constants.COMMENT_COMMENT = "comment";
+
+constants.LIKE_POST_ID = "post_id";
+constants.LIKE_USER_ID = "user_id";
+constants.LIKE_FIRST_NAME = "first_name";
+constants.LIKE_LAST_NAME = "last_name";
+constants.LIKE_ROLE = "role";
 /**
  * exporting the constants.
  */

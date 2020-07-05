@@ -39,6 +39,30 @@ class Cache {
    }
 
    /**
+    *
+    * @param key
+    * @param value
+    * @param expireAfterHours
+    */
+   storeDataWithExpire(key, value, expireAfterHours) {
+      return new Promise((resolve, reject) => {
+         if (process.env[constants.ENV_KEY] === constants.ENV_DEVELOPMENT) {
+            resolve(true);
+         } else {
+            value = generator.generateSerializedJSON(value);
+            this._client.set(key, value, 'EX', expireAfterHours * 60 * 60, (err, reply) => {
+               if (err) {
+                  printer.printError(err);
+                  reject(err);
+               } else {
+                  resolve(true);
+               }
+            });
+         }
+      });
+   }
+
+   /**
     * Method to get the data from the cache.
     * @param key: The key by which data was saved.
     * @returns {Promise<Object>}: The data from cache if hit, else empty string.
@@ -63,6 +87,5 @@ class Cache {
 
 /**
  * Exporting the Cache
- * @type {Cache}
  */
 module.exports = Cache;

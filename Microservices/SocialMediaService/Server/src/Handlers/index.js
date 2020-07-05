@@ -1,9 +1,9 @@
 const constants = require('./../Helpers/constants');
 const responseGenerator = require('./../Services/responseGenerator');
 
-const auth = require('./authentication');
-const customer = require('./customer');
-const vendor = require('./vendor');
+const post = require('./post');
+const like = require('./like');
+const comment = require('./comment');
 const handlerObj = {};
 /**
  * Method to handle the Error path requests.
@@ -17,19 +17,16 @@ handlerObj.notFound = (dataObject) => {
 };
 
 /**
- * Method to handle the auth requests.
+ * Method to handle the post requests.
  * @param dataObject: the request object.
  * @returns {Promise<Array>}
  */
-handlerObj.auth = (dataObject) => {
+handlerObj.post = (dataObject) => {
    return new Promise((resolve, reject) => {
       let promise;
       switch (dataObject.path) {
-         case "auth":
-            promise = auth.auth(dataObject);
-            break;
-         case "token":
-            promise = auth.token(dataObject);
+         case "posts":
+            promise = post.post(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
@@ -42,47 +39,38 @@ handlerObj.auth = (dataObject) => {
    });
 };
 /**
- * Method to handle the Customer requests.
+ * Method to handle the requests for Like.
  * @param dataObject: the request object.
- * @returns {Promise<Array>}
- */
-handlerObj.customer = (dataObject) => {
-   return new Promise((resolve, reject) => {
-      let promise;
-      switch (dataObject.path) {
-         case "customers":
-            promise = customer.customer(dataObject);
-            break;
-         case "address":
-            promise = customer.address(dataObject);
-            break;
-         default:
-            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
-      }
-      promise.then(data => {
-         resolve(data);
-      }).catch(err => {
-         reject(err);
-      });
-   });
-};
-/**
- * Method to route the second path for vendors.
- * @param dataObject: The request object.
  * @returns {Promise<Array>}:
  */
-handlerObj.vendors = (dataObject) => {
+handlerObj.like = (dataObject) => {
    return new Promise((resolve, reject) => {
       let promise;
       switch (dataObject.path) {
-         case "vendors":
-            promise = vendor.vendor(dataObject);
+         case "likes":
+            promise = like.like(dataObject);
             break;
-         case "details":
-            promise = vendor.details(dataObject);
-            break;
-         case "images":
-            promise = vendor.images(dataObject);
+         default:
+            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
+      }
+      promise.then(data => {
+         resolve(data);
+      }).catch(err => {
+         reject(err);
+      });
+   });
+};
+/**
+ * Method to handle the requests for the comments.
+ * @param dataObject: The request object.
+ * @returns {Promise<Array>}:The response code and the response object.
+ */
+handlerObj.comment = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      let promise;
+      switch (dataObject.path) {
+         case "comments":
+            promise = comment.comment(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));

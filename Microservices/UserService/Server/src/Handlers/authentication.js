@@ -47,6 +47,32 @@ authHandler.auth = (dataObject) => {
    });
 };
 /**
+ * Method to handle all the requests for the tokens.
+ * @param dataObject: The request object.
+ * @returns {Promise<unknown>}
+ */
+authHandler.token = (dataObject) => {
+   return new Promise(async (resolve, reject) => {
+      const method = dataObject.method;
+      if (method === constants.HTTP_POST) {
+         const token = validator.validateString(dataObject.postData[constants.JW_TOKEN]) ?
+            dataObject.postData[constants.JW_TOKEN] : false;
+         if (token) {
+            const auth = new Authentication();
+            auth.validateToken(token).then(result => {
+               resolve(responseGenerator.generateResponse(result[1], result[0]));
+            }).catch(() => {
+               reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_3));
+            });
+         } else {
+            reject(responseGenerator.generateErrorResponse(constants.INSUFFICIENT_DATA_MESSAGE, constants.ERROR_LEVEL_1));
+         }
+      } else {
+         reject(responseGenerator.generateErrorResponse(constants.INVALID_METHOD_MESSAGE, constants.ERROR_LEVEL_1));
+      }
+   });
+};
+/**
  * Exporting the authentication.
  */
 module.exports = authHandler;
