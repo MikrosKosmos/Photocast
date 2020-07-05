@@ -1,7 +1,17 @@
 package com.pm.estrello.cirro.Helpers;
 
-public class ParamsCreator {
-    /*public static JSONObject getJSONForOTPRequest(String phoneNumber) {
+import org.json.JSONObject;
 
-    }*/
+public class ParamsCreator {
+    private static String TAG_CLASS = ParamsCreator.class.getSimpleName();
+
+    public static JSONObject getJSONForOTPRequest(String phoneNumber) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+        } catch (Exception e) {
+            Messages.log(TAG_CLASS, e.toString());
+        }
+        return jsonObject;
+    }
 }

@@ -9,8 +9,10 @@ public class Customer {
     private char gender;
     private String statusName;
     private int statusId;
+    private String referralCode;
+    private String usedReferralCode;
 
-    public Customer(int id, String firstName, String lastName, String email, String phoneNumber, char gender, String statusName, int statusId) {
+    public Customer(int id, String firstName, String lastName, String email, String phoneNumber, char gender, String statusName, int statusId, String referralCode, String usedReferralCode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,77 +21,87 @@ public class Customer {
         this.gender = gender;
         this.statusName = statusName;
         this.statusId = statusId;
+        this.referralCode = referralCode;
+        this.usedReferralCode = usedReferralCode;
     }
 
     public int getId() {
         return id;
     }
 
-    public Customer setId(int id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public Customer setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public Customer setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Customer setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public Customer setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        return this;
     }
 
     public char getGender() {
         return gender;
     }
 
-    public Customer setGender(char gender) {
+    public void setGender(char gender) {
         this.gender = gender;
-        return this;
     }
 
     public String getStatusName() {
         return statusName;
     }
 
-    public Customer setStatusName(String statusName) {
+    public void setStatusName(String statusName) {
         this.statusName = statusName;
-        return this;
     }
 
     public int getStatusId() {
         return statusId;
     }
 
-    public Customer setStatusId(int statusId) {
+    public void setStatusId(int statusId) {
         this.statusId = statusId;
-        return this;
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
+    public String getUsedReferralCode() {
+        return usedReferralCode;
+    }
+
+    public void setUsedReferralCode(String usedReferralCode) {
+        this.usedReferralCode = usedReferralCode;
     }
 }
