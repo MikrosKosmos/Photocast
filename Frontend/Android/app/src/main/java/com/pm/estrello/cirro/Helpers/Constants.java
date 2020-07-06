@@ -11,6 +11,7 @@ public class Constants {
     * Generic Messages.
     */
    public static final String API_RESPONSE_ERROR = "Ops, Something went wrong!";
+   public static final String INCORRECT_OTP = "Incorrect OTP";
 
    /**
     * General Keys.
@@ -37,4 +38,6 @@ public class Constants {
    public static final String GENDER = "gender";
    public static final String STATUS_NAME = "status_name";
    public static final String STATUS_ID = "status_id";
+   public static final String REFERRAL_CODE = "referral_code";
+   public static final String USED_REFERRAL_CODE = "used_referral_code";
 }
