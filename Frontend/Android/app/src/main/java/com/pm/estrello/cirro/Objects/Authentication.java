@@ -1,37 +1,45 @@
 package com.pm.estrello.cirro.Objects;
 
 public class Authentication {
-    private String phoneNumber;
-    private int otp;
-    private String jwToken;
+   private String phoneNumber;
+   private int otp;
+   private String jwToken;
 
-    public Authentication(String phoneNumber, int otp, String jwToken) {
-        this.phoneNumber = phoneNumber;
-        this.otp = otp;
-        this.jwToken = jwToken;
-    }
+   public Authentication(String phoneNumber, int otp, String jwToken) {
+      this.phoneNumber = phoneNumber;
+      this.otp = otp;
+      this.jwToken = jwToken;
+   }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+   public Authentication(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+   public Authentication(int otp) {
+      this.otp = otp;
+   }
 
-    public int getOtp() {
-        return otp;
-    }
+   public String getPhoneNumber() {
+      return phoneNumber;
+   }
 
-    public void setOtp(int otp) {
-        this.otp = otp;
-    }
+   public void setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
 
-    public String getJwToken() {
-        return jwToken;
-    }
+   public int getOtp() {
+      return otp;
+   }
 
-    public void setJwToken(String jwToken) {
-        this.jwToken = jwToken;
-    }
+   public void setOtp(int otp) {
+      this.otp = otp;
+   }
+
+   public String getJwToken() {
+      return jwToken;
+   }
+
+   public void setJwToken(String jwToken) {
+      this.jwToken = jwToken;
+   }
 }
