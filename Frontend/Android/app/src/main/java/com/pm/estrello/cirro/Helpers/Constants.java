@@ -6,6 +6,7 @@ public class Constants {
     */
    public static final int OTP_REQUEST_CODE = 1;
    public static final int OTP_VERIFY_CODE = 2;
+   public static final int PERMISSION_CODE = 3;
 
    /**
     * Generic Messages.
