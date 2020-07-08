@@ -5,23 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Fragments.BasicDetailsFragment">
+    tools:context=".Fragments.CommunicationDetailsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/basicDetailsLogo"
+                android:id="@+id/communicationLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="64dp"
-                android:src="@drawable/registration_icon"
+                android:layout_margin="32dp"
+                android:src="@drawable/contact_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -29,105 +32,69 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_margin="32dp"
                 android:background="@drawable/reactangle_rounded_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/basicDetailsLogo">
+                app:layout_constraintTop_toBottomOf="@id/communicationLogo">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/firstNameLayout"
+                    android:id="@+id/phoneNumberLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="32dp"
-                    android:hint="@string/firstname"
+                    android:hint="@string/phone_number"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/firstName"
+                        android:id="@+id/phoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapSentences" />
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/lastNameLayout"
+                    android:id="@+id/emailLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="32dp"
-                    android:hint="@string/lastname"
+                    android:hint="@string/email_id"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/firstNameLayout">
+                    app:layout_constraintTop_toBottomOf="@id/phoneNumberLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lastName"
+                        android:id="@+id/emailId"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapSentences" />
+                        android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/GenderLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="32dp"
-                    android:text="@string/gender"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    app:layout_constraintTop_toBottomOf="@id/lastNameLayout" />
-
-                <RadioGroup
-                    android:id="@+id/genderRadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="32dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/GenderLabel">
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/radioButtonMale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/male" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/radioButtonFemale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/female" />
-                </RadioGroup>
-
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/nextButtonBasic"
+                    android:id="@+id/communicationNextButton"
                     style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_margin="32dp"
                     android:background="@color/colorPrimary"
                     android:text="@string/next"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/genderRadioGroup" />
+                    app:layout_constraintTop_toBottomOf="@id/emailLayout" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/backButtonBasic"
+                    android:id="@+id/communicationBackButton"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="32dp"
                     android:text="@string/back"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/genderRadioGroup" />
+                    app:layout_constraintTop_toBottomOf="@id/emailLayout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
