@@ -20,4 +20,6 @@
     <string name="address_line_1">Address line 1</string>
     <string name="address_line_2">Address Line 2</string>
     <string name="pincode">Pincode</string>
+    <string name="identification_document_number">Identification Document Number</string>
+    <string name="company_name">Company Name</string>
 </resources>

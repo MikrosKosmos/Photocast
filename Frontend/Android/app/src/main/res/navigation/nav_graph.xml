@@ -9,7 +9,7 @@
         android:id="@+id/basicDetailsFragment"
         android:name="com.pm.estrello.cirro.Fragments.BasicDetailsFragment"
         android:label="fragment_basic_details"
-        tools:layout="@layout/fragment_basic_details" >
+        tools:layout="@layout/fragment_basic_details">
         <action
             android:id="@+id/action_basicDetailsFragment_to_communicationDetailsFragment"
             app:destination="@id/communicationDetailsFragment" />
@@ -18,5 +18,23 @@
         android:id="@+id/communicationDetailsFragment"
         android:name="com.pm.estrello.cirro.Fragments.CommunicationDetailsFragment"
         android:label="fragment_communication_details"
-        tools:layout="@layout/fragment_communication_details" />
+        tools:layout="@layout/fragment_communication_details">
+        <action
+            android:id="@+id/action_communicationDetailsFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.pm.estrello.cirro.Fragments.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address">
+        <action
+            android:id="@+id/action_addressFragment_to_otherDetailsFragment"
+            app:destination="@id/otherDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otherDetailsFragment"
+        android:name="com.pm.estrello.cirro.Fragments.OtherDetailsFragment"
+        android:label="fragment_other_details"
+        tools:layout="@layout/fragment_other_details" />
 </navigation>
