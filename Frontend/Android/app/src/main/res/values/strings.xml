@@ -17,4 +17,7 @@
     <string name="back">Back</string>
     <string name="phone_number">Phone Number</string>
     <string name="email_id">Email ID</string>
+    <string name="address_line_1">Address line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="pincode">Pincode</string>
 </resources>
