@@ -4,6 +4,7 @@ const responseGenerator = require('./../Services/responseGenerator');
 const auth = require('./authentication');
 const customer = require('./customer');
 const vendor = require('./vendor');
+const city = require('./city');
 const handlerObj = {};
 /**
  * Method to handle the Error path requests.
@@ -83,6 +84,31 @@ handlerObj.vendors = (dataObject) => {
             break;
          case "images":
             promise = vendor.images(dataObject);
+            break;
+         default:
+            reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
+      }
+      promise.then(data => {
+         resolve(data);
+      }).catch(err => {
+         reject(err);
+      });
+   });
+};
+/**
+ * Method to handle the city requests.
+ * @param dataObject: The request object.
+ * @returns {Promise<unknown>}
+ */
+handlerObj.city = (dataObject) => {
+   return new Promise((resolve, reject) => {
+      let promise;
+      switch (dataObject.path) {
+         case "city":
+            promise = city.city(dataObject);
+            break;
+         case "state":
+            promise = city.state(dataObject);
             break;
          default:
             reject(responseGenerator.generateErrorResponse(constants.ERROR_MESSAGE, constants.ERROR_LEVEL_2));
