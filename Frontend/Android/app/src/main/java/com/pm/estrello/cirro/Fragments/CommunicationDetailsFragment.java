@@ -10,17 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.VolleyError;
 import com.google.android.material.button.MaterialButton;
 import com.pm.estrello.cirro.Helpers.Constants;
+import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.Helpers.Utils;
+import com.pm.estrello.cirro.Objects.State;
 import com.pm.estrello.cirro.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class CommunicationDetailsFragment extends Fragment {
     private AppCompatEditText _phoneNumber;
     private AppCompatEditText _emailId;
     private MaterialButton _nextButton;
     private MaterialButton _backButton;
+    private String TAG_CLASS = CommunicationDetailsFragment.class.getSimpleName();
+    private int requestCode;
 
     public CommunicationDetailsFragment() {
         // Required empty public constructor
