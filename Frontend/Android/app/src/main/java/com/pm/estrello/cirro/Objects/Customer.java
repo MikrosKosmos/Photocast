@@ -1,5 +1,13 @@
 package com.pm.estrello.cirro.Objects;
 
+import androidx.annotation.NonNull;
+
+import com.pm.estrello.cirro.Helpers.Constants;
+import com.pm.estrello.cirro.Helpers.Messages;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Customer {
     private int id;
     private String firstName;
@@ -103,5 +111,22 @@ public class Customer {
 
     public void setUsedReferralCode(String usedReferralCode) {
         this.usedReferralCode = usedReferralCode;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Constants.FIRST_NAME, this.firstName);
+            jsonObject.put(Constants.LAST_NAME, this.lastName);
+            jsonObject.put(Constants.EMAIL, this.email);
+            jsonObject.put(Constants.GENDER, this.gender);
+            jsonObject.put(Constants.PHONE_NUMBER, this.phoneNumber);
+            jsonObject.put(Constants.STATUS_NAME, this.statusName);
+        } catch (JSONException e) {
+            Messages.log(Customer.class.getSimpleName(), e.toString());
+        }
+        return jsonObject.toString();
     }
 }

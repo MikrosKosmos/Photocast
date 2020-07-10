@@ -23,81 +23,84 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
-   private String TAG_CLASS = SplashScreen.class.getSimpleName();
-   private boolean isPermissionGranted = false;
-   private boolean isVersionChecked = false;
+    private String TAG_CLASS = SplashScreen.class.getSimpleName();
+    private boolean isPermissionGranted = false;
+    private boolean isVersionChecked = false;
 
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_splash);
-   }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.ROLE, Constants.ROLE_CUSTOMER);
+        startActivity(new Intent(SplashScreen.this, RegistrationActivity.class).putExtras(bundle));
+    }
 
-   /**
-    * Method to check the version of the app.
-    */
-   private void checkVersion() {
-      try {
-         PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-         String url = Constants.API_URL + "version";
-         HTTPConnector connector = new HTTPConnector(this, url, "",
-                 new HTTPConnector.ResponseListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                       //TODO:
-                       isVersionChecked = true;
-                       changeActivity();
-                    }
+    /**
+     * Method to check the version of the app.
+     */
+    private void checkVersion() {
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String url = Constants.API_URL + "version";
+            HTTPConnector connector = new HTTPConnector(this, url, "",
+                    new HTTPConnector.ResponseListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //TODO:
+                            isVersionChecked = true;
+                            changeActivity();
+                        }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                       //TODO:
-                    }
-                 });
-      } catch (PackageManager.NameNotFoundException e) {
-         Messages.log(TAG_CLASS, e.toString());
-      }
-   }
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //TODO:
+                        }
+                    });
+        } catch (PackageManager.NameNotFoundException e) {
+            Messages.log(TAG_CLASS, e.toString());
+        }
+    }
 
-   private void checkPermission() {
-      List<String> permissionsNeeded = new ArrayList<>();
-      if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-              != PackageManager.PERMISSION_GRANTED) {
-         permissionsNeeded.add(Manifest.permission.CAMERA);
-      }
-      if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-              != PackageManager.PERMISSION_GRANTED) {
-         permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
-      }
-      if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-              != PackageManager.PERMISSION_GRANTED) {
-         permissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-      }
-      if (permissionsNeeded.size() > 0) {
-         ActivityCompat.requestPermissions(this,
-                 permissionsNeeded.toArray(new String[0]), Constants.PERMISSION_CODE);
-      }
-   }
+    private void checkPermission() {
+        List<String> permissionsNeeded = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionsNeeded.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    permissionsNeeded.toArray(new String[0]), Constants.PERMISSION_CODE);
+        }
+    }
 
-   @Override
-   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-      for (int result : grantResults) {
-         if (result == PackageManager.PERMISSION_DENIED) {
-            checkPermission();
-            return;
-         }
-      }
-      isPermissionGranted = true;
-      changeActivity();
-   }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                checkPermission();
+                return;
+            }
+        }
+        isPermissionGranted = true;
+        changeActivity();
+    }
 
-   /**
-    * Method to change the activity.
-    */
-   private void changeActivity() {
-      if (isPermissionGranted && isVersionChecked) {
-         Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
-         startActivity(intent);
-      }
-   }
+    /**
+     * Method to change the activity.
+     */
+    private void changeActivity() {
+        if (isPermissionGranted && isVersionChecked) {
+            Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
 }

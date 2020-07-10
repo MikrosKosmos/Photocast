@@ -11,9 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,13 +33,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="320dp"
                 android:layout_margin="32dp"
                 android:background="@drawable/reactangle_rounded_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/communicationLogo">
+                app:layout_constraintTop_toBottomOf="@id/communicationLogo"
+                app:layout_constraintVertical_bias="0.484">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/phoneNumberLayout"
