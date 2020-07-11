@@ -1,33 +1,25 @@
 package com.pm.estrello.cirro.Fragments;
 
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.VolleyError;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.button.MaterialButton;
 import com.pm.estrello.cirro.Helpers.Constants;
-import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.Helpers.Utils;
-import com.pm.estrello.cirro.Objects.State;
 import com.pm.estrello.cirro.R;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class CommunicationDetailsFragment extends Fragment {
     private AppCompatEditText _phoneNumber;
     private AppCompatEditText _emailId;
-    private MaterialButton _nextButton;
+    private AppCompatImageView _nextButton;
     private MaterialButton _backButton;
     private String TAG_CLASS = CommunicationDetailsFragment.class.getSimpleName();
     private int requestCode;

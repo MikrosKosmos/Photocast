@@ -58,6 +58,7 @@
                         android:id="@+id/phoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/offWhite"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,17 +76,17 @@
                         android:id="@+id/emailId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/offWhite"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.button.MaterialButton
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/communicationNextButton"
                     style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="32dp"
-                    android:background="@color/colorPrimary"
-                    android:text="@string/next"
+                    android:src="@drawable/next_icon"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emailLayout" />
 
@@ -96,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="32dp"
                     android:text="@string/back"
+                    android:visibility="invisible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emailLayout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
