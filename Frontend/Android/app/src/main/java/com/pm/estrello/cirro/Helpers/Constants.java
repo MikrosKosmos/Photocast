@@ -16,11 +16,14 @@ public class Constants {
     public static final String API_RESPONSE_ERROR = "Ops, Something went wrong!";
     public static final String INCORRECT_OTP = "Incorrect OTP";
     public static final String LOADING_MESSAGE = "Please wait, while we are crunching our servers...";
+    public static final String LOCATING_MESSAGE = "Please wait, while we are finding you...";
 
     /**
      * General Keys.
      */
     public static final String SHARED_PREFERENCE_NAME = "cirroPrefs";
+    public static final String[] VENDOR_TYPES = new String[]{"Vendor Type:", "Freelancer", "Company"};
+    public static final String[] DOCUMENT_TYPES = new String[]{"Document Type:", "AADHAAR", "PANCARD"};
     /**
      * API Keys.
      */
@@ -45,7 +48,16 @@ public class Constants {
     public static final String REFERRAL_CODE = "referral_code";
     public static final String USED_REFERRAL_CODE = "used_referral_code";
 
+    public static final String CUSTOMER_ID = "customer_id";
+
     public static final String CITY_NAME = "city_name";
     public static final String STATE_ID = "state_id";
     public static final String STATE_NAME = "state_name";
+
+    public static final String ADDRESS_1 = "address_1";
+    public static final String ADDRESS_2 = "address_2";
+    public static final String CITY = "city";
+    public static final String PINCODE = "pincode";
+    public static final String GPS_LAT = "gps_lat";
+    public static final String GPS_LONG = "gps_long";
 }

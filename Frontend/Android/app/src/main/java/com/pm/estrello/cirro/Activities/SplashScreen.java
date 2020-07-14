@@ -76,6 +76,10 @@ public class SplashScreen extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             permissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
         if (permissionsNeeded.size() > 0) {
             ActivityCompat.requestPermissions(this,
                     permissionsNeeded.toArray(new String[0]), Constants.PERMISSION_CODE);

@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/otherDetailsFragmentLayout"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_margin="32dp"
@@ -62,6 +63,7 @@
                     android:id="@+id/identificationDocumentNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/offWhite"
                     android:inputType="textCapCharacters" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,29 +81,20 @@
                     android:id="@+id/companyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/offWhite"
                     android:inputType="textCapWords" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/otherDetailsNext"
                 style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="32dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/next"
+                android:src="@drawable/next_icon"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/companyNameLayout" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/otherDetailsBack"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="32dp"
-                android:text="@string/back"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/companyNameLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

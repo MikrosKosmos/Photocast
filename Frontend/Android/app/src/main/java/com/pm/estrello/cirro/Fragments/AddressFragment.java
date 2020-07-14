@@ -1,6 +1,13 @@
 package com.pm.estrello.cirro.Fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +18,17 @@ import android.widget.Spinner;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.android.volley.VolleyError;
 import com.pm.estrello.cirro.Helpers.Constants;
 import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
+import com.pm.estrello.cirro.Helpers.Utils;
 import com.pm.estrello.cirro.Objects.City;
 import com.pm.estrello.cirro.Objects.State;
 import com.pm.estrello.cirro.R;
@@ -26,10 +38,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AddressFragment extends Fragment implements HTTPConnector.ResponseListener {
+public class AddressFragment extends Fragment implements HTTPConnector.ResponseListener, LocationListener {
     private AppCompatEditText _address1, _address2, _pincode;
     private AppCompatImageView _nextButton;
     private Spinner _stateSpinner, _citySpinner;
+    private AppCompatTextView _lat, _long;
     private String TAG_CLASS = AddressFragment.class.getSimpleName();
     private int requestCode;
     private ProgressDialog _progressDialog;
@@ -37,6 +50,8 @@ public class AddressFragment extends Fragment implements HTTPConnector.ResponseL
     private ArrayList<City> cities;
     private State selectedState = null;
     private City selectedCity = null;
+    private double latitude = 0.0, longitude = 0.0;
+    private LocationManager locationManager;
 
 
     public AddressFragment() {
@@ -53,8 +68,11 @@ public class AddressFragment extends Fragment implements HTTPConnector.ResponseL
         _nextButton = view.findViewById(R.id.addressNextButton);
         _citySpinner = view.findViewById(R.id.cityDropDown);
         _stateSpinner = view.findViewById(R.id.stateDropDown);
+        _lat = view.findViewById(R.id.latCoordinateTextView);
+        _long = view.findViewById(R.id.longCoordinateTextView);
         initializeViews();
         getStates();
+        getLocation(false);
         return view;
     }
 
@@ -89,8 +107,27 @@ public class AddressFragment extends Fragment implements HTTPConnector.ResponseL
             }
         });
         _nextButton.setOnClickListener(v -> {
-            //TODO:
+            AppCompatEditText[] editTexts = new AppCompatEditText[]{_address2, _address1, _pincode};
+            if (Utils.isNotEmpty(editTexts) && selectedCity != null && selectedState != null && latitude > 0 && longitude > 0) {
+                Navigation.findNavController(v).navigate(R.id.action_addressFragment_to_otherDetailsFragment, createSendingBundle());
+            } else {
+                Messages.toast(requireActivity().getApplicationContext(), "Please fill in all the details", false);
+                getLocation(true);
+            }
         });
+    }
+
+    /**
+     * Method to fetch the location of the device.
+     */
+    @SuppressLint("MissingPermission")
+    private void getLocation(boolean isWaiting) {
+        if (isWaiting) {
+            _progressDialog.setTitle(Constants.LOCATING_MESSAGE);
+            _progressDialog.show();
+        }
+        locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 100, this);
     }
 
     /**
@@ -101,13 +138,22 @@ public class AddressFragment extends Fragment implements HTTPConnector.ResponseL
     private Bundle createSendingBundle() {
         Bundle incomingBundle = getArguments();
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.PHONE_NUMBER, incomingBundle.getString(Constants.PHONE_NUMBER));
-        bundle.putString(Constants.EMAIL, incomingBundle.getString(Constants.EMAIL));
-        bundle.putString(Constants.FIRST_NAME, incomingBundle.getString(Constants.FIRST_NAME));
-        bundle.putString(Constants.LAST_NAME, incomingBundle.getString(Constants.LAST_NAME));
-        bundle.putString(Constants.GENDER, incomingBundle.getString(Constants.GENDER));
-        bundle.putString(Constants.ROLE, incomingBundle.getString(Constants.ROLE));
-        return bundle;
+        if (incomingBundle != null) {
+            bundle.putString(Constants.PHONE_NUMBER, incomingBundle.getString(Constants.PHONE_NUMBER));
+            bundle.putString(Constants.EMAIL, incomingBundle.getString(Constants.EMAIL));
+            bundle.putString(Constants.FIRST_NAME, incomingBundle.getString(Constants.FIRST_NAME));
+            bundle.putString(Constants.LAST_NAME, incomingBundle.getString(Constants.LAST_NAME));
+            bundle.putString(Constants.GENDER, incomingBundle.getString(Constants.GENDER));
+            bundle.putString(Constants.ROLE, incomingBundle.getString(Constants.ROLE));
+            bundle.putString(Constants.ADDRESS_1, _address1.getText().toString());
+            bundle.putString(Constants.ADDRESS_2, _address2.getText().toString());
+            bundle.putString(Constants.PINCODE, _pincode.getText().toString());
+            bundle.putInt(Constants.CITY, selectedCity.getCityId());
+            bundle.putDouble(Constants.GPS_LAT, latitude);
+            bundle.putDouble(Constants.GPS_LONG, longitude);
+            return bundle;
+        }
+        return null;
     }
 
     /**
@@ -170,5 +216,33 @@ public class AddressFragment extends Fragment implements HTTPConnector.ResponseL
         _progressDialog.dismiss();
         Messages.log(TAG_CLASS, error.toString());
         Messages.toast(getContext(), Constants.API_RESPONSE_ERROR, false);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        _progressDialog.dismiss();
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        Messages.log(TAG_CLASS, "LATITUDE: " + latitude);
+        Messages.log(TAG_CLASS, "LONGITUDE: " + longitude);
+        _lat.setText(String.format("Latitude:%s", latitude));
+        _long.setText(String.format("Longitude:%s", latitude));
+        locationManager.removeUpdates(this);
+        locationManager = null;
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }
