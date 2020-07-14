@@ -15,7 +15,7 @@ public class Constants {
      */
     public static final String API_RESPONSE_ERROR = "Ops, Something went wrong!";
     public static final String INCORRECT_OTP = "Incorrect OTP";
-    public static final String LOADING_MESSAGE = "Please wait, while we are crunching out servers...";
+    public static final String LOADING_MESSAGE = "Please wait, while we are crunching our servers...";
 
     /**
      * General Keys.
@@ -25,10 +25,9 @@ public class Constants {
      * API Keys.
      */
     public static final String API_KEY_HEADER = "key";
-    public static final String API_KEY_VALUE = "key_value";
     public static final String API_JWT_TOKEN_KEY = "jw_token";
     public static final String API_RESPONSE_KEY = "res";
-    public static final String API_TOKEN = "5e31eb7b48506f1";
+    public static final String API_TOKEN = "ub3QgZ2l2a";
     public static final String API_URL = "https://815eu0hqnd.execute-api.ap-south-1.amazonaws.com/Development/";
 
     public static final String PHONE_NUMBER = "phone_number";

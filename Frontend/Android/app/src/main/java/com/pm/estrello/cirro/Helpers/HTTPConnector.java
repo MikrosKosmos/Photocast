@@ -52,8 +52,9 @@ public class HTTPConnector {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put(Constants.API_KEY_HEADER, Constants.API_KEY_VALUE);
-                params.put(Constants.API_JWT_TOKEN_KEY, jwToken);
+                params.put(Constants.API_KEY_HEADER, Constants.API_TOKEN);
+                if (jwToken != null)
+                    params.put(Constants.API_JWT_TOKEN_KEY, jwToken);
                 return params;
             }
         };
@@ -85,7 +86,7 @@ public class HTTPConnector {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put(Constants.API_KEY_HEADER, Constants.API_KEY_VALUE);
+                params.put(Constants.API_KEY_HEADER, Constants.API_TOKEN);
                 params.put(Constants.API_JWT_TOKEN_KEY, jwToken);
                 return params;
             }
@@ -120,7 +121,7 @@ public class HTTPConnector {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put(Constants.API_KEY_HEADER, Constants.API_KEY_VALUE);
+                    params.put(Constants.API_KEY_HEADER, Constants.API_TOKEN);
                     params.put(Constants.API_JWT_TOKEN_KEY, jwToken);
                     return params;
                 }

@@ -1,5 +1,7 @@
 package com.pm.estrello.cirro.Objects;
 
+import androidx.annotation.NonNull;
+
 public class State {
     private int stateId;
     private String stateName;
@@ -23,5 +25,11 @@ public class State {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getStateName();
     }
 }
