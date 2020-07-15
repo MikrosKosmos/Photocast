@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_basic_details">
         <action
             android:id="@+id/action_basicDetailsFragment_to_communicationDetailsFragment"
-            app:destination="@id/communicationDetailsFragment" />
+            app:destination="@id/communicationDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/communicationDetailsFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_communication_details">
         <action
             android:id="@+id/action_communicationDetailsFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
+            app:destination="@id/addressFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
@@ -30,7 +34,9 @@
         tools:layout="@layout/fragment_address">
         <action
             android:id="@+id/action_addressFragment_to_otherDetailsFragment"
-            app:destination="@id/otherDetailsFragment" />
+            app:destination="@id/otherDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/otherDetailsFragment"

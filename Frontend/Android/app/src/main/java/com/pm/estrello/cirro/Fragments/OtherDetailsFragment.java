@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.Helpers.ParamsCreator;
 import com.pm.estrello.cirro.Objects.Address;
 import com.pm.estrello.cirro.Objects.Customer;
+import com.pm.estrello.cirro.Objects.Vendor;
 import com.pm.estrello.cirro.R;
 
 import org.json.JSONException;
@@ -104,6 +106,42 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
     }
 
     /**
+     * Method to register a vendor.
+     *
+     * @param documentType      : The document type
+     * @param documentIdNumber: The document number.
+     */
+    private void registerVendor(String documentType, String documentIdNumber) {
+        try {
+            Bundle incomingData = getArguments();
+            if (incomingData != null) {
+                Vendor vendor = new Vendor(incomingData.getString(Constants.FIRST_NAME),
+                        incomingData.getString(Constants.LAST_NAME),
+                        incomingData.getString(Constants.EMAIL),
+                        incomingData.getString(Constants.PHONE_NUMBER),
+                        incomingData.getString(Constants.GENDER), "",
+                        0, vendorType, _companyName.getText().toString(),
+                        incomingData.getString(Constants.ADDRESS_1),
+                        incomingData.getString(Constants.ADDRESS_2), incomingData.getInt(Constants.CITY),
+                        "",
+                        incomingData.getInt(Constants.PINCODE),
+                        incomingData.getDouble(Constants.GPS_LAT),
+                        incomingData.getDouble(Constants.GPS_LONG), documentType, documentIdNumber);
+                DataStore.storeData(requireContext(), Constants.USER_PROFILE, vendor.toString());
+                String url = Constants.API_URL + "vendors";
+                HTTPConnector connector = new HTTPConnector(requireContext(), url, "", this);
+                connector.makeQuery(TAG_CLASS, new JSONObject(vendor.toString()));
+                _progressDialog.show();
+                requestCode = Constants.VENDOR_REGISTRATION_CODE;
+            }
+        } catch (Exception e) {
+            Messages.log(TAG_CLASS, e.toString());
+            Messages.toast(requireContext(), Constants.API_RESPONSE_ERROR, false);
+            Navigation.findNavController(getView()).popBackStack();
+        }
+    }
+
+    /**
      * Method to register a customer.
      *
      * @param data: The data for the customer.
@@ -121,7 +159,8 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
             _progressDialog.show();
             requestCode = Constants.CUSTOMER_REGISTER_CODE;
         } catch (JSONException e) {
-            e.printStackTrace();
+            Messages.log(TAG_CLASS, e.toString());
+            Navigation.findNavController(getView()).popBackStack();
         }
     }
 
@@ -158,6 +197,16 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
      */
     private Customer getCustomerProfile() throws JSONException {
         return new Customer(new JSONObject(DataStore.getData(requireContext(), Constants.USER_PROFILE)));
+    }
+
+    /**
+     * Method to get the vendor profile data.
+     *
+     * @return vendor object:
+     * @throws JSONException:
+     */
+    private Vendor getVendorProfile() throws JSONException {
+        return new Vendor(new JSONObject(DataStore.getData(requireContext(), Constants.USER_PROFILE)));
     }
 
     /**
@@ -216,6 +265,10 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
                     DataStore.storeData(requireContext(), Constants.CUSTOMER_ADDRESS, address.toString());
                 }
                 changeActivity(true);
+            } else if (requestCode == Constants.VENDOR_REGISTRATION_CODE) {
+                JSONObject jsonObject = response.getJSONObject(Constants.API_RESPONSE_KEY);
+                Vendor vendor = getVendorProfile();
+                //TODO:
             }
         } catch (Exception e) {
             Messages.toast(requireContext(), Constants.API_RESPONSE_ERROR, false);

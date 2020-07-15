@@ -11,6 +11,7 @@ public class Constants {
     public static final int GET_CITY_CODE = 5;
     public static final int CUSTOMER_REGISTER_CODE = 6;
     public static final int CUSTOMER_ADDRESS_CODE = 7;
+    public static final int VENDOR_REGISTRATION_CODE = 8;
 
     /**
      * Generic Messages.
@@ -47,11 +48,17 @@ public class Constants {
     public static final String ROLE_VENDOR = "tbl_VendorMaster";
     public static final String ROLE_CUSTOMER = "tbl_CustomerMaster";
     public static final String EMAIL = "email";
+    public static final String EMAIL_ID = "email_id";
     public static final String GENDER = "gender";
     public static final String STATUS_NAME = "status_name";
     public static final String STATUS_ID = "status_id";
     public static final String REFERRAL_CODE = "referral_code";
     public static final String USED_REFERRAL_CODE = "used_referral_code";
+
+    public static final String VENDOR_TYPE = "vendor_type";
+    public static final String DOCUMENT_TYPE = "document_type";
+    public static final String DOCUMENT_ID_NUMBER = "document_id_number";
+    public static final String COMPANY_BRAND_NAME = "company_brand_name";
 
     public static final String CUSTOMER_ID = "customer_id";
 
