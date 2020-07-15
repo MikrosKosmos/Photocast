@@ -40,7 +40,7 @@ public class CommunicationDetailsFragment extends Fragment {
         _nextButton.setOnClickListener(v -> {
             if (Utils.isNotEmpty(new AppCompatEditText[]{_phoneNumber, _emailId})) {
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.PHONE_NUMBER, _phoneNumber.getText().toString());
+                bundle.putString(Constants.PHONE_NUMBER, "+91" + _phoneNumber.getText().toString());
                 bundle.putString(Constants.EMAIL, _emailId.getText().toString());
                 bundle.putString(Constants.FIRST_NAME, incomingBundle.getString(Constants.FIRST_NAME));
                 bundle.putString(Constants.LAST_NAME, incomingBundle.getString(Constants.LAST_NAME));

@@ -14,13 +14,14 @@ public class Customer {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private char gender;
+    private String gender;
     private String statusName;
     private int statusId;
     private String referralCode;
     private String usedReferralCode;
+    private Address[] addresses;
 
-    public Customer(int id, String firstName, String lastName, String email, String phoneNumber, char gender, String statusName, int statusId, String referralCode, String usedReferralCode) {
+    public Customer(int id, String firstName, String lastName, String email, String phoneNumber, String gender, String statusName, int statusId, String referralCode, String usedReferralCode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,6 +32,23 @@ public class Customer {
         this.statusId = statusId;
         this.referralCode = referralCode;
         this.usedReferralCode = usedReferralCode;
+    }
+
+    public Customer(String firstName, String lastName, String email, String phoneNumber, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+    }
+
+    public Customer(JSONObject jsonObject) throws JSONException {
+        this.id = jsonObject.getInt(Constants.ID);
+        this.firstName = jsonObject.getString(Constants.FIRST_NAME);
+        this.lastName = jsonObject.getString(Constants.LAST_NAME);
+        this.phoneNumber = jsonObject.getString(Constants.PHONE_NUMBER);
+        this.email = jsonObject.getString(Constants.EMAIL);
+        this.gender = jsonObject.getString(Constants.GENDER);
     }
 
     public int getId() {
@@ -73,11 +91,11 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -113,11 +131,20 @@ public class Customer {
         this.usedReferralCode = usedReferralCode;
     }
 
+    public Address[] getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Address[] addresses) {
+        this.addresses = addresses;
+    }
+
     @NonNull
     @Override
     public String toString() {
         JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject.put(Constants.ID, this.id);
             jsonObject.put(Constants.FIRST_NAME, this.firstName);
             jsonObject.put(Constants.LAST_NAME, this.lastName);
             jsonObject.put(Constants.EMAIL, this.email);

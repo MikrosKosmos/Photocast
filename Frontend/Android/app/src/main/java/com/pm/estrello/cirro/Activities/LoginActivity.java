@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
                     jsonObject.getString(Constants.LAST_NAME),
                     jsonObject.getString(Constants.EMAIL),
                     jsonObject.getString(Constants.PHONE_NUMBER),
-                    jsonObject.getString(Constants.GENDER).charAt(0),
+                    jsonObject.getString(Constants.GENDER),
                     jsonObject.getString(Constants.STATUS_NAME),
                     jsonObject.getInt(Constants.STATUS_ID),
                     jsonObject.getString(Constants.REFERRAL_CODE),

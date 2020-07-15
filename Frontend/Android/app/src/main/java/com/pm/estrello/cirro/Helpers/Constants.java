@@ -9,6 +9,8 @@ public class Constants {
     public static final int PERMISSION_CODE = 3;
     public static final int GET_STATE_CODE = 4;
     public static final int GET_CITY_CODE = 5;
+    public static final int CUSTOMER_REGISTER_CODE = 6;
+    public static final int CUSTOMER_ADDRESS_CODE = 7;
 
     /**
      * Generic Messages.
@@ -22,6 +24,9 @@ public class Constants {
      * General Keys.
      */
     public static final String SHARED_PREFERENCE_NAME = "cirroPrefs";
+    public static final String IS_LOGGED_IN = "isLoggedIn";
+    public static final String USER_PROFILE = "userProfile";
+    public static final String CUSTOMER_ADDRESS = "customerAddress";
     public static final String[] VENDOR_TYPES = new String[]{"Vendor Type:", "Freelancer", "Company"};
     public static final String[] DOCUMENT_TYPES = new String[]{"Document Type:", "AADHAAR", "PANCARD"};
     /**
