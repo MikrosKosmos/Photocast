@@ -268,7 +268,12 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
             } else if (requestCode == Constants.VENDOR_REGISTRATION_CODE) {
                 JSONObject jsonObject = response.getJSONObject(Constants.API_RESPONSE_KEY);
                 Vendor vendor = getVendorProfile();
-                //TODO:
+                int id = jsonObject.getInt(Constants.ID);
+                vendor.setId(id);
+                DataStore.storeData(requireContext(), Constants.USER_PROFILE, vendor.toString());
+                DataStore.storeData(requireContext(), Constants.API_JWT_TOKEN_KEY,
+                        jsonObject.getString(Constants.API_JWT_TOKEN_KEY));
+                changeActivity(false);
             }
         } catch (Exception e) {
             Messages.toast(requireContext(), Constants.API_RESPONSE_ERROR, false);

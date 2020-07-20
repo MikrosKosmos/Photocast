@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".Activities.HostActivity"
+            android:theme="@style/NOActionBar" />
+        <activity
             android:name=".Activities.RegistrationActivity"
             android:theme="@style/NOActionBar" />
         <activity
