@@ -9,29 +9,11 @@ begin
                p.post_description,
                p.image_url,
                p.like_count,
-               p.comment_count,
-               l.id         as LikeId,
-               l.post_id,
-               l.user_id    as likeUserId,
-               l.first_name as likeUserFirstName,
-               l.last_name  as likeUserLastName,
-               l.role,
-               c.id,
-               c.post_id,
-               c.first_name as commentUserFirstName,
-               c.last_name  as commentUserLastName,
-               c.user_id    as commentUserId,
-               c.role       as commentUserRole,
-               comment
+               p.comment_count
         from tbl_PostMaster p
-                 left join tbl_LikeMaster l
-                           on l.post_id = p.id
-                 left join tbl_CommentMaster c
-                           on c.post_id = p.id
         where p.is_active = 1
           and p.vendor_id = parVendorId
-          and c.is_active = 1
-          and l.is_active = 1
+
         limit parInitialValue,parLimit;
     else
         select p.id,
@@ -41,28 +23,9 @@ begin
                p.post_description,
                p.image_url,
                p.like_count,
-               p.comment_count,
-               l.id         as LikeId,
-               l.post_id,
-               l.user_id    as likeUserId,
-               l.first_name as likeUserFirstName,
-               l.last_name  as likeUserLastName,
-               l.role,
-               c.id,
-               c.post_id,
-               c.first_name as commentUserFirstName,
-               c.last_name  as commentUserLastName,
-               c.user_id    as commentUserId,
-               c.role       as commentUserRole,
-               comment
+               p.comment_count
         from tbl_PostMaster p
-                 left join tbl_LikeMaster l
-                           on l.post_id = p.id
-                 left join tbl_CommentMaster c
-                           on c.post_id = p.id
         where p.is_active = 1
-          and c.is_active = 1
-          and l.is_active = 1
         limit parInitialValue,parLimit;
     end if;
 end;
