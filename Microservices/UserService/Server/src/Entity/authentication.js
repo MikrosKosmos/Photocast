@@ -63,9 +63,14 @@ class Authentication {
             const validity = generator.generateAheadTime(3);
             database.runSp(constants.SP_OTP_CREATE_CHECK, [this._mobile, this._otp, validity, 0])
                .then(async _resultSet => {
-                  const otpMessage = constants.OTP_MESSAGE + " " + this._otp;
-                  await notificationManager.sendSMS(otpMessage, this._mobile);
-                  resolve([constants.RESPONSE_SUCESS_LEVEL_1, true]);
+                  const result = _resultSet[0][0];
+                  if (validators.validateUndefined(result) && result.id > 0) {
+                     const otpMessage = constants.OTP_MESSAGE + " " + this._otp;
+                     await notificationManager.sendSMS(otpMessage, this._mobile);
+                     resolve([constants.RESPONSE_SUCESS_LEVEL_1, true]);
+                  } else {
+                     resolve([constants.RESPONSE_SUCESS_LEVEL_1, false]);
+                  }
                }).catch(err => {
                printer.printError(err);
                reject([constants.ERROR_LEVEL_3, constants.ERROR_MESSAGE]);

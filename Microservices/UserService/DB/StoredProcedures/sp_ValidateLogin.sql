@@ -24,7 +24,6 @@ begin
         end if;
     end if;
     if @isValid > 0 then
-
         if @table = 'tbl_VendorMaster' then
             select v.id,
                    first_name,
