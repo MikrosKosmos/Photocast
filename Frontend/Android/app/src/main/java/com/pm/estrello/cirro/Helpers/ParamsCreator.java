@@ -33,8 +33,8 @@ public class ParamsCreator {
     public static JSONObject getJSONForOTPVerification(Authentication authentication) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(Constants.PHONE_NUMBER, authentication.getPhoneNumber());
-            jsonObject.put(Constants.PHONE_NUMBER, authentication.getOtp());
+            jsonObject.put(Constants.PHONE_NUMBER, "+91" + authentication.getPhoneNumber());
+            jsonObject.put(Constants.OTP, authentication.getOtp());
         } catch (Exception e) {
             Messages.log(TAG_CLASS, e.toString());
         }
