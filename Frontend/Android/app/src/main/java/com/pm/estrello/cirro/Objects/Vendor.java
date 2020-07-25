@@ -260,6 +260,7 @@ public class Vendor {
             jsonObject.put(Constants.ID, getId());
             jsonObject.put(Constants.FIRST_NAME, getFirstName());
             jsonObject.put(Constants.LAST_NAME, getLastName());
+            jsonObject.put(Constants.GENDER, getGender());
             jsonObject.put(Constants.PHONE_NUMBER, getPhoneNumber());
             jsonObject.put(Constants.EMAIL_ID, getEmail());
             jsonObject.put(Constants.VENDOR_TYPE, getVendorType());

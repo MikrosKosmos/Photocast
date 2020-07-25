@@ -24,6 +24,7 @@ import com.pm.estrello.cirro.Helpers.DataStore;
 import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.Helpers.ParamsCreator;
+import com.pm.estrello.cirro.Helpers.Utils;
 import com.pm.estrello.cirro.Objects.Address;
 import com.pm.estrello.cirro.Objects.Customer;
 import com.pm.estrello.cirro.Objects.Vendor;
@@ -89,6 +90,30 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
 
             }
         });
+        _identityType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    documentType = Constants.DOCUMENT_TYPES[position];
+                } else {
+                    Messages.toast(requireContext(), "Please select a type", false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        _nextButton.setOnClickListener(v -> {
+            if (Utils.isNotEmpty(new AppCompatEditText[]{_idDocNumber}) && vendorType != null && documentType != null) {
+                registerVendor(documentType, _idDocNumber.getText().toString());
+            } else {
+                Messages.toast(requireContext(), "Please fill in all the details", false);
+                _idDocNumber.getText().clear();
+                _companyName.getText().clear();
+            }
+        });
     }
 
     /**
@@ -124,7 +149,7 @@ public class OtherDetailsFragment extends Fragment implements HTTPConnector.Resp
                         incomingData.getString(Constants.ADDRESS_1),
                         incomingData.getString(Constants.ADDRESS_2), incomingData.getInt(Constants.CITY),
                         "",
-                        incomingData.getInt(Constants.PINCODE),
+                        Integer.parseInt(incomingData.getString(Constants.PINCODE)),
                         incomingData.getDouble(Constants.GPS_LAT),
                         incomingData.getDouble(Constants.GPS_LONG), documentType, documentIdNumber);
                 DataStore.storeData(requireContext(), Constants.USER_PROFILE, vendor.toString());

@@ -24,7 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/otherDetailsFragmentLayout"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="450dp"
             android:layout_margin="32dp"
             android:background="@drawable/reactangle_rounded_white"
             app:layout_constraintLeft_toLeftOf="parent"

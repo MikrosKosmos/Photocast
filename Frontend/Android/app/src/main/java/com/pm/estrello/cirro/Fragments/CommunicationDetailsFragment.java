@@ -38,10 +38,11 @@ public class CommunicationDetailsFragment extends Fragment {
         _nextButton = view.findViewById(R.id.communicationNextButton);
         _backButton = view.findViewById(R.id.communicationBackButton);
         _nextButton.setOnClickListener(v -> {
-            if (Utils.isNotEmpty(new AppCompatEditText[]{_phoneNumber, _emailId})) {
+            if (Utils.isNotEmpty(new AppCompatEditText[]{_phoneNumber})) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.PHONE_NUMBER, "+91" + _phoneNumber.getText().toString());
-                bundle.putString(Constants.EMAIL, _emailId.getText().toString());
+                if (Utils.isNotEmpty(new AppCompatEditText[]{_emailId}))
+                    bundle.putString(Constants.EMAIL, _emailId.getText().toString());
                 bundle.putString(Constants.FIRST_NAME, incomingBundle.getString(Constants.FIRST_NAME));
                 bundle.putString(Constants.LAST_NAME, incomingBundle.getString(Constants.LAST_NAME));
                 bundle.putString(Constants.GENDER, incomingBundle.getString(Constants.GENDER));

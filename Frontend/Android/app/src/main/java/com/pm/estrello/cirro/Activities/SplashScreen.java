@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.ROLE, Constants.ROLE_CUSTOMER);
+        bundle.putString(Constants.ROLE, Constants.ROLE_VENDOR);
         startActivity(new Intent(SplashScreen.this, RegistrationActivity.class).putExtras(bundle));
     }
 
