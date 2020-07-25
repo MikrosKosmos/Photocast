@@ -18,9 +18,11 @@ BEGIN
                     modified=now(),
                     modified_by=1
                 where phone_number = parMobileNumber;
+                select 1 as id;
             else
                 insert into tbl_OtpMaster (phone_number, OTP, validity, created_by)
                 values (parMobileNumber, parOtp, parValidity, 1);
+                select 1 as id;
             end if;
         else
             select -1 as id;

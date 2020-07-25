@@ -25,15 +25,16 @@ import java.util.List;
 public class SplashScreen extends AppCompatActivity {
     private String TAG_CLASS = SplashScreen.class.getSimpleName();
     private boolean isPermissionGranted = false;
-    private boolean isVersionChecked = false;
+    private boolean isVersionChecked = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Bundle bundle = new Bundle();
+        checkPermission();
+       /* Bundle bundle = new Bundle();
         bundle.putString(Constants.ROLE, Constants.ROLE_VENDOR);
-        startActivity(new Intent(SplashScreen.this, RegistrationActivity.class).putExtras(bundle));
+        startActivity(new Intent(SplashScreen.this, RegistrationActivity.class).putExtras(bundle));*/
     }
 
     /**
@@ -62,6 +63,9 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to check for permissions.
+     */
     private void checkPermission() {
         List<String> permissionsNeeded = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -83,6 +87,9 @@ public class SplashScreen extends AppCompatActivity {
         if (permissionsNeeded.size() > 0) {
             ActivityCompat.requestPermissions(this,
                     permissionsNeeded.toArray(new String[0]), Constants.PERMISSION_CODE);
+        } else {
+            isPermissionGranted = true;
+            changeActivity();
         }
     }
 
