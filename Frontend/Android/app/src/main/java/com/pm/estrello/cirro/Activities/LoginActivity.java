@@ -15,12 +15,15 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import com.android.volley.VolleyError;
 import com.pm.estrello.cirro.Helpers.Constants;
+import com.pm.estrello.cirro.Helpers.DataStore;
 import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.Helpers.ParamsCreator;
 import com.pm.estrello.cirro.Helpers.Utils;
 import com.pm.estrello.cirro.Objects.Authentication;
+import com.pm.estrello.cirro.Objects.Customer;
 import com.pm.estrello.cirro.Objects.DigitText;
+import com.pm.estrello.cirro.Objects.Vendor;
 import com.pm.estrello.cirro.R;
 import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 
@@ -68,6 +71,14 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
         _loginButton.setOnClickListener(view -> {
             if (requestCode == 0 & Utils.isNotEmpty(new AppCompatEditText[]{_mobileNumber})) {
                 requestOTP(_mobileNumber.getText().toString());
+            } else if (requestCode == Constants.OTP_REQUEST_CODE) {
+                //Code will still be OTP request before verification.
+                String otp = getOTP();
+                if (otp.length() == 4) {
+                    verifyOtp(otp);
+                } else {
+                    Messages.toast(this, "Please enter a valid OTP.", false);
+                }
             }
         });
     }
@@ -165,6 +176,22 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
         _mobileNumber.setEnabled(false);
         connector.makeQuery(TAG_CLASS, ParamsCreator.getJSONForOTPRequest(authentication));
         progressDialog.show();
+        _loginButton.setText(getResources().getString(R.string.verifyOtp));
+    }
+
+    /**
+     * Method to verify the OTP.
+     *
+     * @param otp: The OTP to be verified.
+     */
+    private void verifyOtp(String otp) {
+        String url = Constants.API_URL + "auth";
+        Authentication authentication = new Authentication(_mobileNumber.getText().toString(),
+                Integer.parseInt(otp), "");
+        HTTPConnector connector = new HTTPConnector(this, url, "", this);
+        connector.makeQuery(TAG_CLASS, ParamsCreator.getJSONForOTPVerification(authentication));
+        requestCode = Constants.OTP_VERIFY_CODE;
+        progressDialog.show();
     }
 
     /**
@@ -188,6 +215,78 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
         progressDialog.dismiss();
     }
 
+    /**
+     * Method to change the activity.
+     *
+     * @param isCustomer: true for customer, else false.
+     */
+    private void changeActivity(boolean isCustomer) {
+        //TODO:
+    }
+
+    /**
+     * Method to parse the Vendor profile.
+     *
+     * @param jsonObject: The json object.
+     */
+    private void parseVendorProfile(JSONObject jsonObject) {
+        try {
+            Vendor vendor = new Vendor(jsonObject.getInt(Constants.ID),
+                    jsonObject.getString(Constants.FIRST_NAME),
+                    jsonObject.getString(Constants.LAST_NAME),
+                    jsonObject.getString(Constants.EMAIL),
+                    jsonObject.getString(Constants.PHONE_NUMBER),
+                    jsonObject.getString(Constants.GENDER),
+                    jsonObject.getString(Constants.STATUS_NAME),
+                    jsonObject.getInt(Constants.STATUS_ID),
+                    jsonObject.getString(Constants.VENDOR_TYPE),
+                    jsonObject.getString(Constants.COMPANY_BRAND_NAME),
+                    jsonObject.getString(Constants.ADDRESS_1),
+                    jsonObject.getString(Constants.ADDRESS_2),
+                    0, "",
+                    jsonObject.getInt(Constants.PINCODE),
+                    jsonObject.getDouble(Constants.GPS_LAT),
+                    jsonObject.getDouble(Constants.GPS_LONG), "", "");
+            String jwToken = jsonObject.getString(Constants.API_JWT_TOKEN_KEY);
+            DataStore.storeData(this, Constants.API_JWT_TOKEN_KEY, jwToken);
+            DataStore.storeData(this, Constants.USER_PROFILE, vendor.toString());
+            DataStore.storeData(this, Constants.IS_LOGGED_IN, true);
+            changeActivity(false);
+        } catch (Exception e) {
+            Messages.log(TAG_CLASS, e.toString());
+            Messages.toast(this, Constants.API_RESPONSE_ERROR, false);
+        }
+
+    }
+
+    /**
+     * Method to parse the Customer profile.
+     *
+     * @param jsonObject: The json object to be parsed.
+     */
+    private void parseCustomerProfile(JSONObject jsonObject) {
+        try {
+            Customer customer = new Customer(jsonObject.getInt(Constants.ID),
+                    jsonObject.getString(Constants.FIRST_NAME),
+                    jsonObject.getString(Constants.LAST_NAME),
+                    jsonObject.getString(Constants.EMAIL),
+                    jsonObject.getString(Constants.PHONE_NUMBER),
+                    jsonObject.getString(Constants.GENDER),
+                    jsonObject.getString(Constants.STATUS_NAME),
+                    jsonObject.getInt(Constants.STATUS_ID),
+                    jsonObject.getString(Constants.REFERRAL_CODE),
+                    jsonObject.getString(Constants.USED_REFERRAL_CODE));
+            String jwToken = jsonObject.getString(Constants.API_JWT_TOKEN_KEY);
+            DataStore.storeData(this, Constants.API_JWT_TOKEN_KEY, jwToken);
+            DataStore.storeData(this, Constants.USER_PROFILE, customer.toString());
+            DataStore.storeData(this, Constants.IS_LOGGED_IN, true);
+            changeActivity(true);
+        } catch (Exception e) {
+            Messages.toast(this, Constants.API_RESPONSE_ERROR, false);
+            Messages.log(TAG_CLASS, e.toString());
+        }
+    }
+
     @Override
     public void onResponse(JSONObject response) {
         progressDialog.dismiss();
@@ -201,6 +300,15 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
                     reset();
                     Messages.toast(this, Constants.INVALID_MOBILE_NUMBER, false);
                     _mobileNumber.getText().clear();
+                }
+            } else if (requestCode == Constants.OTP_VERIFY_CODE) {
+                JSONObject jsonObject = response.getJSONObject(Constants.API_RESPONSE_KEY);
+                String role = jsonObject.getString(Constants.ROLE);
+                Messages.log(TAG_CLASS, jsonObject.toString());
+                if (role.equals(Constants.ROLE_VENDOR)) {
+                    parseVendorProfile(jsonObject);
+                } else if (role.equals(Constants.ROLE_CUSTOMER)) {
+                    parseCustomerProfile(jsonObject);
                 }
             }
         } catch (Exception e) {
