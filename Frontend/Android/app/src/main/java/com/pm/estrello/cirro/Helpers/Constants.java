@@ -31,6 +31,7 @@ public class Constants {
     public static final String CUSTOMER_ADDRESS = "customerAddress";
     public static final String[] VENDOR_TYPES = new String[]{"Vendor Type:", "Freelancer", "Company"};
     public static final String[] DOCUMENT_TYPES = new String[]{"Document Type:", "AADHAAR", "PANCARD"};
+    public static final char DEFAULT_OTP_CHAR = ' ';
     /**
      * API Keys.
      */
@@ -66,6 +67,7 @@ public class Constants {
     public static final String CUSTOMER_ID = "customer_id";
 
     public static final String CITY_NAME = "city_name";
+    public static final String CITY_ID = "city_id";
     public static final String STATE_ID = "state_id";
     public static final String STATE_NAME = "state_name";
 
@@ -75,5 +77,11 @@ public class Constants {
     public static final String PINCODE = "pincode";
     public static final String GPS_LAT = "gps_lat";
     public static final String GPS_LONG = "gps_long";
-    public static final char DEFAULT_OTP_CHAR = ' ';
+
+    public static final String VENDOR_ID = "vendor_id";
+    public static final String POST_DESCRIPTION = "post_description";
+    public static final String IMAGE_URL = "image_url";
+    public static final String LIKE_COUNT = "like_count";
+    public static final String COMMENT_COUNT = "comment_count";
+
 }

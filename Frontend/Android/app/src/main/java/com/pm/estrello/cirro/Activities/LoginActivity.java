@@ -2,6 +2,7 @@ package com.pm.estrello.cirro.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -221,7 +222,7 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
      * @param isCustomer: true for customer, else false.
      */
     private void changeActivity(boolean isCustomer) {
-        //TODO:
+        startActivity(new Intent(LoginActivity.this, HostActivity.class));
     }
 
     /**
@@ -234,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
             Vendor vendor = new Vendor(jsonObject.getInt(Constants.ID),
                     jsonObject.getString(Constants.FIRST_NAME),
                     jsonObject.getString(Constants.LAST_NAME),
-                    jsonObject.getString(Constants.EMAIL),
+                    jsonObject.getString(Constants.EMAIL_ID),
                     jsonObject.getString(Constants.PHONE_NUMBER),
                     jsonObject.getString(Constants.GENDER),
                     jsonObject.getString(Constants.STATUS_NAME),
@@ -243,7 +244,8 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
                     jsonObject.getString(Constants.COMPANY_BRAND_NAME),
                     jsonObject.getString(Constants.ADDRESS_1),
                     jsonObject.getString(Constants.ADDRESS_2),
-                    0, "",
+                    jsonObject.getInt(Constants.CITY_ID),
+                    jsonObject.getString(Constants.CITY_NAME),
                     jsonObject.getInt(Constants.PINCODE),
                     jsonObject.getDouble(Constants.GPS_LAT),
                     jsonObject.getDouble(Constants.GPS_LONG), "", "");
@@ -269,7 +271,7 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
             Customer customer = new Customer(jsonObject.getInt(Constants.ID),
                     jsonObject.getString(Constants.FIRST_NAME),
                     jsonObject.getString(Constants.LAST_NAME),
-                    jsonObject.getString(Constants.EMAIL),
+                    jsonObject.getString(Constants.EMAIL_ID),
                     jsonObject.getString(Constants.PHONE_NUMBER),
                     jsonObject.getString(Constants.GENDER),
                     jsonObject.getString(Constants.STATUS_NAME),
@@ -304,6 +306,7 @@ public class LoginActivity extends AppCompatActivity implements HTTPConnector.Re
             } else if (requestCode == Constants.OTP_VERIFY_CODE) {
                 JSONObject jsonObject = response.getJSONObject(Constants.API_RESPONSE_KEY);
                 String role = jsonObject.getString(Constants.ROLE);
+                DataStore.storeData(this, Constants.ROLE, role);
                 Messages.log(TAG_CLASS, jsonObject.toString());
                 if (role.equals(Constants.ROLE_VENDOR)) {
                     parseVendorProfile(jsonObject);
