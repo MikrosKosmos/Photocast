@@ -1,143 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C5C0C0"
+    android:background="@color/colorPrimary"
     tools:context=".Activities.LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/titleLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_margin="24dp"
-        android:background="@drawable/rectangle_rounded_shape"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/app_title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorAccent"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/loginLayout"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/reactangle_rounded_white"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp">
 
         <LinearLayout
-            android:id="@+id/loginTitleLayout"
+            android:id="@+id/titleLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="180dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/rectangle_rounded_shape"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="@string/login"
+                android:text="@string/app_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/offWhite"
+                android:textSize="32sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phoneNumberLayout"
+        <LinearLayout
+            android:id="@+id/loginLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/mobile_number"
-            app:counterEnabled="true"
-            app:counterMaxLength="10">
+            android:layout_height="450dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/reactangle_rounded_white"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phoneNumber"
-                android:background="@color/offWhite"
+            <LinearLayout
+                android:id="@+id/loginTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/login"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumberLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:inputType="phone" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/mobile_number"
+                app:counterEnabled="true"
+                app:counterMaxLength="10">
 
-        <LinearLayout
-            android:id="@+id/otpLayout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:visibility="visible">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/offWhite"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.pm.estrello.cirro.Objects.DigitText
-                android:id="@+id/otp1"
+            <LinearLayout
+                android:id="@+id/otpLayout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:visibility="visible">
+
+                <com.pm.estrello.cirro.Objects.DigitText
+                    android:id="@+id/otp1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:inputType="number" />
+
+                <com.pm.estrello.cirro.Objects.DigitText
+                    android:id="@+id/otp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:inputType="number" />
+
+                <com.pm.estrello.cirro.Objects.DigitText
+                    android:id="@+id/otp3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:inputType="number" />
+
+                <com.pm.estrello.cirro.Objects.DigitText
+                    android:id="@+id/otp4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/requestotp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/goToSignUp"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp" />
-
-            <com.pm.estrello.cirro.Objects.DigitText
-                android:id="@+id/otp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp" />
-
-            <com.pm.estrello.cirro.Objects.DigitText
-                android:id="@+id/otp3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp" />
-
-            <com.pm.estrello.cirro.Objects.DigitText
-                android:id="@+id/otp4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_gravity="center"
+                android:layout_margin="24dp"
+                android:text="@string/signup"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/rectangle_rounded_shape"
-            android:text="@string/requestotp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/goToSignUp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="24dp"
-            android:text="@string/signup"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary" />
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

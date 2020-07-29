@@ -20,6 +20,7 @@ public class Constants {
     public static final String INCORRECT_OTP = "Incorrect OTP";
     public static final String LOADING_MESSAGE = "Please wait, while we are crunching our servers...";
     public static final String LOCATING_MESSAGE = "Please wait, while we are finding you...";
+    public static final String INVALID_MOBILE_NUMBER = "Invalid Mobile Number";
 
     /**
      * General Keys.
@@ -37,7 +38,9 @@ public class Constants {
     public static final String API_JWT_TOKEN_KEY = "jw_token";
     public static final String API_RESPONSE_KEY = "res";
     public static final String API_TOKEN = "ub3QgZ2l2a";
-    public static final String API_URL = "https://815eu0hqnd.execute-api.ap-south-1.amazonaws.com/Development/";
+    //public static final String API_URL="http://192.168.0.109:6001/";
+    public static final String API_URL = "https://815eu0hqnd.execute-api.ap-south-1.amazonaws" +
+            ".com/Development/";
 
     public static final String PHONE_NUMBER = "phone_number";
     public static final String OTP = "otp";
@@ -72,4 +75,5 @@ public class Constants {
     public static final String PINCODE = "pincode";
     public static final String GPS_LAT = "gps_lat";
     public static final String GPS_LONG = "gps_long";
+    public static final char DEFAULT_OTP_CHAR = ' ';
 }
