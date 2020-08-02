@@ -12,6 +12,8 @@ public class Constants {
     public static final int CUSTOMER_REGISTER_CODE = 6;
     public static final int CUSTOMER_ADDRESS_CODE = 7;
     public static final int VENDOR_REGISTRATION_CODE = 8;
+    public static final int GET_COMMENT_CODE = 9;
+    public static final int POST_COMMENT_CODE = 10;
 
     /**
      * Generic Messages.
@@ -80,6 +82,7 @@ public class Constants {
 
     public static final String VENDOR_ID = "vendor_id";
     public static final String POST_DESCRIPTION = "post_description";
+    public static final String POST_ID = "post_id";
     public static final String IMAGE_URL = "image_url";
     public static final String LIKE_COUNT = "like_count";
     public static final String COMMENT_COUNT = "comment_count";

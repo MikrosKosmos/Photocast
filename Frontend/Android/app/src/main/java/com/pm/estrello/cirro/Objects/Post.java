@@ -5,13 +5,15 @@ public class Post {
     private String userName;
     private String description;
     private int likesCount;
+    private int commentsCount;
     private String imageURL;
 
-    public Post(int id, String userName, String description, int likesCount, String imageURL) {
+    public Post(int id, String userName, String description, int likesCount, int commentsCount, String imageURL) {
         this.id = id;
         this.userName = userName;
         this.description = description;
         this.likesCount = likesCount;
+        this.commentsCount = commentsCount;
         this.imageURL = imageURL;
     }
 
@@ -45,6 +47,14 @@ public class Post {
 
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
     }
 
     public String getImageURL() {

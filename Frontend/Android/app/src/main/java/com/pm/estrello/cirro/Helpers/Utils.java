@@ -1,10 +1,18 @@
 package com.pm.estrello.cirro.Helpers;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.pm.estrello.cirro.Objects.Customer;
+import com.pm.estrello.cirro.Objects.Vendor;
+
+import org.json.JSONObject;
+
 public class Utils {
+    private static String TAG_CLASS = Utils.class.getSimpleName();
+
     /**
      * Method to check whether the edit texts are not empty.
      *
@@ -18,5 +26,29 @@ public class Utils {
             }
         }
         return true;
+    }
+
+    /**
+     * Method to get the user id.
+     *
+     * @param context: The Application context.
+     * @return user id.
+     */
+    public static int getUserId(Context context) {
+        try {
+            String role = DataStore.getData(context, Constants.ROLE);
+            if (role.equals(Constants.ROLE_CUSTOMER)) {
+                Customer customer = new Customer(
+                        new JSONObject(DataStore.getData(context, Constants.USER_PROFILE)));
+                return customer.getId();
+            } else if (role.equals(Constants.ROLE_VENDOR)) {
+                Vendor vendor = new Vendor(
+                        new JSONObject(DataStore.getData(context, Constants.USER_PROFILE)));
+                return vendor.getId();
+            }
+        } catch (Exception e) {
+            Messages.log(TAG_CLASS, e.toString());
+        }
+        return -1;
     }
 }

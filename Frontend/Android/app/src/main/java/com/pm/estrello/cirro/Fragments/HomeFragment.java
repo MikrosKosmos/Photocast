@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment implements HTTPConnector.ResponseList
                         onePost.getString(Constants.FIRST_NAME) + " " + onePost.getString(Constants.LAST_NAME),
                         onePost.getString(Constants.POST_DESCRIPTION),
                         onePost.getInt(Constants.LIKE_COUNT),
+                        onePost.getInt(Constants.COMMENT_COUNT),
                         onePost.getString(Constants.IMAGE_URL));
                 postList.add(post);
             }

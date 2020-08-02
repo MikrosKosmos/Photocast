@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
 import com.pm.estrello.cirro.Helpers.Constants;
+import com.pm.estrello.cirro.Helpers.DataStore;
 import com.pm.estrello.cirro.Helpers.HTTPConnector;
 import com.pm.estrello.cirro.Helpers.Messages;
 import com.pm.estrello.cirro.R;
@@ -32,9 +33,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         checkPermission();
-       /* Bundle bundle = new Bundle();
-        bundle.putString(Constants.ROLE, Constants.ROLE_VENDOR);
-        startActivity(new Intent(SplashScreen.this, RegistrationActivity.class).putExtras(bundle));*/
     }
 
     /**
@@ -110,7 +108,12 @@ public class SplashScreen extends AppCompatActivity {
      */
     private void changeActivity() {
         if (isPermissionGranted && isVersionChecked) {
-            Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+            boolean isLoggedIn = DataStore.getData(this, Constants.IS_LOGGED_IN, true);
+            Intent intent;
+            if (isLoggedIn)
+                intent = new Intent(SplashScreen.this, HostActivity.class);
+            else
+                intent = new Intent(SplashScreen.this, LoginActivity.class);
             startActivity(intent);
         }
     }

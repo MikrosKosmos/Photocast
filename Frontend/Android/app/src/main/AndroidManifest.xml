@@ -20,6 +20,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".Activities.CommentActivity"
+            android:parentActivityName=".Activities.HostActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity
             android:name=".Activities.HostActivity"
             android:theme="@style/NOActionBar" />
         <activity

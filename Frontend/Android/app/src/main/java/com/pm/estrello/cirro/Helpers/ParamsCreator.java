@@ -3,6 +3,7 @@ package com.pm.estrello.cirro.Helpers;
 import com.pm.estrello.cirro.Objects.Address;
 import com.pm.estrello.cirro.Objects.Authentication;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ParamsCreator {
@@ -57,5 +58,23 @@ public class ParamsCreator {
             Messages.log(TAG_CLASS, e.toString());
         }
         return null;
+    }
+
+    /**
+     * Method to get the JSON to like or Unlike a post.
+     *
+     * @param userId: The user id.
+     * @param postId: The post id.
+     * @return jsonObject.
+     */
+    public static JSONObject getJSONForPostLike(int userId, int postId) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Constants.ID, userId);
+            jsonObject.put(Constants.POST_ID, postId);
+        } catch (JSONException e) {
+            Messages.log(TAG_CLASS, e.toString());
+        }
+        return jsonObject;
     }
 }
