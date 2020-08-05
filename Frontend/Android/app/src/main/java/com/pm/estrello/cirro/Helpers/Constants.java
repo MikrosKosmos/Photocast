@@ -87,4 +87,6 @@ public class Constants {
     public static final String LIKE_COUNT = "like_count";
     public static final String COMMENT_COUNT = "comment_count";
 
+    public static final String USER_ID = "user_id";
+    public static final String COMMENT = "comment";
 }

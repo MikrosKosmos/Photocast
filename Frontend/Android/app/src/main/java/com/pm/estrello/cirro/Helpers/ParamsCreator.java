@@ -2,6 +2,7 @@ package com.pm.estrello.cirro.Helpers;
 
 import com.pm.estrello.cirro.Objects.Address;
 import com.pm.estrello.cirro.Objects.Authentication;
+import com.pm.estrello.cirro.Objects.Comment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +73,24 @@ public class ParamsCreator {
         try {
             jsonObject.put(Constants.ID, userId);
             jsonObject.put(Constants.POST_ID, postId);
+        } catch (JSONException e) {
+            Messages.log(TAG_CLASS, e.toString());
+        }
+        return jsonObject;
+    }
+
+    /**
+     * Method to get the JSON Object for creating comment.
+     *
+     * @param comment: The comment object.
+     * @return jsonObject.
+     */
+    public static JSONObject getJSONForCreatingComment(Comment comment) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Constants.ID, comment.getUserId());
+            jsonObject.put(Constants.POST_ID, comment.getPostId());
+            jsonObject.put(Constants.COMMENT, comment.getComment());
         } catch (JSONException e) {
             Messages.log(TAG_CLASS, e.toString());
         }

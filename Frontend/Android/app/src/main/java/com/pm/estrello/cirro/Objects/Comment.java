@@ -2,18 +2,24 @@ package com.pm.estrello.cirro.Objects;
 
 public class Comment {
     private int id;
+    private int postId;
     private String firstName, lastName;
     private int userId;
     private String role;
     private String comment;
 
-    public Comment(int id, String firstName, String lastName, int userId, String role, String comment) {
+    public Comment(int id, int postId, String firstName, String lastName, int userId, String role, String comment) {
         this.id = id;
+        this.postId = postId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userId = userId;
         this.role = role;
         this.comment = comment;
+    }
+
+    public Comment() {
+        //Default Constructor.
     }
 
     public int getId() {
@@ -22,6 +28,14 @@ public class Comment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public String getFirstName() {

@@ -51,4 +51,14 @@ public class Utils {
         }
         return -1;
     }
+
+    /**
+     * Method to get the JW Token of the logged in user.
+     *
+     * @param context: The Application context.
+     * @return String JWToken.
+     */
+    public static String getJWToken(Context context) {
+        return DataStore.getData(context, Constants.API_JWT_TOKEN_KEY);
+    }
 }
