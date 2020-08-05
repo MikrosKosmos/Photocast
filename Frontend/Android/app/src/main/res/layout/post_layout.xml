@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/colorPrimary">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/socialMediaProfilePic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/rectangle_rounded_shape"
+        android:src="@drawable/registration_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/socialMediaUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/offWhite"
+        app:layout_constraintLeft_toRightOf="@id/socialMediaProfilePic"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pronoy Mukherjee" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/postImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/images"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/socialMediaProfilePic" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/postDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:inputType="textMultiLine"
+        android:textColor="@color/offWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postImage"
+        tools:text="#Image #vendor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/likeCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        android:textColor="@color/offWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postDescription"
+        tools:text="134 Likes" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/postLike"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/like_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/likeCounter" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/postComment"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/comment_icon"
+        app:layout_constraintLeft_toRightOf="@id/postLike"
+        app:layout_constraintTop_toBottomOf="@id/likeCounter" />
+</androidx.constraintlayout.widget.ConstraintLayout>

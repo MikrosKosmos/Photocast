@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Cirro</string>
+    <string name="app_title">Cirro</string>
+    <string name="login">Login</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="requestotp">Request OTP</string>
+    <string name="signup">Don\'t have an account?Sign up</string>
+    <string name="verifyOtp">Verify OTP</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstname">FirstName</string>
+    <string name="lastname">LastName</string>
+    <string name="male">Male</string>
+    <string name="gender">Gender:</string>
+    <string name="female">Female</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_id">Email ID</string>
+    <string name="address_line_1">Address line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="pincode">Pincode</string>
+    <string name="identification_document_number">Identification Document Number</string>
+    <string name="company_name">Company Name</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="create">Create</string>
+    <string name="comment">Comment</string>
+</resources>

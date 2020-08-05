@@ -97,7 +97,8 @@ server.unifiedServer = function (req, res) {
    function execHandlers(handlerData) {
       const apiKey = handlerData[constants.API_TOKEN_KEY];
       const api = new Api(apiKey);
-      printer.printHighlightedLog(handlerData);
+      console.log(handlerData.queryString);
+      console.log(handlerData.postData);
       delete handlerData[constants.API_TOKEN_KEY];
       if (handlerData.method === constants.HTTP_OPTIONS) {
          sendResponse({}, constants.HTTP_SUCCESS);

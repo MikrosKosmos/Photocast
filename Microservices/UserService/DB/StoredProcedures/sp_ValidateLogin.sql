@@ -24,7 +24,6 @@ begin
         end if;
     end if;
     if @isValid > 0 then
-
         if @table = 'tbl_VendorMaster' then
             select v.id,
                    first_name,
@@ -38,6 +37,7 @@ begin
                    address_1,
                    address_2,
                    city_id,
+                   cm.city_name,
                    pincode,
                    gps_lat,
                    gps_long,
@@ -48,6 +48,8 @@ begin
             from tbl_VendorMaster v
                      left join tbl_StatusMaster s
                                on v.status_id = s.id
+                     left join tbl_CityMaster cm
+                               on v.city_id = cm.id
             where v.id = @userId
               and v.is_active = 1;
         else

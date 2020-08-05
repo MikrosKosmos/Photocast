@@ -36,7 +36,8 @@ constants.HEADERS = {
    'Access-Control-Allow-Origin': '*',
    'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, PUT, DELETE',
    'Access-Control-Max-Age': 2592000,
-   'Access-Control-Allow-Headers': 'Content-Type,access-control-allow-origin,X-Requested-With,key,jw_token'
+   'Content-Length': 4194304,
+   'Access-Control-Allow-Headers': 'Content-Type,access-control-allow-origin,X-Requested-With,key,jw_token,Content-Length'
 };
 constants.CONTENT_TYPE_TEXT = "Content-Type";
 constants.CONTENT_TYPE_JSON = "application/json";
@@ -157,6 +158,8 @@ constants.SP_BANK_DETAILS = "sp_BankDetailsUpdateInsert";
 constants.SP_VENDOR_UPDATE_IMAGE = "sp_UpdateImages";
 constants.SP_GET_BANK_DETAILS = "sp_GetBankDetails";
 constants.SP_GET_VENDOR_IMAGES = "sp_GetImages";
+constants.SP_GET_STATE = "sp_GetState";
+constants.SP_GET_CITIES = "sp_GetCities";
 
 /**
  * Column Names

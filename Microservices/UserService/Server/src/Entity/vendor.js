@@ -262,6 +262,5 @@ class Vendor {
 
 /**
  * Exporting the class.
- * @type {Vendor}
  */
 module.exports = Vendor;

@@ -144,7 +144,7 @@ constants.DOCUMENTS_BASE_URL = "https://photocast-documents.s3.ap-south-1.amazon
  */
 constants.API_AUTH_KEY = "key";
 constants.MICROSERVICE_AUTH_KEY_VALUE = "api_auth";
-constants.USER_SERVICE_HOST = "192.168.0.103";
+constants.USER_SERVICE_HOST = "localhost";
 constants.USER_SERVICE_PORT = 6001;
 constants.USER_SERVICE_VALIDATE_TOKEN_PATH = "/auth/token";
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/commentUserPic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/registration_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/commentUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/offWhite"
+        app:layout_constraintLeft_toRightOf="@id/commentUserPic"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pronoy Mukherjee" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAlignment="textStart"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/offWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentUserPic"
+        tools:text="This is a first comment." />
+</androidx.constraintlayout.widget.ConstraintLayout>

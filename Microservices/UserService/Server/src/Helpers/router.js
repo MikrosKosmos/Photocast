@@ -3,7 +3,8 @@ const validator = require('./validators');
 const routes = {
    "auth": handlers.auth,
    "customers": handlers.customer,
-   "vendors": handlers.vendors
+   "vendors": handlers.vendors,
+   "city": handlers.city
 };
 
 const path = {};
